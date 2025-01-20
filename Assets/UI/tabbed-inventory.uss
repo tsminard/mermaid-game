@@ -1,0 +1,45 @@
+.container {
+    flex-grow: 1;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.tabbedInventory {
+    width: 40%;
+    height: 100%;
+    flex-direction: row;
+    background-color: rgb(178, 126, 67);
+}
+
+/* Style for tabs */
+.unity-tab__header {
+    background-color: rgb(229, 223, 223);
+    -unity-font-style: bold;
+    font-size: 14px;
+}
+    
+/* Adds background color for the selected tab */
+.unity-tab__header:checked  {
+    background-color: rgb(173, 166, 166);
+}
+    
+/* Style for tabContent */
+.tab-content {
+
+}
+
+.unity-tab__content-container {
+    background-color: rgb(229, 223, 223);
+}
+
+.inventoryTab {
+    align-items: stretch;
+}
+
+.notebookTab {
+  
+}
+
+.lureTab {
+
+}

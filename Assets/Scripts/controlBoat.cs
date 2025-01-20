@@ -1,15 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem; 
+using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 // script to control boat's movement 
 public class controlBoat : MonoBehaviour
 {
-
     public PlayerInput playerInput; // using InputActions to easily handle re-mapping controls
     public InputAction inputAction; //inputAction for movement
-    public InputAction dropAnchorAction; // action for atomic anchor button
 
     // handle acceleration, deacceleration
     public float speed;
@@ -29,13 +28,20 @@ public class controlBoat : MonoBehaviour
     public float reboundForce;
     private float timeRebounding;
     public float maxTimeRebounding;
+
+    // handle UI interactions
+    public UIDocument uiDocument;
+    private TabbedUIController tabController; // use this to toggle UI Menu visibility 
     
     // Start is called before the first frame update
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
         inputAction = playerInput.actions.FindAction("Move");
-        dropAnchorAction = playerInput.actions.FindAction("DropAnchor");
+        inputAction.Enable();
+
+        tabController = uiDocument.GetComponent<TabbedUIController>();
+
         speed = 2f;
         currSpeed = 0; 
         maxSpeed = 10f;
@@ -105,10 +111,18 @@ public class controlBoat : MonoBehaviour
                 transform.position += currVelocity; 
             }   
         }
-        if (dropAnchorAction.triggered)
-        {
-            isAnchored = !isAnchored; // invert anchor status
-        }
+    }
+
+    // handle drop anchor action
+    public void OnDropAnchor()
+    {
+        isAnchored = !isAnchored; // invert anchor status
+    }
+
+    // handle opening + closing menu UI
+    public void OnOpenInventory()
+    {
+        tabController.toggleDisplay();
     }
 
     // if we're rebounding, freeze player controls briefly 

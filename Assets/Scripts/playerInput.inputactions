@@ -18,7 +18,16 @@
                     "name": "DropAnchor",
                     "type": "Button",
                     "id": "c81167e0-55ae-4837-a807-573cde6cc493",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "OpenInventory",
+                    "type": "Button",
+                    "id": "3e56cba0-cb55-4d61-afb2-3cbd9541c64b",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -143,6 +152,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "DropAnchor",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6aec37ba-10ac-47b1-b4c8-a1ba544904d7",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenInventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
