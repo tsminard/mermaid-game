@@ -3,14 +3,16 @@ using UnityEngine.UIElements;
 
 public class TabbedUIController : MonoBehaviour
 {
-    private VisualElement root;
-    public bool isVisible; 
+    public VisualElement root;
+    public bool isVisible;
 
+    // NOTE : this functionality will break if gameobject is disabled in the editor
+    // Awake() will only run if the gameobject is enabled
     private void Awake()
     {
         root = GetComponent<UIDocument>().rootVisualElement;
         root.style.visibility = Visibility.Hidden;
-        isVisible = false; 
+        isVisible = false;
     }
 
     public void toggleDisplay()

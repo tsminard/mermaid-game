@@ -32,7 +32,14 @@ public class controlBoat : MonoBehaviour
     // handle UI interactions
     public UIDocument uiDocument;
     private TabbedUIController tabController; // use this to toggle UI Menu visibility 
-    
+
+    // handle fishing action + opening of minigame
+    public bool isFishing = false;
+    private bool isFishCaught = false; 
+    private float fishTimer; // random amount of time to wait until a fish bites
+    private float fishCountdown = 0f;
+    public GameObject fishingMinigame; // gameobject parent with background of fishing game
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,13 +61,24 @@ public class controlBoat : MonoBehaviour
         isRebounding = false;
         reboundForce = 0.2f;
         timeRebounding = 0;
-        maxTimeRebounding = 1f; 
+        maxTimeRebounding = 1f;
+
+        GetComponent<SpriteRenderer>().color = Color.yellow; // TODO : temporary fix for a visual indicator of when we're fishing
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (isFishing)
+        {
+            fishCountdown += Time.deltaTime;
+        }
+        if(isFishing && fishCountdown >= fishTimer && !isFishCaught) // condition necessary to catch a fish
+        {
+            catchFish();
+            isFishCaught = true; 
+            fishCountdown = 0; 
+        }
     }
 
     // using this for forces to guarantee forces are applied in-sync with the engine
@@ -78,7 +96,6 @@ public class controlBoat : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Collision detected");
         if (collision.gameObject.CompareTag(islandTagName) && !isRebounding)
         {
             isRebounding = true;
@@ -117,12 +134,42 @@ public class controlBoat : MonoBehaviour
     public void OnDropAnchor()
     {
         isAnchored = !isAnchored; // invert anchor status
+        if (!isAnchored)
+        {
+            GetComponent<SpriteRenderer>().color = Color.yellow; 
+            isFishing = false;
+            fishCountdown = 0;
+            timeAccelerating = 0; 
+        }
     }
 
     // handle opening + closing menu UI
     public void OnOpenInventory()
     {
         tabController.toggleDisplay();
+    }
+
+    // handle triggering initial fishing 
+    // anchoring action is NOT disabled - lifting anchor should allow you to cancel this event at least until the minigame starts
+    public void OnFish()
+    {
+        if (!isAnchored)
+        {
+            Debug.Log("Cannot fish without being anchored");
+            return;
+        }
+        isFishing = true;
+        isFishCaught = false; 
+        GetComponent<SpriteRenderer>().color = Color.blue; // TODO : this is just a quick visual indicator to show you are fishing
+        fishTimer = Random.Range(0.5f, 5.1f); // generate the amount of time to wait before a fish bites
+        Debug.Log("Fish will be caught in " + fishTimer + " seconds");
+    }
+
+    // method called when fish is ACTUALLY CAUGHT
+    private void catchFish()
+    {
+        Debug.Log("You caught a fish !");
+        fishingMinigame.SetActive(true); 
     }
 
     // if we're rebounding, freeze player controls briefly 
@@ -136,5 +183,12 @@ public class controlBoat : MonoBehaviour
         Vector3 currRebound = currVelocity * reboundForce * -1;
         transform.position += currRebound;
         timeRebounding += Time.deltaTime;
+    }
+
+    // GETTERS + SETTERS
+    // helper method so other scripts can set isFishing
+    public void toggleIsFishing(bool isFishing)
+    {
+        this.isFishing = isFishing; 
     }
 }
