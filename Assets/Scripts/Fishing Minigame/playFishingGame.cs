@@ -11,7 +11,7 @@ public class playFishingGame : MonoBehaviour
 
     private string leftBarTag = "LeftBar";
     private string rightBarTag = "RightBar";
-    private float enabledTime = 0.1f;
+    private float enabledTime = 0.5f;
 
     private bool isLeftSide;
     private int successfulFish = 0;
@@ -37,6 +37,13 @@ public class playFishingGame : MonoBehaviour
 
         barCollider.enabled = false;
         inputAction = isLeftSide ? playerInput.actions.FindAction("CastLeft") : playerInput.actions.FindAction("CastRight");
+    }
+
+    // we should reinstantiate successful fish count every time this script is enabled 
+    private void OnEnable()
+    {
+        barCollider.enabled = false;
+        successfulFish = 0; 
     }
 
     // TODO : fix exploit where you can just hold down the arrow keys to keep the colliders activated the whole time

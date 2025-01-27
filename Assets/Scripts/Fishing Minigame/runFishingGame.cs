@@ -40,8 +40,8 @@ public class runFishingGame : MonoBehaviour
     public int maximumFish = 15;
     public float minimumTime = 0.5f; // TODO : these can be toggled depending on how the game feels
     public float maximumTime = 1.4f;
-    public float minimumFishSpeed = 2f;
-    public float maximumFishSpeed = 3f; 
+    public float minimumFishSpeed = 3f;
+    public float maximumFishSpeed = 9f; 
 
     // handle rhythm fish spawning
     public float nextFishDue;
@@ -50,8 +50,10 @@ public class runFishingGame : MonoBehaviour
 
     public GameObject fishPrefab;
     private float fishSpeed; // classwide so all fish move the same speed
-    private Vector3 leftFishLocation = new Vector3(7.35f, -7.85f, -2.0f);
-    private Vector3 rightFishLocation = new Vector3(12.15f, -7.85f, -2.0f);
+    public GameObject leftSpawnLocation;
+    public GameObject rightSpawnLocation;
+    private Vector3 leftFishLocation;
+    private Vector3 rightFishLocation;
 
     // variables for deciding success of fishing
     private playFishingGame[] fishingGameResults;
@@ -59,19 +61,31 @@ public class runFishingGame : MonoBehaviour
 
     // variables for displaying result
     public TMP_Text uiFishStatus;
+    public caughtFishController caughtFishController;
+    bool hasTextDisplayed = false; 
 
-    public void Awake()
-    {
-        // transform our locations to worldspace
-        leftFishLocation = this.transform.TransformPoint(leftFishLocation);
-        rightFishLocation = this.transform.TransformPoint(rightFishLocation);
-        fishSpeed = Random.Range(minimumFishSpeed, maximumFishSpeed);
-
+    // these actions just need to be run once when the script is instantiated
+    private void Awake()
+    {       
         // retrieve references to scripts attached to our bar colliders
         fishingGameResults = new playFishingGame[2];
         fishingGameResults[0] = GameObject.FindGameObjectWithTag("LeftBar").GetComponent<playFishingGame>();
-        fishingGameResults[1] = GameObject.FindGameObjectWithTag("RightBar").GetComponent<playFishingGame>(); 
+        fishingGameResults[1] = GameObject.FindGameObjectWithTag("RightBar").GetComponent<playFishingGame>();
 
+        caughtFishController = gameObject.GetComponent<caughtFishController>(); 
+    }
+
+    // these actions need to run every time the object is enabled, not just when the gameobject is 
+    public void OnEnable()
+    {
+        hasTextDisplayed = false; 
+        uiFishStatus.text = ""; // blank any existing text 
+
+        leftFishLocation = leftSpawnLocation.transform.position;
+        rightFishLocation = rightSpawnLocation.transform.position;
+
+        fishSpeed = Random.Range(minimumFishSpeed, maximumFishSpeed);
+       
         generateFishingPattern();
         Debug.Log("Generated fishing pattern of " + gamePattern.Length + " fish");
         nextFishDue = gamePattern[0].getTimeToWait(); // we should ALWAYS have at least one fish in this pattern
@@ -104,19 +118,17 @@ public class runFishingGame : MonoBehaviour
             GameObject[] remainingFish = GameObject.FindGameObjectsWithTag("MinigameFish"); // DUDE THERE ARE UNDERWATER FISH TOO YOU NEED MORE TAGS
             if (remainingFish.Length == 0) // this is pretty inefficient, but i think message broadcasts only work on children
             {
-                Debug.Log("All fish destroyed"); 
                 // trigger game end
                 // get fish status and display status
                 bool caughtFish = isFishingSuccessful();
-                if (caughtFish)
+                if (caughtFish && !hasTextDisplayed)
                 {
-                    uiFishStatus.text = "You caught a fish !"; 
+                    StartCoroutine(catchFish());
                 }
-                else
+                else if (!caughtFish)
                 {
-                    uiFishStatus.text = "The fish got away...."; 
+                    StartCoroutine(loseFish());
                 }
-                StartCoroutine(waitBeforeClosingMinigame()); 
             }
         }
     }
@@ -137,8 +149,6 @@ public class runFishingGame : MonoBehaviour
         {
             successfulFish += fishingGame.getSuccessRate(); 
         }
-        Debug.Log("Successful fish : " + successfulFish);
-        Debug.Log("Total fish spawned : " + gamePattern.Length); 
         if (successfulFish / gamePattern.Length >= successPercentage)
         {
             return true; 
@@ -146,13 +156,30 @@ public class runFishingGame : MonoBehaviour
         return false; // default return 
     }
 
-    IEnumerator waitBeforeClosingMinigame()
+    // COUROUTINES
+
+    IEnumerator catchFish()
     {
-        Debug.Log("Waiting 2 seconds before closing scene");
+        hasTextDisplayed = true;
+        uiFishStatus.text = "You caught a fish !";
+        // generate which kind of fish was caught based on probabilities
+        FishSpeciesInfo fish = caughtFishController.catchFish();
+        uiFishStatus.text = "You caught a " + fish.ToString() + "! It is worth " + fish.getFishValue() + " dollars";
+        yield return new WaitForSeconds(3);
+        Debug.Log("Closing scene");
+        gameObject.SetActive(false); 
+    }
+
+    // wait 2 seconds before hiding gameobjects
+    IEnumerator loseFish()
+    {
+        uiFishStatus.text = "The fish got away....";
         yield return new WaitForSeconds(2);
         Debug.Log("Closing scene");
         gameObject.SetActive(false); 
     }
+
+    // FISH SPAWNING RELATED METHODS
 
     private void generateFishingPattern()
     {
@@ -174,16 +201,6 @@ public class runFishingGame : MonoBehaviour
         int numFish = Random.Range(0, 2);
         float timeToWait = Random.Range(minimumTime, maximumTime);
         return new RhythmFishData(numFish, timeToWait); 
-    }
-
-    // HELPER METHOD FOR TESTING
-    private void generateTestRhythmFishData()
-    {
-        RhythmFishData testRhythmFishLeft = new RhythmFishData(0, 1f);
-        RhythmFishData testRhythmFishRight = new RhythmFishData(1, 1f);
-        gamePattern = new RhythmFishData[2];
-        gamePattern[0] = testRhythmFishLeft;
-        gamePattern[1] = testRhythmFishRight;
     }
 
     // instantiates fish prefabs based on data in helper class
