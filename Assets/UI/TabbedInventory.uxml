@@ -2,7 +2,9 @@
     <Style src="project://database/Assets/UI/tabbed-inventory.uss?fileID=7433441132597879392&amp;guid=715b2d8af6f9d554293aef148b34a61b&amp;type=3#tabbed-inventory" />
     <engine:VisualElement name="Container" class="container" style="align-items: flex-start; justify-content: flex-start; align-content: auto; flex-wrap: nowrap; flex-direction: row;">
         <engine:TabView name="TabbedView" view-data-key="TabbedMenu" reorderable="true" class="tabbedInventory" style="width: 40%; justify-content: flex-start; flex-direction: column; border-left-color: rgb(225, 165, 19); border-right-color: rgb(225, 165, 19); border-top-color: rgb(225, 165, 19); border-bottom-color: rgb(225, 165, 19); border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px;">
-            <engine:Tab label="Inventory" name="InventoryTab" class="inventoryTab" style="-unity-background-image-tint-color: rgba(0, 0, 0, 0); background-color: rgba(228, 18, 18, 0);" />
+            <engine:Tab label="Inventory" name="InventoryTab" class="inventoryTab" style="-unity-background-image-tint-color: rgba(0, 0, 0, 0); background-color: rgba(228, 18, 18, 0);">
+                <engine:VisualElement name="SlotsContainer" class="slotsContainer" />
+            </engine:Tab>
             <engine:Tab label="Notebook" name="NotebookTab" tabindex="0" focusable="false" closeable="false" class="notebookTab" style="background-color: rgba(61, 85, 234, 0); flex-wrap: wrap;">
                 <engine:Label text="No Notes Yet!&#10;" style="align-self: auto; -unity-text-align: upper-center;" />
             </engine:Tab>

@@ -50,13 +50,13 @@ public class inventoryController : MonoBehaviour
 
         ItemData arowana = (ItemData) ScriptableObject.CreateInstance("ItemData");
 
-        arowana.init("Arowana", Resources.Load<Sprite>("Sprites/temp-arowana"), "A large fish");
+        arowana.init("Arowana", Resources.Load<Sprite>("Sprites/arowana"), "A large fish");
 
         ItemData koi = (ItemData)ScriptableObject.CreateInstance("ItemData");
-        koi.init("Koi", Resources.Load<Sprite>("Sprites/temp-koi"), "A stately fish");
+        koi.init("Koi", Resources.Load<Sprite>("Sprites/koi"), "A stately fish");
 
         ItemData tilapia = (ItemData)ScriptableObject.CreateInstance("ItemData");
-        tilapia.init("???", Resources.Load<Sprite>("Sprites/temp-tilapia"));
+        tilapia.init("???", Resources.Load<Sprite>("Sprites/tilapia"));
 
         currentInventory.Add(0, new ItemDetails()
         {
