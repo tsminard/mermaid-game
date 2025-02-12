@@ -165,7 +165,7 @@ public class caughtFishController : MonoBehaviour
     {
         Debug.Log("Catching fish from tier " + tier.ToString());
         List<FishSpeciesInfo> possibleCatches = fishByTier[tier];
-        int index = Random.Range(0, possibleCatches.Capacity);
+        int index = Random.Range(0, possibleCatches.Capacity -1);
         return possibleCatches[index]; 
     }
 

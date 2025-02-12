@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro; // UI Text import
-using System.Collections; 
+using System.Collections;
+using UnityEngine.UI;
 
 // helper class to concisely hold data for spawning fish
  class RhythmFishData
@@ -61,6 +62,7 @@ public class runFishingGame : MonoBehaviour
 
     // variables for displaying result
     public TMP_Text uiFishStatus;
+    public Image uiFishImage;
     public caughtFishController caughtFishController;
     bool hasTextDisplayed = false; 
 
@@ -78,7 +80,8 @@ public class runFishingGame : MonoBehaviour
     // these actions need to run every time the object is enabled, not just when the gameobject is 
     public void OnEnable()
     {
-        hasTextDisplayed = false; 
+        hasTextDisplayed = false;
+        uiFishImage.enabled = false;
         uiFishStatus.text = ""; // blank any existing text 
 
         leftFishLocation = leftSpawnLocation.transform.position;
@@ -164,7 +167,14 @@ public class runFishingGame : MonoBehaviour
         uiFishStatus.text = "You caught a fish !";
         // generate which kind of fish was caught based on probabilities
         FishSpeciesInfo fish = caughtFishController.catchFish();
+        // display results
+        string fishImagePath = "Sprites/" + fish.getFishSpeciesName();
+        Sprite fishSprite = Resources.Load<Sprite>(fishImagePath);
+        uiFishImage.overrideSprite = fishSprite;
+        uiFishImage.enabled = true; 
         uiFishStatus.text = "You caught a " + fish.ToString() + "! It is worth " + fish.getFishValue() + " dollars";
+        // add fish to inventory
+        
         yield return new WaitForSeconds(3);
         Debug.Log("Closing scene");
         gameObject.SetActive(false); 
