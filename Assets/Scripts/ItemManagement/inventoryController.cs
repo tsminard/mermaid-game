@@ -42,7 +42,7 @@ public class inventoryController : MonoBehaviour
     public void Start()
     {
         //populate with dummy data for now 
-        populateInventory(); // TODO : remove this - Dictionary should be maintained in game state to keep fish in consistent inventory slots
+        //populateInventory(); // TODO : remove this - Dictionary should be maintained in game state to keep fish in consistent inventory slots
         foreach (var item in currentInventory)
         {
             Debug.Log("Adding item " + item.Value.ToString());
@@ -51,13 +51,17 @@ public class inventoryController : MonoBehaviour
     }
 
 
-    public static void addItemToInventory()
+    public static void addItemToInventory(ItemDetails itemDetails, ItemInventoryType inventoryType)
     {
+        Debug.Log("Adding item " + itemDetails.ToString() + " to inventory");
         // retrieve first available inventory slot
         List<int> usedKeys = new List<int>(currentInventory.Keys);
+        foreach(int val in usedKeys){
+            Debug.Log("Used key : " + val);
+        }
         int newIndex = 0;
         bool newIndexFound = false; 
-        while (!newIndexFound)
+        while (!newIndexFound && newIndex < 20)// we have 20 inventory slots available
         {
             if (usedKeys.Contains(newIndex))
             {
@@ -68,8 +72,16 @@ public class inventoryController : MonoBehaviour
                 newIndexFound = true; // once we have a unique key, we can exit the loop
             }
         }
-
-
+        if (newIndexFound)
+        {
+            // call method in tabbedInventoryUIController, which is responsible for displaying inventory
+            onInventoryChanged(newIndex, itemDetails, InventoryChangeType.Pickup, inventoryType);
+            currentInventory.Add(newIndex, itemDetails); // update our record of the inventory
+        }
+        else // we have run out of inventory slots
+        {
+            Debug.Log("No available inventory left");
+        }
     }
 
     // GETTERS + SETTERS

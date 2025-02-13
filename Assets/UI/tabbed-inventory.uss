@@ -58,21 +58,16 @@
 }
 
 .slotContainer { /* this is the actual uss for an individual bait container*/
-    width: 15%;
+    width: 17.5%;
     height: 80%;
-    margin: 2%;
+    margin: 1% auto;
     background-color: rgb(141, 99, 67);
     border-width: 1px;
-    border-left-color: rgb(255, 195, 59);
-    border-right-color: rgb(255, 195, 59);
-    border-top-color: rgb(255, 195, 59);
-    border-bottom-color: rgb(255, 195, 59);
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
+    border-color: rgb(255, 195, 59);
+    border-radius: 3px;
 }
 
+/*
 .slotIcon {
     padding: 1px;
     flex-shrink: 1;
@@ -80,6 +75,7 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
+*/
 
 .fishSlotsContainer { /* this is the wrapping ve for fish items - it doesn't actually hold the fish slots !' */
     flex-grow: 1;
@@ -91,9 +87,9 @@
 
 .fishInventoryContainer { /* this just holds all fish inventory slots so they remain within the background image*/
     flex-grow: 1;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     background-size: 100% 100%;
     background-position-y: bottom 0;
@@ -103,19 +99,13 @@
 }
 
 .fishSlotContainer { /* this is the actual uss for an individual fish container*/
-    max-width: 15%;
+    margin: 1% auto;
+    max-width: 17.5%;
     max-height: 25%;
-    margin: 2%;
     background-color: rgb(141, 99, 67);
     border-width: 1px;
-    border-left-color: rgb(255, 195, 59);
-    border-right-color: rgb(255, 195, 59);
-    border-top-color: rgb(255, 195, 59);
-    border-bottom-color: rgb(255, 195, 59);
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
+    border-color: rgb(255, 195, 59);
+    border-radius: 3px;
 }
 
 .notebookTab {

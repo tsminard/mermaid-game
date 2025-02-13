@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 
 // class to generate which fish is caught when player successfully completes fishing minigame 
@@ -18,13 +17,11 @@ public class FishSpeciesInfo
 {
     string fishSpeciesName;
     FISH_TIER tier;
-    float value;
 
-    public FishSpeciesInfo(string fishSpeciesName, FISH_TIER tier, float value)
+    public FishSpeciesInfo(string fishSpeciesName, FISH_TIER tier)
     {
         this.fishSpeciesName = fishSpeciesName;
         this.tier = tier;
-        this.value = value; 
     }
 
     public override string ToString()
@@ -41,11 +38,6 @@ public class FishSpeciesInfo
     public FISH_TIER getFishTier()
     {
         return tier; 
-    }
-
-    public float getFishValue()
-    {
-        return value; 
     }
 }
 
@@ -106,7 +98,7 @@ public class caughtFishController : MonoBehaviour
         else
         {
             Debug.Log("ERROR ! catchChance value of " + catchChance + " is out of bounds");
-            caughtFish = new FishSpeciesInfo("ERROR FISH", FISH_TIER.S, -100); // this is an error if you couldn't tell
+            caughtFish = new FishSpeciesInfo("ERROR FISH", FISH_TIER.S); // this is an error if you couldn't tell
         }
         Debug.Log("Caught fish " + caughtFish.ToString() + " ! "); 
         return caughtFish; 
@@ -120,23 +112,23 @@ public class caughtFishController : MonoBehaviour
         FishSpeciesInfo[] encyclopedia =
          {
             // create fish here
-            new FishSpeciesInfo("arowana", FISH_TIER.D, 10),
-            new FishSpeciesInfo("tilapia", FISH_TIER.C, 12),
-            new FishSpeciesInfo("koi", FISH_TIER.A, 50),
+            new FishSpeciesInfo("arowana", FISH_TIER.D),
+            new FishSpeciesInfo("tilapia", FISH_TIER.C),
+            new FishSpeciesInfo("koi", FISH_TIER.A),
 
             // create garbage items here 
-            new FishSpeciesInfo("boot", FISH_TIER.D, 1),
-            new FishSpeciesInfo("can", FISH_TIER.D, 2),
+            new FishSpeciesInfo("boot", FISH_TIER.D),
+            new FishSpeciesInfo("can", FISH_TIER.D),
 
-            new FishSpeciesInfo("boot", FISH_TIER.C, 1.5f),
-            new FishSpeciesInfo("can", FISH_TIER.C, 3),
+            new FishSpeciesInfo("boot", FISH_TIER.C),
+            new FishSpeciesInfo("can", FISH_TIER.C),
 
-            new FishSpeciesInfo("lobster-trap", FISH_TIER.B, 14.99f),
-            new FishSpeciesInfo("message-in-bottle", FISH_TIER.B, 5), // declaring them all as different tiers in case we want that level of granularity
+            new FishSpeciesInfo("lobster-trap", FISH_TIER.B),
+            new FishSpeciesInfo("message-in-bottle", FISH_TIER.B), // declaring them all as different tiers in case we want that level of granularity
             
-            new FishSpeciesInfo("message-in-bottle", FISH_TIER.A, 55),
+            new FishSpeciesInfo("message-in-bottle", FISH_TIER.A),
 
-            new FishSpeciesInfo("message-in-bottle", FISH_TIER.S, 499.99f)
+            new FishSpeciesInfo("message-in-bottle", FISH_TIER.S)
         };
 
         return encyclopedia; 
@@ -165,7 +157,7 @@ public class caughtFishController : MonoBehaviour
     {
         Debug.Log("Catching fish from tier " + tier.ToString());
         List<FishSpeciesInfo> possibleCatches = fishByTier[tier];
-        int index = Random.Range(0, possibleCatches.Capacity -1);
+        int index = Random.Range(0, possibleCatches.Count -1);
         return possibleCatches[index]; 
     }
 

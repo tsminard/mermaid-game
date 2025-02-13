@@ -167,14 +167,17 @@ public class runFishingGame : MonoBehaviour
         uiFishStatus.text = "You caught a fish !";
         // generate which kind of fish was caught based on probabilities
         FishSpeciesInfo fish = caughtFishController.catchFish();
+        // retrieve caught item information
+        ItemDetails fishingCatch = ItemManager.getItemByName(fish.getFishSpeciesName());
+        Sprite fishSprite = fishingCatch.itemData.icon;
         // display results
-        string fishImagePath = "Sprites/" + fish.getFishSpeciesName();
-        Sprite fishSprite = Resources.Load<Sprite>(fishImagePath);
         uiFishImage.overrideSprite = fishSprite;
         uiFishImage.enabled = true; 
-        uiFishStatus.text = "You caught a " + fish.ToString() + "! It is worth " + fish.getFishValue() + " dollars";
-        // add fish to inventory
-        
+        uiFishStatus.text = "You caught a " + fish.ToString();
+
+        // add catch to inventory
+        inventoryController.addItemToInventory(fishingCatch, ItemInventoryType.Fish);
+
         yield return new WaitForSeconds(3);
         Debug.Log("Closing scene");
         gameObject.SetActive(false); 
