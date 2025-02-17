@@ -9,11 +9,13 @@ public class InventorySlot : VisualElement
 {
     public Image icon;
     public int locID; // indicates which space on the screen this slot takes up
+    public bool isSelected;
 
     public InventorySlot(int locID)
     {
         icon = new Image();
         Add(icon);
+        isSelected = false;
         icon.AddToClassList("slotIcon"); // associate the uss style for "slotIcon" to our icon image
         AddToClassList("slotContainer"); // associates the uss style for "slotContainer" to our actual inventory slot
 

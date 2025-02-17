@@ -4,6 +4,8 @@ using System.Collections;
 
 public class playFishingGame : MonoBehaviour
 {
+    [SerializeField]
+    public GameObject gameManager; // this holds PlayerInput object since having multiple references to it destroys it
     public PlayerInput playerInput;
     public InputAction inputAction;
 
@@ -17,7 +19,7 @@ public class playFishingGame : MonoBehaviour
     private int successfulFish = 0;
     private void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
+        playerInput = gameManager.GetComponent<PlayerInput>();
 
         // set bar colliders to false initially - we should only enable them when arrow keys are pressed
         if (gameObject.tag == leftBarTag)

@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 // script to control boat's movement 
 public class controlBoat : MonoBehaviour
 {
+    [SerializeField]
+    GameObject gameManager;
     public PlayerInput playerInput; // using InputActions to easily handle re-mapping controls
     public InputAction inputAction; //inputAction for movement
 
@@ -43,7 +45,7 @@ public class controlBoat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerInput = GetComponent<PlayerInput>();
+        playerInput = gameManager.GetComponent<PlayerInput>();
         inputAction = playerInput.actions.FindAction("Move");
         inputAction.Enable();
 
@@ -99,7 +101,6 @@ public class controlBoat : MonoBehaviour
         if (collision.gameObject.CompareTag(islandTagName) && !isRebounding)
         {
             isRebounding = true;
-            Debug.Log("Beginning rebound");
         }
     }
 
