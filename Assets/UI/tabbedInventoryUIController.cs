@@ -133,7 +133,7 @@ public class tabbedInventoryUIController : MonoBehaviour
         }
         else if(xyValue.y < 0)
         {
-            if (selectedSlotId < 10) newSelectedSlotId += 5;
+            if (selectedSlotId < 15) newSelectedSlotId += 5;
         }
         changeSelectedSlot(newSelectedSlotId); // associate uss to new selected slot and remove from last selected slot
     }
@@ -142,12 +142,32 @@ public class tabbedInventoryUIController : MonoBehaviour
     private void changeSelectedSlot(int newSelectedSlotId)
     {
         Debug.Log("Changing selected slot from " + selectedSlotId + " to " + newSelectedSlotId);
-        InventorySlot lastSelectedSlot = inventorySlotsById[selectedSlotId];
+        
+        InventorySlot lastSelectedSlot = retrieveSlotFromAllInventories(selectedSlotId);
         lastSelectedSlot.RemoveFromClassList(selectedSlotUssName);
 
-        InventorySlot newSelectedSlot = inventorySlotsById[newSelectedSlotId];
+        InventorySlot newSelectedSlot = retrieveSlotFromAllInventories(newSelectedSlotId);
         newSelectedSlot.AddToClassList(selectedSlotUssName);
 
         selectedSlotId = newSelectedSlotId; 
+    }
+
+    // we have both Inventory slots and Fish Inventory slots.
+    // the player should be able to move between both of them freely
+    private InventorySlot retrieveSlotFromAllInventories(int slotIndex)
+    {
+        if(slotIndex < 5)
+        {
+            return inventorySlotsById[slotIndex];
+        }
+        else if(slotIndex < 20)
+        {
+            return fishInventorySlotsById[slotIndex - 5];
+        }
+        else
+        {
+            Debug.Log("INVALID SLOT ID : " + slotIndex);
+            return null; 
+        }
     }
 }

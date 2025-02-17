@@ -38,8 +38,11 @@ public class SendInputMessages : MonoBehaviour
     }
 
     // inventory controls
-   /* public void OnNavigateMenu()
+    public void OnNavigateMenu()
     {
-        inventoryControls.OnNavigateMenu();
-    }*/
+        if(inventoryControls.enabled == true)
+        {
+            inventoryControls.OnNavigateMenu();
+        }
+    }
 }
