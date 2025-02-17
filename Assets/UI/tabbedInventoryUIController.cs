@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 // class that builds inventoryUI and holds logic for adding items to that inventoryUI
 public class tabbedInventoryUIController : MonoBehaviour
@@ -17,7 +18,17 @@ public class tabbedInventoryUIController : MonoBehaviour
     private List<FishInventorySlot> fishInventorySlots = new List<FishInventorySlot>();  
 
     public int numInventorySlots;
-    private int numFishSlots = 15; 
+    private int numFishSlots = 15;
+    
+    // handles displaying selected slot
+    private int selectedSlotId = 0; // All slots are ordered together for selection (lure and fish)
+    private string selectedSlotUssName = "selectedSlotContainer";
+
+    // handle manuevering through the inventory via arrow keys
+    [SerializeField]
+    GameObject gameManager;
+    PlayerInput playerInput;
+    InputAction inputAction;
 
     private void Awake()
     {
@@ -31,6 +42,15 @@ public class tabbedInventoryUIController : MonoBehaviour
         // build fish slots for collected fish
         fishSlotVisualElement = root.Query("FishInventoryContainer");
         buildFishInventorySlots();
+
+        // indicate which slot was last selected
+        InventorySlot selectedSlot = inventorySlotsById[selectedSlotId];
+        selectedSlot.AddToClassList(selectedSlotUssName);
+
+        // retrieve components needed for inventory navigation
+        playerInput = gameManager.GetComponent<PlayerInput>();
+        inputAction = playerInput.actions.FindAction("NavigateMenu");
+
     }
 
     private void buildInventorySlots() // helper method for building bait inventory slots
@@ -89,6 +109,65 @@ public class tabbedInventoryUIController : MonoBehaviour
             {
                 Debug.Log("Could not find a valid inventory slot with ID " + id + " : unable to store item");
             }
+        }
+    }
+
+    // methods to handle UI input 
+    public void OnNavigateMenu()
+    {
+        Debug.Log("OnNavigateMenu called");
+        Vector2 xyValue = inputAction.ReadValue<Vector2>();
+        int newSelectedSlotId = selectedSlotId;
+        if(xyValue.x > 0)
+        {
+            newSelectedSlotId += 1; // slots are ordered left to right
+        }
+        else if(xyValue.x < 0)
+        {
+            newSelectedSlotId -= 1; 
+        }
+
+        if(xyValue.y > 0) 
+        {
+            if(selectedSlotId > 4) newSelectedSlotId -= 5; // slots are ordered top to bottom
+        }
+        else if(xyValue.y < 0)
+        {
+            if (selectedSlotId < 15) newSelectedSlotId += 5;
+        }
+        changeSelectedSlot(newSelectedSlotId); // associate uss to new selected slot and remove from last selected slot
+    }
+
+    // helper method to remove Uss from old selected slot and apply it to a new one
+    private void changeSelectedSlot(int newSelectedSlotId)
+    {
+        Debug.Log("Changing selected slot from " + selectedSlotId + " to " + newSelectedSlotId);
+        
+        InventorySlot lastSelectedSlot = retrieveSlotFromAllInventories(selectedSlotId);
+        lastSelectedSlot.RemoveFromClassList(selectedSlotUssName);
+
+        InventorySlot newSelectedSlot = retrieveSlotFromAllInventories(newSelectedSlotId);
+        newSelectedSlot.AddToClassList(selectedSlotUssName);
+
+        selectedSlotId = newSelectedSlotId; 
+    }
+
+    // we have both Inventory slots and Fish Inventory slots.
+    // the player should be able to move between both of them freely
+    private InventorySlot retrieveSlotFromAllInventories(int slotIndex)
+    {
+        if(slotIndex < 5)
+        {
+            return inventorySlotsById[slotIndex];
+        }
+        else if(slotIndex < 20)
+        {
+            return fishInventorySlotsById[slotIndex - 5];
+        }
+        else
+        {
+            Debug.Log("INVALID SLOT ID : " + slotIndex);
+            return null; 
         }
     }
 }

@@ -15,7 +15,6 @@ public class controlFish : MonoBehaviour
     {
         goalLocation = new Vector2(10, 25); // manually setting this for now
         int numFish = Random.Range(1, 20);
-        Debug.Log("Spawning " + numFish + " fish");
         for(int i = 0; i < numFish; i++)
         {
             // note : this modifier system DOES NOT WORK if the fishManager is placed at (0, 0, 0)

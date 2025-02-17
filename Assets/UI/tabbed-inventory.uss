@@ -102,10 +102,15 @@
     margin: 1% auto;
     max-width: 17.5%;
     max-height: 25%;
-    background-color: rgb(141, 99, 67);
+    background-color: rgba(0, 0, 0, 0);
     border-width: 1px;
     border-color: rgb(255, 195, 59);
     border-radius: 3px;
+}
+
+.selectedSlotContainer { /*uss to associate to the selected slot */
+    border-width: 3px;
+    border-color: rgb(255,137,0);
 }
 
 .notebookTab {

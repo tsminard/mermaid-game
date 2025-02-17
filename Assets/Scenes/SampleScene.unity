@@ -681,6 +681,8 @@ GameObject:
   m_Component:
   - component: {fileID: 795107439}
   - component: {fileID: 795107438}
+  - component: {fileID: 795107440}
+  - component: {fileID: 795107441}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -715,6 +717,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &795107440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795107437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 68b431445f20fe54d9a902de8a6e9212, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: SteerBoat
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &795107441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795107437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f8c344ac6484bc438ee4b4eacbce0b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boat: {fileID: 1071744366}
+  itemUI: {fileID: 955445750}
 --- !u!1 &955445750
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,6 +841,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numInventorySlots: 0
+  gameManager: {fileID: 795107437}
 --- !u!114 &955445755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -923,7 +970,6 @@ GameObject:
   - component: {fileID: 1071744368}
   - component: {fileID: 1071744367}
   - component: {fileID: 1071744371}
-  - component: {fileID: 1071744372}
   m_Layer: 0
   m_Name: Boat
   m_TagString: Boat
@@ -1079,6 +1125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ed8c9038e64a8544943d5afa1c18aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 795107437}
   playerInput: {fileID: 0}
   inputAction:
     m_Name: Input
@@ -1102,36 +1149,6 @@ MonoBehaviour:
   uiDocument: {fileID: 955445751}
   isFishing: 0
   fishingMinigame: {fileID: 220119045}
---- !u!114 &1071744372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1071744366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 68b431445f20fe54d9a902de8a6e9212, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: DefaultKeyboard
-  m_DefaultActionMap: SteerBoat
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1 &1166623213
 GameObject:
   m_ObjectHideFlags: 0
@@ -1766,6 +1783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 910c57432f81db9419f465b8f25e2365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 795107437}
   playerInput: {fileID: 0}
   inputAction:
     m_Name: Input
@@ -2198,6 +2216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 910c57432f81db9419f465b8f25e2365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 795107437}
   playerInput: {fileID: 0}
   inputAction:
     m_Name: Input
