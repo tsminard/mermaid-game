@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 // script responsible for the individual UI inventory slots
@@ -23,8 +20,6 @@ public class InventorySlot : VisualElement
 
     public void holdItem(ItemDetails itemDetails)
     {
-        Debug.Log("Holding item " + itemDetails.ToString());
-        Debug.Log("Adding sprite " + itemDetails.itemData.icon.ToString());
         icon.sprite = itemDetails.itemData.icon;
         currentItem = itemDetails;
     }
@@ -37,7 +32,7 @@ public class InventorySlot : VisualElement
 
     public void displayText(InventoryTextBox textBox)
     {
-        string itemName = currentItem.itemData.name;
+        string itemName = currentItem.uiName;
         string itemDescription = currentItem.itemData.description;
         textBox.changeLabelName(itemName);
         textBox.changeTextDescription(itemDescription);

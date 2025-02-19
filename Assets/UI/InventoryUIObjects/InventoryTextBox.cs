@@ -13,6 +13,7 @@ public class InventoryTextBox : VisualElement
         AddToClassList("slotTextContainer");
         style.visibility = Visibility.Hidden; // hidden by default
         itemLabel = new Label();
+        itemLabel.text = "<UNKNOWN ITEM>";
         itemDescription = new TextField(); 
         itemDescription.value = "<NO DESCRIPTION>";
         Add(itemLabel);
@@ -21,6 +22,7 @@ public class InventoryTextBox : VisualElement
 
     public void changeLabelName(string itemName)
     {
+        Debug.Log("Changing label name to " + itemName);
         itemLabel.text = itemName; 
     }
     public void changeTextDescription(string itemDescription)

@@ -5,11 +5,13 @@ using UnityEngine;
 // classes that handle player current inventory contents
 public class ItemDetails // wrapper class which only additionally contains canDrop - specifically for inventory purposes
 {
+    public string uiName; // name for display in UI
     public ItemData itemData;
     public bool canDrop; // TODO : not sure if we'll need this but i'll keep it in for now
 
-    public ItemDetails(ItemData itemData, bool canDrop)
+    public ItemDetails(string uiName, ItemData itemData, bool canDrop)
     {
+        this.uiName = uiName;
         this.itemData = itemData;
         this.canDrop = canDrop;
     }

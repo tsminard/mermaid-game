@@ -23,17 +23,17 @@ public class ItemManager : MonoBehaviour
         ItemData tilapia = buildItemData("tilapia", 100f, "I think this one is..edible...");
 
         // add all fish to itemData list so we can iterate through it and build every ItemDetail
-        List<ItemData> allItemDatas = new List<ItemData>()
+        List<(string uiName, ItemData itemData)> allItemDatas = new List<(string, ItemData)>()
         {
-            arowana,
-            koi,
-            tilapia
+            ("Big fish thing", arowana),
+            ("Weeb fish ?", koi),
+            ("...Generic fish", tilapia)
         };
 
-        foreach(ItemData itemData in allItemDatas)
+        foreach(var itemTuple in allItemDatas)
         {
-            ItemDetails itemDetails = buildItemDetails(itemData, true); // for now, all objects are droppable
-            allItems.Add(itemData.itemName, itemDetails); 
+            ItemDetails itemDetails = buildItemDetails(itemTuple.uiName, itemTuple.itemData, true); // for now, all objects are droppable
+            allItems.Add(itemTuple.itemData.itemName, itemDetails); 
         }
     }
 
@@ -45,18 +45,18 @@ public class ItemManager : MonoBehaviour
         ItemData bottleMessage = buildItemData("message-in-bottle", 21, "Is there something inside this ?");
 
         // add all trash to itemData list so we can iterate through it and build every ItemDetail
-        List<ItemData> allItemDatas = new List<ItemData>()
+        List<(string uiName, ItemData itemData)> allItemDatas = new List<(string, ItemData)>()
         {
-            boot, 
-            can,
-            lobsterTrap, 
-            bottleMessage
+            ("Dirty wet boot", boot), 
+            ("Recyclable can", can),
+            ("Lobster trap", lobsterTrap), 
+            ("A bottle... with something inside it ? ", bottleMessage)
         };
 
-        foreach (ItemData itemData in allItemDatas)
+        foreach (var itemTuple in allItemDatas)
         {
-            ItemDetails itemDetails = buildItemDetails(itemData, true); // for now, all objects are droppable
-            allItems.Add(itemData.itemName, itemDetails);
+            ItemDetails itemDetails = buildItemDetails(itemTuple.uiName, itemTuple.itemData, true); // for now, all objects are droppable
+            allItems.Add(itemTuple.itemData.itemName, itemDetails);
         }
 
     }
@@ -76,9 +76,9 @@ public class ItemManager : MonoBehaviour
         return item;
     }
 
-    private ItemDetails buildItemDetails(ItemData itemData, bool canDrop)
+    private ItemDetails buildItemDetails(string uiName, ItemData itemData, bool canDrop)
     {
-        return new ItemDetails(itemData, canDrop);
+        return new ItemDetails(uiName, itemData, canDrop);
     }
 
     public static ItemDetails getItemByName(string name)

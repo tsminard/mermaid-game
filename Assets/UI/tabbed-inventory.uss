@@ -78,17 +78,19 @@
     background-color: rgb(141, 99, 67);
 }
 
+.slotTextContainer Label {
+    font-size: 12px;
+    color: rgb(255, 255, 255);
+}
+
 .slotTextContainer TextField {
     flex-wrap: wrap;
     font-size: 10px;  
 }
 
-.slotTextContainer Label {
-    color: rgb(255, 255, 255);
-}
-
-.slotTextContainer TextInput {
+.slotTextContainer TextInput { /* the background of TextFields is actually handled by TextInput class*/
     background-color: rgba(255, 0, 0, 0);
+    border-width: 0;
 }
 
 .fishSlotsContainer { /* this is the wrapping ve for fish items - it holds both fish slots and item descriptions */
