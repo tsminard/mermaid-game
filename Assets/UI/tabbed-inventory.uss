@@ -69,22 +69,34 @@
 
 .slotTextContainer { /* container to hold descriptive text about an item being hovered over */
     width: 90%;
+    margin: auto;
     border-width: 1px;
     border-color: rgb(255, 195, 59);
     border-radius: 3px;
+
+    color: rgb(255, 255, 255);
+    background-color: rgb(141, 99, 67);
 }
 
 .slotTextContainer TextField {
     flex-wrap: wrap;
-    font-size: 10px;
-    color: rgb(0, 0, 0);
+    font-size: 10px;  
 }
 
-.fishSlotsContainer { /* this is the wrapping ve for fish items - it doesn't actually hold the fish slots !' */
+.slotTextContainer Label {
+    color: rgb(255, 255, 255);
+}
+
+.slotTextContainer TextInput {
+    background-color: rgba(255, 0, 0, 0);
+}
+
+.fishSlotsContainer { /* this is the wrapping ve for fish items - it holds both fish slots and item descriptions */
     flex-grow: 1;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
 }
 
 .fishInventoryContainer { /* this just holds all fish inventory slots so they remain within the background image*/

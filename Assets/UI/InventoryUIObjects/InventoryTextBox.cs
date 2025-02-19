@@ -28,12 +28,6 @@ public class InventoryTextBox : VisualElement
         this.itemDescription.value = itemDescription; 
     }
 
-    public void changeLocation(Vector2 newPos)
-    {
-        style.top = newPos.x;
-        style.left = newPos.y;
-    }
-
     // HELPER METHODS
     public void toggleVisibility(bool isVisible)
     {

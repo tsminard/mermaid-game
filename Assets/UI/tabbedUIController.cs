@@ -23,7 +23,6 @@ public class TabbedUIController : MonoBehaviour
         }
         else
         {
-            Debug.Log("Showing inventory");
             root.style.display = DisplayStyle.Flex;
         }
         isVisible = !isVisible; 
