@@ -23,6 +23,7 @@ public class tabbedInventoryUIController : MonoBehaviour
     // handles displaying selected slot
     private int selectedSlotId = 0; // All slots are ordered together for selection (lure and fish)
     private string selectedSlotUssName = "selectedSlotContainer";
+    private InventoryTextBox inventoryTextBox; 
 
     // handle manuevering through the inventory via arrow keys
     [SerializeField]
@@ -35,7 +36,12 @@ public class tabbedInventoryUIController : MonoBehaviour
         // build inventory slots for various baits
         root = GetComponent<UIDocument>().rootVisualElement; // retrieve root from UI document
         slotVisualElement = root.Query("SlotsContainer");
-        buildInventorySlots(); 
+        buildInventorySlots();
+
+        // initialise textBox for UI display
+        inventoryTextBox = new InventoryTextBox();
+        VisualElement inventoryTextElement = root.Query("FishSlotsContainer");
+        inventoryTextElement.Add(inventoryTextBox);
 
         inventoryController.onInventoryChanged += inventoryController_onInventoryChanged;  // add event listener so our UI will change when items change
 
@@ -50,6 +56,7 @@ public class tabbedInventoryUIController : MonoBehaviour
         // retrieve components needed for inventory navigation
         playerInput = gameManager.GetComponent<PlayerInput>();
         inputAction = playerInput.actions.FindAction("NavigateMenu");
+
 
     }
 
@@ -115,7 +122,6 @@ public class tabbedInventoryUIController : MonoBehaviour
     // methods to handle UI input 
     public void OnNavigateMenu()
     {
-        Debug.Log("OnNavigateMenu called");
         Vector2 xyValue = inputAction.ReadValue<Vector2>();
         int newSelectedSlotId = selectedSlotId;
         if(xyValue.x > 0)
@@ -135,21 +141,31 @@ public class tabbedInventoryUIController : MonoBehaviour
         {
             if (selectedSlotId < 15) newSelectedSlotId += 5;
         }
-        changeSelectedSlot(newSelectedSlotId); // associate uss to new selected slot and remove from last selected slot
+
+        if(newSelectedSlotId >= 0 && newSelectedSlotId < 20)
+        {
+            changeSelectedSlot(newSelectedSlotId); // associate uss to new selected slot and remove from last selected slot
+        }
     }
 
     // helper method to remove Uss from old selected slot and apply it to a new one
     private void changeSelectedSlot(int newSelectedSlotId)
     {
-        Debug.Log("Changing selected slot from " + selectedSlotId + " to " + newSelectedSlotId);
-        
         InventorySlot lastSelectedSlot = retrieveSlotFromAllInventories(selectedSlotId);
         lastSelectedSlot.RemoveFromClassList(selectedSlotUssName);
 
         InventorySlot newSelectedSlot = retrieveSlotFromAllInventories(newSelectedSlotId);
         newSelectedSlot.AddToClassList(selectedSlotUssName);
+        if (!newSelectedSlot.isEmpty())
+        {
+            newSelectedSlot.displayText(inventoryTextBox);
+        }
+        else
+        {
+            inventoryTextBox.toggleVisibility(false); // we shouldn't show a text box if the inventory box is empty
+        }
 
-        selectedSlotId = newSelectedSlotId; 
+        selectedSlotId = newSelectedSlotId;
     }
 
     // we have both Inventory slots and Fish Inventory slots.

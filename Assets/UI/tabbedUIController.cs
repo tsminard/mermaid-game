@@ -11,7 +11,7 @@ public class TabbedUIController : MonoBehaviour
     private void Awake()
     {
         root = GetComponent<UIDocument>().rootVisualElement;
-        root.style.visibility = Visibility.Hidden;
+        root.style.display = DisplayStyle.None;
         isVisible = false;
     }
 
@@ -19,11 +19,12 @@ public class TabbedUIController : MonoBehaviour
     {
         if (isVisible)
         {
-            root.style.visibility = Visibility.Hidden;
+            root.style.display = DisplayStyle.None;
         }
         else
         {
-            root.style.visibility = Visibility.Visible; 
+            Debug.Log("Showing inventory");
+            root.style.display = DisplayStyle.Flex;
         }
         isVisible = !isVisible; 
     }

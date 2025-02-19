@@ -67,22 +67,24 @@
     border-radius: 3px;
 }
 
-/*
-.slotIcon {
-    padding: 1px;
-    flex-shrink: 1;
-    flex-grow: 1;
-    flex-direction: row;
-    flex-wrap: wrap;
+.slotTextContainer { /* container to hold descriptive text about an item being hovered over */
+    width: 90%;
+    border-width: 1px;
+    border-color: rgb(255, 195, 59);
+    border-radius: 3px;
 }
-*/
+
+.slotTextContainer TextField {
+    flex-wrap: wrap;
+    font-size: 10px;
+    color: rgb(0, 0, 0);
+}
 
 .fishSlotsContainer { /* this is the wrapping ve for fish items - it doesn't actually hold the fish slots !' */
     flex-grow: 1;
-    /*flex-direction: row;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;*/
 }
 
 .fishInventoryContainer { /* this just holds all fish inventory slots so they remain within the background image*/

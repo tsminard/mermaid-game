@@ -13,7 +13,7 @@ public class playFishingGame : MonoBehaviour
 
     private string leftBarTag = "LeftBar";
     private string rightBarTag = "RightBar";
-    private float enabledTime = 0.5f;
+    private float enabledTime = 0.2f;
 
     private bool isLeftSide;
     private int successfulFish = 0;

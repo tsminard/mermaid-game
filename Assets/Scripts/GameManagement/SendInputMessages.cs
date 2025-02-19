@@ -10,14 +10,18 @@ public class SendInputMessages : MonoBehaviour
     GameObject boat;
     [SerializeField]
     GameObject itemUI;
+    [SerializeField]
+    GameObject fishingMinigame;
 
     // list scripts which need player input
     controlBoat boatControls;
+    TabbedUIController tabController;
     tabbedInventoryUIController inventoryControls;
 
     private void Awake() // TODO : change this based on scene loaded
     {
         boatControls = boat.GetComponent<controlBoat>();
+        tabController = itemUI.GetComponent<TabbedUIController>(); 
         inventoryControls = itemUI.GetComponent<tabbedInventoryUIController>();
     }
 
@@ -40,7 +44,7 @@ public class SendInputMessages : MonoBehaviour
     // inventory controls
     public void OnNavigateMenu()
     {
-        if(inventoryControls.enabled == true)
+        if(tabController.isVisible && !fishingMinigame.activeSelf) // the fishing minigame controls should take precendence over the inventory controls
         {
             inventoryControls.OnNavigateMenu();
         }
