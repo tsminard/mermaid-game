@@ -4,8 +4,15 @@
         <engine:TabView name="TabbedView" view-data-key="TabbedMenu" reorderable="true" class="tabbedInventory" style="width: 40%; justify-content: flex-start; flex-direction: column; border-left-color: rgb(225, 165, 19); border-right-color: rgb(225, 165, 19); border-top-color: rgb(225, 165, 19); border-bottom-color: rgb(225, 165, 19); border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px;">
             <engine:Tab label="Inventory" name="InventoryTab" class="inventoryTab" style="-unity-background-image-tint-color: rgba(0, 0, 0, 0); background-color: rgba(228, 18, 18, 0);">
                 <engine:VisualElement name="SlotsContainer" class="slotsContainer" />
-                <engine:VisualElement name="FishSlotsContainer" class="fishSlotsContainer" style="background-image: resource(&apos;Sprites/side-water&apos;); background-size: 100% 90%; background-position-y: bottom 0; -unity-background-scale-mode: scale-and-crop; -unity-slice-left: 0; -unity-slice-top: 0; -unity-slice-right: 0; -unity-slice-bottom: 0; flex-direction: row; justify-content: flex-end; align-items: center; align-self: auto;">
-                    <engine:VisualElement name="FishInventoryContainer" class="fishInventoryContainer" style="flex-direction: row; height: 70%; max-height: 70%; min-height: 70%; align-self: flex-end;" />
+                <engine:VisualElement name="FishSlotsContainer" class="fishSlotsContainer" style="background-image: resource(&apos;Sprites/side-water&apos;); background-size: 100% 90%; background-position-y: bottom 0; -unity-background-scale-mode: scale-and-crop; -unity-slice-left: 0; -unity-slice-top: 0; -unity-slice-right: 0; -unity-slice-bottom: 0; flex-direction: column; justify-content: flex-end; align-items: center; align-self: auto;">
+                    <engine:VisualElement name="FishInventoryContainer" class="fishInventoryContainer" style="flex-direction: row; height: 70%; max-height: 70%; min-height: 70%; align-self: flex-end; width: 100%;" />
+                    <engine:VisualElement name="InteractionContainer" class="interactionContainer" style="height: 30%; max-height: 30%; min-height: 30%; max-width: 100%; min-width: 100%;">
+                        <engine:VisualElement name="SlotTextContainer" class="slotTextContainer" style="height: 100%; max-width: 75%; max-height: 100%; width: 75%;">
+                            <engine:Label text="Label" name="ItemName" class="itemName" />
+                            <engine:Label text="Label" name="ItemDescription" class="itemDescription" />
+                        </engine:VisualElement>
+                        <engine:VisualElement name="SlotActionsContainer" class="slotActionsContainer" />
+                    </engine:VisualElement>
                 </engine:VisualElement>
             </engine:Tab>
             <engine:Tab label="Notebook" name="NotebookTab" tabindex="0" focusable="false" closeable="false" class="notebookTab" style="background-color: rgba(61, 85, 234, 0); flex-wrap: wrap;">

@@ -42,7 +42,7 @@
     height: 100%;
 }
 
-.slotsContainer { /* this is the wrapping ve for bait items */
+.slotsContainer {
     flex-grow: 1;
     justify-content: center;
     align-items: center;
@@ -57,7 +57,7 @@
     min-width: 100%;
 }
 
-.slotContainer { /* this is the actual uss for an individual bait container*/
+.slotContainer {
     width: 17.5%;
     height: 80%;
     margin: 1% auto;
@@ -67,33 +67,7 @@
     border-radius: 3px;
 }
 
-.slotTextContainer { /* container to hold descriptive text about an item being hovered over */
-    width: 90%;
-    margin: auto;
-    border-width: 1px;
-    border-color: rgb(255, 195, 59);
-    border-radius: 3px;
-
-    color: rgb(255, 255, 255);
-    background-color: rgb(141, 99, 67);
-}
-
-.slotTextContainer Label {
-    font-size: 12px;
-    color: rgb(255, 255, 255);
-}
-
-.slotTextContainer TextField {
-    flex-wrap: wrap;
-    font-size: 10px;  
-}
-
-.slotTextContainer TextInput { /* the background of TextFields is actually handled by TextInput class*/
-    background-color: rgba(255, 0, 0, 0);
-    border-width: 0;
-}
-
-.fishSlotsContainer { /* this is the wrapping ve for fish items - it holds both fish slots and item descriptions */
+.fishSlotsContainer {
     flex-grow: 1;
     flex-direction: row;
     flex-wrap: wrap;
@@ -101,7 +75,17 @@
     align-items: center;
 }
 
-.fishInventoryContainer { /* this just holds all fish inventory slots so they remain within the background image*/
+.fishSlotContainer {
+    margin: 1% auto;
+    max-width: 17.5%;
+    max-height: 25%;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 1px;
+    border-color: rgb(255, 195, 59);
+    border-radius: 3px;
+}
+
+.fishInventoryContainer {
     flex-grow: 1;
     flex-direction: column;
     flex-wrap: wrap;
@@ -114,19 +98,83 @@
     min-height: 80%;
 }
 
-.fishSlotContainer { /* this is the actual uss for an individual fish container*/
-    margin: 1% auto;
-    max-width: 17.5%;
-    max-height: 25%;
-    background-color: rgba(0, 0, 0, 0);
+.interactionContainer {
+    flex-grow: 1;
+    padding: 5px;
+    width: 100%;
+    flex-direction: row;
+}
+
+.slotTextContainer {
+    flex-grow: 1;
+    width: 65%;
+    margin-right: 1%;
     border-width: 1px;
     border-color: rgb(255, 195, 59);
     border-radius: 3px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(141, 99, 67);
 }
 
-.selectedSlotContainer { /*uss to associate to the selected slot */
+.itemName {
+    height: 20%;
+    max-height: 20%;
+    max-width: 100%;
+    font-size: 12px;
+}
+
+.itemDescription {
+    font-size: 9px;
+    height: 60%;
+    max-height: 60%;
+    white-space: normal;
+}
+
+/*.itemDescription {
+    background-size: 100% 100%;
+    width: 95%;
+    height: 95%;
+    max-width: 95%;
+    max-height: 95%;
+    align-items: center;
+    align-self: auto;
+}
+
+.itemDescription Label {
+    height: 30%;
+    font-size: 12px;
+    color: rgb(255, 255, 255);
+    align-self: flex-start;
+}
+
+.itemDescription TextField {
+    flex-wrap: wrap;
+    align-self: flex-start;
+    margin: auto;
+}
+
+.itemDescription TextInput {
+    background-color: rgba(255, 0, 0, 0);
+    border-width: 0;
+    font-size: 9px;
+    align-self: flex-start;
+}*/
+
+.slotActionsContainer {
+    flex-grow: 1;
+    width: 25%;
+    height: 100%;
+    margin-left: 1%;
+    border-width: 1px;
+    border-color: rgb(255, 195, 59);
+    border-radius: 3px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(141, 99, 67);
+}
+
+.selectedSlotContainer {
     border-width: 3px;
-    border-color: rgb(255,137,0);
+    border-color: rgb(255, 137, 0);
 }
 
 .notebookTab {
