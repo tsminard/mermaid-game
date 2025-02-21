@@ -1,39 +1,37 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Collections.Generic;
 
 // script responsible for the UI text box which describes an item 
 // there should only ever be 1 of these, just being moved to a new location
-public class InventoryTextBox : VisualElement
+public class InventoryTextBox
 {
-    Label itemLabel;
-    TextField itemDescription; 
+    VisualElement visualElement; // we only have 1 text box, so we can just maintain a ref to that visual element
+    Label itemName;
+    Label itemDescription;
 
-    public InventoryTextBox()
+    public InventoryTextBox(VisualElement visualElement)
     {
-        AddToClassList("slotTextContainer");
-        style.visibility = Visibility.Hidden; // hidden by default
-        itemLabel = new Label();
-        itemLabel.text = "<UNKNOWN ITEM>";
-        itemDescription = new TextField(); 
-        itemDescription.value = "<NO DESCRIPTION>";
-        Add(itemLabel);
-        Add(itemDescription);
+        this.visualElement = visualElement;
+        itemName = this.visualElement.Query<Label>(className : "itemName").First();
+        itemDescription = this.visualElement.Query<Label>(className: "itemDescription").First();
+
+        blankTextBox(); 
     }
 
     public void changeLabelName(string itemName)
     {
-        Debug.Log("Changing label name to " + itemName);
-        itemLabel.text = itemName; 
+        this.itemName.text = itemName;
     }
     public void changeTextDescription(string itemDescription)
     {
-        this.itemDescription.value = itemDescription; 
+        this.itemDescription.text = itemDescription; 
     }
 
     // HELPER METHODS
-    public void toggleVisibility(bool isVisible)
+    public void blankTextBox()
     {
-        if (isVisible) style.visibility = Visibility.Visible;
-        else style.visibility = Visibility.Hidden; 
+        itemName.text = "";
+        itemDescription.text = "";
     }
 }

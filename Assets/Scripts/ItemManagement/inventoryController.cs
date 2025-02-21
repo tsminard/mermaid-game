@@ -44,10 +44,9 @@ public class inventoryController : MonoBehaviour
     public void Start()
     {
         //populate with dummy data for now 
-        //populateInventory(); // TODO : remove this - Dictionary should be maintained in game state to keep fish in consistent inventory slots
+        populateInventory(); // TODO : remove this - Dictionary should be maintained in game state to keep fish in consistent inventory slots
         foreach (var item in currentInventory)
         {
-            Debug.Log("Adding item " + item.Value.ToString());
             onInventoryChanged(item.Key, item.Value, InventoryChangeType.Pickup, ItemInventoryType.Bait);
         }
     }
@@ -55,7 +54,6 @@ public class inventoryController : MonoBehaviour
 
     public static void addItemToInventory(ItemDetails itemDetails, ItemInventoryType inventoryType)
     {
-        Debug.Log("Adding item " + itemDetails.ToString() + " to inventory");
         // retrieve first available inventory slot
         List<int> usedKeys = new List<int>(currentInventory.Keys);
         foreach(int val in usedKeys){
@@ -96,6 +94,8 @@ public class inventoryController : MonoBehaviour
     private void populateInventory()
     {
         Debug.Log("Populating inventory with dummy data");
-        currentInventory.Add(0, ItemManager.getItemByName("arowana")); 
+        inventoryController.addItemToInventory(ItemManager.getItemByName("arowana"), ItemInventoryType.Fish);
+        inventoryController.addItemToInventory(ItemManager.getItemByName("tilapia"), ItemInventoryType.Fish);
+        inventoryController.addItemToInventory(ItemManager.getItemByName("lobster-trap"), ItemInventoryType.Fish);
     }
 }

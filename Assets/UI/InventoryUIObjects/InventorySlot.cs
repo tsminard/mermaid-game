@@ -36,7 +36,6 @@ public class InventorySlot : VisualElement
         string itemDescription = currentItem.itemData.description;
         textBox.changeLabelName(itemName);
         textBox.changeTextDescription(itemDescription);
-        textBox.toggleVisibility(true);
     }
 
     // HELPER METHODS

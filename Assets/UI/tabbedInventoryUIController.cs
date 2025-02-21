@@ -23,7 +23,8 @@ public class tabbedInventoryUIController : MonoBehaviour
     // handles displaying selected slot
     private int selectedSlotId = 0; // All slots are ordered together for selection (lure and fish)
     private string selectedSlotUssName = "selectedSlotContainer";
-    private InventoryTextBox inventoryTextBox; 
+    private InventoryTextBox inventoryTextBox;
+    private InventoryActionsBox inventoryActionsBox;
 
     // handle manuevering through the inventory via arrow keys
     [SerializeField]
@@ -39,9 +40,10 @@ public class tabbedInventoryUIController : MonoBehaviour
         buildInventorySlots();
 
         // initialise textBox for UI display
-        inventoryTextBox = new InventoryTextBox();
-        VisualElement inventoryTextElement = root.Query("FishSlotsContainer");
-        inventoryTextElement.Add(inventoryTextBox);
+        VisualElement textBoxVisualElement = root.Query("SlotTextContainer");
+        inventoryTextBox = new InventoryTextBox(textBoxVisualElement);
+        //inventoryActionsBox = new InventoryActionsBox();
+        // TODO : this formatting...
 
         inventoryController.onInventoryChanged += inventoryController_onInventoryChanged;  // add event listener so our UI will change when items change
 
@@ -86,7 +88,6 @@ public class tabbedInventoryUIController : MonoBehaviour
 
     private void inventoryController_onInventoryChanged(int id, ItemDetails itemDetails, InventoryChangeType inventoryChangeType, ItemInventoryType whichInventory)
     {
-        Debug.Log("calling OnInventoryChanged");
         if(inventoryChangeType == InventoryChangeType.Pickup)
         {
             bool addedToInventory = false; 
@@ -162,9 +163,8 @@ public class tabbedInventoryUIController : MonoBehaviour
         }
         else
         {
-            inventoryTextBox.toggleVisibility(false); // we shouldn't show a text box if the inventory box is empty
+            inventoryTextBox.blankTextBox(); 
         }
-
         selectedSlotId = newSelectedSlotId;
     }
 
