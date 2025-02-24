@@ -11,17 +11,17 @@ public class tabbedInventoryUIController : MonoBehaviour
     public VisualElement fishSlotVisualElement;
 
     // keep track of inventory ids so they will always render in the same order
-    private Dictionary<int, InventorySlot> inventorySlotsById = new Dictionary<int, InventorySlot>();
-    private List<InventorySlot> inventorySlots = new List<InventorySlot>();
+    private static Dictionary<int, InventorySlot> inventorySlotsById = new Dictionary<int, InventorySlot>();
+    private static List<InventorySlot> inventorySlots = new List<InventorySlot>(); // runs 0-4
 
-    private Dictionary<int, FishInventorySlot> fishInventorySlotsById = new Dictionary<int, FishInventorySlot>();
-    private List<FishInventorySlot> fishInventorySlots = new List<FishInventorySlot>();  
+    private static Dictionary<int, FishInventorySlot> fishInventorySlotsById = new Dictionary<int, FishInventorySlot>();// runs 0-14
+    private static List<FishInventorySlot> fishInventorySlots = new List<FishInventorySlot>();  
 
     public int numInventorySlots;
     private int numFishSlots = 15;
     
     // handles displaying selected slot
-    private int selectedSlotId = 0; // All slots are ordered together for selection (lure and fish)
+    private static int selectedSlotId = 0; // All slots are ordered together for selection (bait and fish) running 0-20
     private string selectedSlotUssName = "selectedSlotContainer";
     private InventoryTextBox inventoryTextBox;
     private InventoryActionsBox inventoryActionsBox;
@@ -42,10 +42,10 @@ public class tabbedInventoryUIController : MonoBehaviour
         // initialise textBox for UI display
         VisualElement textBoxVisualElement = root.Query("SlotTextContainer");
         inventoryTextBox = new InventoryTextBox(textBoxVisualElement);
-        //inventoryActionsBox = new InventoryActionsBox();
-        // TODO : this formatting...
 
-        inventoryController.onInventoryChanged += inventoryController_onInventoryChanged;  // add event listener so our UI will change when items change
+        //initialise actionsBox for UI display
+        VisualElement actionBoxVisualElement = root.Query("SlotActionsContainer");
+        inventoryActionsBox = new InventoryActionsBox(actionBoxVisualElement);
 
         // build fish slots for collected fish
         fishSlotVisualElement = root.Query("FishInventoryContainer");
@@ -86,36 +86,55 @@ public class tabbedInventoryUIController : MonoBehaviour
         }
     }
 
-    private void inventoryController_onInventoryChanged(int id, ItemDetails itemDetails, InventoryChangeType inventoryChangeType, ItemInventoryType whichInventory)
+    public static void onInventoryChanged(int id, ItemDetails itemDetails, InventoryChangeType inventoryChangeType, ItemInventoryType whichInventory)
     {
-        if(inventoryChangeType == InventoryChangeType.Pickup)
+        if (inventoryChangeType == InventoryChangeType.Pickup)
         {
-            bool addedToInventory = false; 
-            if(whichInventory == ItemInventoryType.Bait)
+            bool addedToInventory = false;
+            if (whichInventory == ItemInventoryType.Bait)
             {
                 InventorySlot inventorySlot = inventorySlotsById[id];
                 if (inventorySlot != null)
                 {
                     inventorySlot.holdItem(itemDetails);
-                    addedToInventory = true; 
+                    addedToInventory = true;
                 }
             }
             else if (whichInventory == ItemInventoryType.Fish)
             {
                 FishInventorySlot fishInventorySlot = fishInventorySlotsById[id];
-                if(fishInventorySlot != null)
+                if (fishInventorySlot != null)
                 {
                     fishInventorySlot.holdItem(itemDetails);
-                    addedToInventory = true; 
+                    addedToInventory = true;
                 }
             }
             else
             {
-                Debug.Log("INVALID INVENTORY TYPE"); 
+                Debug.Log("INVALID INVENTORY TYPE");
             }
             if (!addedToInventory)
             {
                 Debug.Log("Could not find a valid inventory slot with ID " + id + " : unable to store item");
+            }
+        }
+        else if (inventoryChangeType == InventoryChangeType.Drop)
+        {
+            if (whichInventory == ItemInventoryType.Bait)
+            {
+                InventorySlot inventorySlot = inventorySlotsById[id];
+                if (inventorySlot != null)
+                {
+                    inventorySlot.dropItem();
+                }
+            }
+            else if (whichInventory == ItemInventoryType.Fish)
+            {
+                FishInventorySlot fishInventorySlot = fishInventorySlotsById[id];
+                if (fishInventorySlot != null)
+                {
+                    fishInventorySlot.dropItem();
+                }
             }
         }
     }
@@ -148,6 +167,19 @@ public class tabbedInventoryUIController : MonoBehaviour
             changeSelectedSlot(newSelectedSlotId); // associate uss to new selected slot and remove from last selected slot
         }
     }
+
+    // method to select action to apply to inventory object
+    public void OnNavigateSubMenu()
+    {
+        Vector2 xyValue = inputAction.ReadValue<Vector2>();
+        inventoryActionsBox.changeSelectedField((int)xyValue.x);
+    }
+
+    public void OnSelectSubMenu()
+    {
+
+    }
+    
 
     // helper method to remove Uss from old selected slot and apply it to a new one
     private void changeSelectedSlot(int newSelectedSlotId)
@@ -185,5 +217,11 @@ public class tabbedInventoryUIController : MonoBehaviour
             Debug.Log("INVALID SLOT ID : " + slotIndex);
             return null; 
         }
+    }
+
+    // HELPER METHODS
+    public static int returnCurrentSelectedSlot()
+    {
+        return selectedSlotId; 
     }
 }

@@ -40,14 +40,13 @@ public class inventoryController : MonoBehaviour
 {
     // setting these as static because we should only ever have 1 inventoryController, which should be accessible everywhere
     private static Dictionary<int, ItemDetails> currentInventory = new Dictionary<int, ItemDetails>(); // int will function as location in the inventory
-    public static event OnInventoryChangeDelegate onInventoryChanged; // blank delegate to avoid np exception
     public void Start()
     {
         //populate with dummy data for now 
         populateInventory(); // TODO : remove this - Dictionary should be maintained in game state to keep fish in consistent inventory slots
         foreach (var item in currentInventory)
         {
-            onInventoryChanged(item.Key, item.Value, InventoryChangeType.Pickup, ItemInventoryType.Bait);
+            tabbedInventoryUIController.onInventoryChanged(item.Key, item.Value, InventoryChangeType.Pickup, ItemInventoryType.Fish);
         }
     }
 
@@ -56,9 +55,6 @@ public class inventoryController : MonoBehaviour
     {
         // retrieve first available inventory slot
         List<int> usedKeys = new List<int>(currentInventory.Keys);
-        foreach(int val in usedKeys){
-            Debug.Log("Used key : " + val);
-        }
         int newIndex = 0;
         bool newIndexFound = false; 
         while (!newIndexFound && newIndex < 20)// we have 20 inventory slots available
@@ -75,13 +71,19 @@ public class inventoryController : MonoBehaviour
         if (newIndexFound)
         {
             // call method in tabbedInventoryUIController, which is responsible for displaying inventory
-            onInventoryChanged(newIndex, itemDetails, InventoryChangeType.Pickup, inventoryType);
+            tabbedInventoryUIController.onInventoryChanged(newIndex, itemDetails, InventoryChangeType.Pickup, inventoryType);
             currentInventory.Add(newIndex, itemDetails); // update our record of the inventory
         }
         else // we have run out of inventory slots
         {
             Debug.Log("No available inventory left");
         }
+    }
+
+    //method to remove backend object, not just blank the icon in the inventory
+    public static void removeItemFromInventory(int index)
+    {
+        currentInventory.Remove(index);
     }
 
     // GETTERS + SETTERS

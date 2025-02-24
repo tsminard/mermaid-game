@@ -18,6 +18,9 @@ public class SendInputMessages : MonoBehaviour
     TabbedUIController tabController;
     tabbedInventoryUIController inventoryControls;
 
+    // list internal variables
+    bool isUsingSubMenu = false; 
+
     private void Awake() // TODO : change this based on scene loaded
     {
         boatControls = boat.GetComponent<controlBoat>();
@@ -46,7 +49,31 @@ public class SendInputMessages : MonoBehaviour
     {
         if(tabController.isVisible && !fishingMinigame.activeSelf) // the fishing minigame controls should take precendence over the inventory controls
         {
-            inventoryControls.OnNavigateMenu();
+            if (!isUsingSubMenu)
+            {
+                inventoryControls.OnNavigateMenu();
+            }
+            else
+            {
+                inventoryControls.OnNavigateSubMenu(); // we enter into subgenre of control navigation using same arrow controls
+            }
         }
+    }
+
+    public void onSubmit()
+    {
+        if (tabController.isVisible && !fishingMinigame.activeSelf) // the fishing minigame controls should take precendence over the inventory controls
+        {
+            if (!isUsingSubMenu)
+            {
+                isUsingSubMenu = true;
+            }
+            else
+            {
+                inventoryControls.OnSelectSubMenu(); 
+                isUsingSubMenu = false;
+            }
+        }
+        
     }
 }

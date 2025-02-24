@@ -130,46 +130,28 @@
     white-space: normal;
 }
 
-/*.itemDescription {
-    background-size: 100% 100%;
-    width: 95%;
-    height: 95%;
-    max-width: 95%;
-    max-height: 95%;
-    align-items: center;
-    align-self: auto;
-}
-
-.itemDescription Label {
-    height: 30%;
-    font-size: 12px;
-    color: rgb(255, 255, 255);
-    align-self: flex-start;
-}
-
-.itemDescription TextField {
-    flex-wrap: wrap;
-    align-self: flex-start;
-    margin: auto;
-}
-
-.itemDescription TextInput {
-    background-color: rgba(255, 0, 0, 0);
-    border-width: 0;
-    font-size: 9px;
-    align-self: flex-start;
-}*/
-
 .slotActionsContainer {
     flex-grow: 1;
     width: 25%;
-    height: 100%;
+    height: 90%;
     margin-left: 1%;
     border-width: 1px;
     border-color: rgb(255, 195, 59);
     border-radius: 3px;
     color: rgb(255, 255, 255);
     background-color: rgb(141, 99, 67);
+}
+
+.actionOption {
+    font-size: 10px;
+    height: 30%;
+    max-height: 30%;
+    width: 95%;
+    margin: auto;
+    padding: 2px;
+    border-width: 1px;
+    border-color: rgb(255, 195, 59);
+    border-radius: 3px;
 }
 
 .selectedSlotContainer {
@@ -182,5 +164,6 @@
 
 .lureTab {
 }
+
 
 

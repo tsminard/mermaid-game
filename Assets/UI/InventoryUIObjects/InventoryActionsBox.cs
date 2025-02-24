@@ -1,38 +1,49 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Collections.Generic;
 
 // script responsible for the visual element which provides possible inventory actions 
 // Drop
 // Swap <- should just swap with neighbor because i want this to be a keyboard-only game by default ( i like playing games on the sofa :3 )
 // Interact 
 
-public class InventoryActionsBox : VisualElement
+public class InventoryActionsBox
 {
-    TextField dropField;
-    TextField swapField;
-    TextField interactField;
+    VisualElement visualElement;
+    Label dropField;
+    Label swapField;
+    Label interactField;
     // variables to handle menu interactions
-    TextField[] fields = new TextField[3]; // array to increment through the selected field
+    Label[] fields = new Label[3]; // array to increment through the selected field
     int currIndex = 0;
     string selectedSlotUssName = "selectedSlotContainer"; 
 
-    public InventoryActionsBox()
+    public InventoryActionsBox(VisualElement visualElement)
     {
-        AddToClassList("slotActionsContainer");
-        dropField = new TextField();
-        swapField = new TextField();
-        interactField = new TextField();
+        this.visualElement = visualElement;
+        List<Label> labels = this.visualElement.Query<Label>().ToList();
 
-        dropField.value = "Drop ?";
-        swapField.value = "Swap ?";
-        interactField.value = "Interact ?";
+        if(labels.Count != 3)
+        {
+            Debug.Log("Incorrect number of labels found...");
+            return;
+        }
+
+        // assign label objects
+        dropField = labels[0];
+        swapField = labels[1];
+        interactField = labels[2];
+        // set text
+        dropField.text = "Drop ?";
+        swapField.text = "Swap ?";
+        interactField.text = "Interact ?";
 
         fields[0] = dropField;
         fields[1] = swapField;
         fields[2] = interactField;
 
         // Apply indicator of selected field
-        TextField currField = fields[currIndex];
+        Label currField = fields[currIndex];
         currField.AddToClassList(selectedSlotUssName);
     }
 
@@ -40,7 +51,7 @@ public class InventoryActionsBox : VisualElement
     // menu options should loop over
     public void changeSelectedField(int direction)
     {
-        TextField currField = fields[currIndex];
+        Label currField = fields[currIndex];
         currField.RemoveFromClassList(selectedSlotUssName);
         // now change index
         if(direction < 0)
@@ -77,7 +88,26 @@ public class InventoryActionsBox : VisualElement
 
     private void updateSelectedSlot()
     {
-        TextField newSelectedTextField = fields[currIndex];
+        Label newSelectedTextField = fields[currIndex];
         newSelectedTextField.AddToClassList(selectedSlotUssName);
+    }
+
+    public void applySelectedSlot()
+    {
+        switch (currIndex)
+        {
+            case 0: // drop action
+                // to drop, we need to know which inventory item we're getting rid of 
+                int currInventoryIndex = tabbedInventoryUIController.returnCurrentSelectedSlot();
+                inventoryController.removeItemFromInventory(currInventoryIndex); // remove inventory from backend representation
+                ItemInventoryType whichInventory = currInventoryIndex < 5 ? ItemInventoryType.Bait : ItemInventoryType.Fish;
+                int correctedCurrInventoryIndex = whichInventory == ItemInventoryType.Bait ? currInventoryIndex : currInventoryIndex - 5;
+                
+                break;
+            case 1: // swap action
+                break; 
+            case 2: // interact action
+                break;
+        }
     }
 }

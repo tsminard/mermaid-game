@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-using System.Collections.Generic;
 
 // script responsible for the UI text box which describes an item 
 // there should only ever be 1 of these, just being moved to a new location

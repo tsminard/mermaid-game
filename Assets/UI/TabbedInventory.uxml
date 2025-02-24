@@ -11,7 +11,11 @@
                             <engine:Label text="Label" name="ItemName" class="itemName" />
                             <engine:Label text="Label" name="ItemDescription" class="itemDescription" />
                         </engine:VisualElement>
-                        <engine:VisualElement name="SlotActionsContainer" class="slotActionsContainer" />
+                        <engine:VisualElement name="SlotActionsContainer" class="slotActionsContainer">
+                            <engine:Label text="Label" name="ActionOption" class="actionOption" />
+                            <engine:Label text="Label" name="ActionOption" class="actionOption" />
+                            <engine:Label text="Label" name="ActionOption" class="actionOption" style="height: 30%; font-size: 10px;" />
+                        </engine:VisualElement>
                     </engine:VisualElement>
                 </engine:VisualElement>
             </engine:Tab>
