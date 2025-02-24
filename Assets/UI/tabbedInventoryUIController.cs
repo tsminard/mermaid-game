@@ -133,7 +133,6 @@ public class tabbedInventoryUIController : MonoBehaviour
                 FishInventorySlot fishInventorySlot = fishInventorySlotsById[id];
                 if (fishInventorySlot != null)
                 {
-                    Debug.Log("clearing fish icon");
                     fishInventorySlot.dropItem();
                 }
             }

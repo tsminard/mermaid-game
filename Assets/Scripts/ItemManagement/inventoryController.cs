@@ -87,7 +87,7 @@ public class inventoryController : MonoBehaviour
     //method to remove backend object, not blank the icon in the inventory
     public static void removeItemFromInventory(int index)
     {
-        Debug.Log("Removing item " + index + " from inventory backend");
+        Debug.Log("Removing index " + index);
         currentInventory.Remove(index);
     }
 
