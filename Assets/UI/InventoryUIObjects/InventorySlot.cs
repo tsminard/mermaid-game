@@ -7,12 +7,13 @@ public class InventorySlot : VisualElement
     public Image icon;
     public int locID; // indicates which space on the screen this slot takes up
     private ItemDetails currentItem; // contains item information for display
+    private string slotIconClassName = "slotIcon";
 
     public InventorySlot(int locID)
     {
         icon = new Image();
         Add(icon);
-        icon.AddToClassList("slotIcon"); // associate the uss style for "slotIcon" to our icon image
+        icon.AddToClassList(slotIconClassName); // associate the uss style for "slotIcon" to our icon image
         AddToClassList("slotContainer"); // associates the uss style for "slotContainer" to our actual inventory slot
 
         this.locID = locID;
@@ -26,8 +27,8 @@ public class InventorySlot : VisualElement
 
     public void dropItem()
     {
-        icon.image = null;
-        currentItem = null; 
+        icon.sprite = null;
+        currentItem = null;
     }
 
     public void displayText(InventoryTextBox textBox)

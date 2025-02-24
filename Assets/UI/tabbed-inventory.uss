@@ -159,6 +159,11 @@
     border-color: rgb(255, 137, 0);
 }
 
+.selectedSubMenuContainer { /*uss for submenu selection specifically*/
+    color: rgb(141, 99, 67);
+    background-color: rgb(255, 137, 0);
+}
+
 .notebookTab {
 }
 

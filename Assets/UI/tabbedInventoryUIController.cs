@@ -133,6 +133,7 @@ public class tabbedInventoryUIController : MonoBehaviour
                 FishInventorySlot fishInventorySlot = fishInventorySlotsById[id];
                 if (fishInventorySlot != null)
                 {
+                    Debug.Log("clearing fish icon");
                     fishInventorySlot.dropItem();
                 }
             }
@@ -171,13 +172,16 @@ public class tabbedInventoryUIController : MonoBehaviour
     // method to select action to apply to inventory object
     public void OnNavigateSubMenu()
     {
-        Vector2 xyValue = inputAction.ReadValue<Vector2>();
-        inventoryActionsBox.changeSelectedField((int)xyValue.x);
+        if (!isCurrentSelectedSlotEmpty())
+        {
+            Vector2 xyValue = inputAction.ReadValue<Vector2>();
+            inventoryActionsBox.changeSelectedField((int)xyValue.y);
+        }
     }
 
     public void OnSelectSubMenu()
     {
-
+        inventoryActionsBox.applySelectedSlot();
     }
     
 
@@ -202,7 +206,7 @@ public class tabbedInventoryUIController : MonoBehaviour
 
     // we have both Inventory slots and Fish Inventory slots.
     // the player should be able to move between both of them freely
-    private InventorySlot retrieveSlotFromAllInventories(int slotIndex)
+    private static InventorySlot retrieveSlotFromAllInventories(int slotIndex)
     {
         if(slotIndex < 5)
         {
@@ -223,5 +227,11 @@ public class tabbedInventoryUIController : MonoBehaviour
     public static int returnCurrentSelectedSlot()
     {
         return selectedSlotId; 
+    }
+
+    public static bool isCurrentSelectedSlotEmpty()
+    {
+        InventorySlot selectedSlot = retrieveSlotFromAllInventories(selectedSlotId);
+        return selectedSlot.isEmpty();
     }
 }

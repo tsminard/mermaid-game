@@ -31,7 +31,10 @@ public class SendInputMessages : MonoBehaviour
     // boat controls
     public void OnDropAnchor()
     {
-        boatControls.OnDropAnchor();
+        if (!tabController.isVisible)
+        {
+            boatControls.OnDropAnchor();
+        }
     }
 
     public void OnOpenInventory()
@@ -60,13 +63,16 @@ public class SendInputMessages : MonoBehaviour
         }
     }
 
-    public void onSubmit()
+    public void OnSubmit()
     {
         if (tabController.isVisible && !fishingMinigame.activeSelf) // the fishing minigame controls should take precendence over the inventory controls
         {
             if (!isUsingSubMenu)
             {
-                isUsingSubMenu = true;
+                if (!tabbedInventoryUIController.isCurrentSelectedSlotEmpty())
+                {
+                    isUsingSubMenu = true; // we don't want to handle submenu logic for empty slots
+                }
             }
             else
             {

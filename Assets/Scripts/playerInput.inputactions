@@ -312,9 +312,9 @@
                     "name": "",
                     "id": "4d7739a6-bc44-4e6f-a2e5-27f252c58e95",
                     "path": "<Keyboard>/space",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";DefaultKeyboard",
                     "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false

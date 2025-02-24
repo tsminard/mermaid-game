@@ -16,7 +16,7 @@ public class InventoryActionsBox
     // variables to handle menu interactions
     Label[] fields = new Label[3]; // array to increment through the selected field
     int currIndex = 0;
-    string selectedSlotUssName = "selectedSlotContainer"; 
+    string selectedSlotUssName = "selectedSubMenuContainer"; 
 
     public InventoryActionsBox(VisualElement visualElement)
     {
@@ -62,27 +62,30 @@ public class InventoryActionsBox
         {
             incrementSelectedFieldUp(); 
         }
-        else
-        {
-            Debug.Log("Invalid 0 input to InventoryActionsBox - please check method call");
-        }
         updateSelectedSlot(); 
     }
 
     private void incrementSelectedFieldUp()
     {
-        currIndex = (currIndex += 1) % 3;
+        if(currIndex == 0)
+        {
+            currIndex = 2;
+        }
+        else
+        {
+            currIndex = (currIndex -= 1) % 3;
+        }
     }
 
     private void incrementSelectedFieldDown()
     {
-        if(currIndex > 0)
+        if(currIndex == 2)
         {
-            currIndex -= 1;
+            currIndex = 0; 
         }
         else
         {
-            currIndex = 2; 
+            currIndex = currIndex + 1;
         }
     }
 
@@ -102,7 +105,7 @@ public class InventoryActionsBox
                 inventoryController.removeItemFromInventory(currInventoryIndex); // remove inventory from backend representation
                 ItemInventoryType whichInventory = currInventoryIndex < 5 ? ItemInventoryType.Bait : ItemInventoryType.Fish;
                 int correctedCurrInventoryIndex = whichInventory == ItemInventoryType.Bait ? currInventoryIndex : currInventoryIndex - 5;
-                
+                tabbedInventoryUIController.onInventoryChanged(correctedCurrInventoryIndex, null, InventoryChangeType.Drop, whichInventory); // update UI to indicate item has been dropped
                 break;
             case 1: // swap action
                 break; 

@@ -55,6 +55,10 @@ public class inventoryController : MonoBehaviour
     {
         // retrieve first available inventory slot
         List<int> usedKeys = new List<int>(currentInventory.Keys);
+        foreach(int key in usedKeys)
+        {
+            Debug.Log("used key : " + key);
+        }
         int newIndex = 0;
         bool newIndexFound = false; 
         while (!newIndexFound && newIndex < 20)// we have 20 inventory slots available
@@ -80,9 +84,10 @@ public class inventoryController : MonoBehaviour
         }
     }
 
-    //method to remove backend object, not just blank the icon in the inventory
+    //method to remove backend object, not blank the icon in the inventory
     public static void removeItemFromInventory(int index)
     {
+        Debug.Log("Removing item " + index + " from inventory backend");
         currentInventory.Remove(index);
     }
 
