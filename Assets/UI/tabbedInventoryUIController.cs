@@ -23,8 +23,11 @@ public class tabbedInventoryUIController : MonoBehaviour
     // handles displaying selected slot
     private static int selectedSlotId = 0; // All slots are ordered together for selection (bait and fish) running 0-20
     private string selectedSlotUssName = "selectedSlotContainer";
+
+    // handle inventory descriptions and actions
     private InventoryTextBox inventoryTextBox;
     private InventoryActionsBox inventoryActionsBox;
+    private bool isBaitSection = true;
 
     // handle manuevering through the inventory via arrow keys
     [SerializeField]
@@ -166,6 +169,19 @@ public class tabbedInventoryUIController : MonoBehaviour
         {
             changeSelectedSlot(newSelectedSlotId); // associate uss to new selected slot and remove from last selected slot
         }
+
+        // check if we've transitioned between bait and fish sections
+        if (hasInventoryTypeChanged(newSelectedSlotId))
+        {
+            if (isBaitSection)
+            {
+                inventoryActionsBox.toggleInteractActionName(InteractionName.Equip);
+            }
+            else
+            {
+                inventoryActionsBox.toggleInteractActionName(InteractionName.Interact);
+            }
+        }
     }
 
     // method to select action to apply to inventory object
@@ -178,6 +194,7 @@ public class tabbedInventoryUIController : MonoBehaviour
         }
     }
 
+    // method to apply the action selected
     public void OnSelectSubMenu()
     {
         inventoryActionsBox.applySelectedSlot();
@@ -232,5 +249,22 @@ public class tabbedInventoryUIController : MonoBehaviour
     {
         InventorySlot selectedSlot = retrieveSlotFromAllInventories(selectedSlotId);
         return selectedSlot.isEmpty();
+    }
+
+    // helper method to check whether selected id has moved between our two inventory types
+    // this is important for changing the inventory action text
+    private bool hasInventoryTypeChanged(int newSelectedSlot)
+    {
+        if (newSelectedSlot > 4 && isBaitSection) // we have changed our location from fish inventory to bait inventory
+        {
+            isBaitSection = false;
+            return true;
+        }
+        else if (newSelectedSlot < 4 && !isBaitSection) // we have changed our location from bait inventory to fish inventory
+        {
+            isBaitSection = true;
+            return true;
+        }
+        return false;
     }
 }

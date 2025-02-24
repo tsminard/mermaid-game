@@ -6,6 +6,11 @@ using System.Collections.Generic;
 // Drop
 // Swap <- should just swap with neighbor because i want this to be a keyboard-only game by default ( i like playing games on the sofa :3 )
 // Interact 
+public enum InteractionName
+{
+    Equip,
+    Interact
+}
 
 public class InventoryActionsBox
 {
@@ -112,5 +117,20 @@ public class InventoryActionsBox
             case 2: // interact action
                 break;
         }
+    }
+    // helper methods
+    public void toggleInteractActionName(InteractionName interactionName) // this is necessary because the label text will change depending on fish ("interact") vs bait ("equip")
+    {
+        string labelText = "";
+        switch (interactionName)
+        {
+            case InteractionName.Equip:
+                labelText = "Equip ?";
+                break;
+            case InteractionName.Interact:
+                labelText = "Interact ?";
+                break;
+        }
+        interactField.text = labelText;
     }
 }

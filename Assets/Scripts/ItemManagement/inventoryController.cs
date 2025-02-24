@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // classes that handle player current inventory contents
-public class ItemDetails // wrapper class which only additionally contains canDrop - specifically for inventory purposes
+public class ItemDetails // wrapper class which  additionally contains canDrop + interaction options - specifically for inventory purposes
 {
     public string uiName; // name for display in UI
     public ItemData itemData;
     public bool canDrop; // TODO : not sure if we'll need this but i'll keep it in for now
+    private bool canInteract;
 
     public ItemDetails(string uiName, ItemData itemData, bool canDrop)
     {
@@ -16,6 +17,14 @@ public class ItemDetails // wrapper class which only additionally contains canDr
         this.canDrop = canDrop;
     }
     
+    // overloaded constructor for objects which can be interacted with
+    public ItemDetails(string uiName, ItemData itemData, bool canDrop, bool canInteract)
+    {
+        this.uiName = uiName;
+        this.itemData = itemData;
+        this.canDrop = canDrop;
+        this.canInteract = canInteract;
+    }
 
     public override string ToString()
     {
@@ -35,7 +44,7 @@ public enum ItemInventoryType // using an enum to differentiate between the kind
     Bait
 }
 
-public delegate void OnInventoryChangeDelegate(int id, ItemDetails itemDetails, InventoryChangeType inventoryChangeType, ItemInventoryType inventoryType); // delegate to handle when inventory state is changed
+//public delegate void OnInventoryChangeDelegate(int id, ItemDetails itemDetails, InventoryChangeType inventoryChangeType, ItemInventoryType inventoryType); // delegate to handle when inventory state is changed
 public class inventoryController : MonoBehaviour
 {
     // setting these as static because we should only ever have 1 inventoryController, which should be accessible everywhere
@@ -55,10 +64,6 @@ public class inventoryController : MonoBehaviour
     {
         // retrieve first available inventory slot
         List<int> usedKeys = new List<int>(currentInventory.Keys);
-        foreach(int key in usedKeys)
-        {
-            Debug.Log("used key : " + key);
-        }
         int newIndex = 0;
         bool newIndexFound = false; 
         while (!newIndexFound && newIndex < 20)// we have 20 inventory slots available
@@ -87,7 +92,6 @@ public class inventoryController : MonoBehaviour
     //method to remove backend object, not blank the icon in the inventory
     public static void removeItemFromInventory(int index)
     {
-        Debug.Log("Removing index " + index);
         currentInventory.Remove(index);
     }
 
