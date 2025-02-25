@@ -7,7 +7,7 @@ public class ItemDetails // wrapper class which  additionally contains canDrop +
 {
     public string uiName; // name for display in UI
     public ItemData itemData;
-    public bool canDrop; // TODO : not sure if we'll need this but i'll keep it in for now
+    private bool canDrop; // TODO : not sure if we'll need this but i'll keep it in for now
     private bool canInteract;
 
     public ItemDetails(string uiName, ItemData itemData, bool canDrop)
@@ -15,6 +15,7 @@ public class ItemDetails // wrapper class which  additionally contains canDrop +
         this.uiName = uiName;
         this.itemData = itemData;
         this.canDrop = canDrop;
+        canInteract = false;
     }
     
     // overloaded constructor for objects which can be interacted with
@@ -29,6 +30,27 @@ public class ItemDetails // wrapper class which  additionally contains canDrop +
     public override string ToString()
     {
         return itemData.itemName;
+    }
+
+    // getters & setters
+    public void setCanDrop(bool canDrop)
+    {
+        this.canDrop = canDrop;
+    }
+
+    public bool isDroppable()
+    {
+        return canDrop;
+    }
+
+    public void setCanInteract(bool canInteract)
+    {
+        this.canInteract = canInteract;
+    }
+
+    public bool getCanInteract()
+    {
+        return canInteract;
     }
 }
 
@@ -105,7 +127,9 @@ public class inventoryController : MonoBehaviour
     private void populateInventory()
     {
         Debug.Log("Populating inventory with dummy data");
-        inventoryController.addItemToInventory(ItemManager.getItemByName("arowana"), ItemInventoryType.Fish);
+        ItemDetails arowana = ItemManager.getItemByName("arowana");
+        arowana.setCanDrop(false);
+        inventoryController.addItemToInventory(arowana, ItemInventoryType.Fish);
         inventoryController.addItemToInventory(ItemManager.getItemByName("tilapia"), ItemInventoryType.Fish);
         inventoryController.addItemToInventory(ItemManager.getItemByName("lobster-trap"), ItemInventoryType.Fish);
     }

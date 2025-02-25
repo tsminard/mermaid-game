@@ -25,8 +25,8 @@ public class tabbedInventoryUIController : MonoBehaviour
     private string selectedSlotUssName = "selectedSlotContainer";
 
     // handle inventory descriptions and actions
-    private InventoryTextBox inventoryTextBox;
-    private InventoryActionsBox inventoryActionsBox;
+    private static InventoryTextBox inventoryTextBox;
+    private static InventoryActionsBox inventoryActionsBox;
     private bool isBaitSection = true;
 
     // handle manuevering through the inventory via arrow keys
@@ -194,6 +194,12 @@ public class tabbedInventoryUIController : MonoBehaviour
         }
     }
 
+    // method to indicate submenu is no longer being navigated
+    public static void OnCeaseNavigateSubMenu()
+    {
+        inventoryActionsBox.unselectCurrOption();
+    }
+
     // method to apply the action selected
     public void OnSelectSubMenu()
     {
@@ -240,17 +246,6 @@ public class tabbedInventoryUIController : MonoBehaviour
     }
 
     // HELPER METHODS
-    public static int returnCurrentSelectedSlot()
-    {
-        return selectedSlotId; 
-    }
-
-    public static bool isCurrentSelectedSlotEmpty()
-    {
-        InventorySlot selectedSlot = retrieveSlotFromAllInventories(selectedSlotId);
-        return selectedSlot.isEmpty();
-    }
-
     // helper method to check whether selected id has moved between our two inventory types
     // this is important for changing the inventory action text
     private bool hasInventoryTypeChanged(int newSelectedSlot)
@@ -266,5 +261,28 @@ public class tabbedInventoryUIController : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    // GETTERS + SETTERS
+    public static int returnCurrentSelectedSlot()
+    {
+        return selectedSlotId;
+    }
+
+    public static bool isCurrentSelectedSlotEmpty()
+    {
+        InventorySlot selectedSlot = retrieveSlotFromAllInventories(selectedSlotId);
+        return selectedSlot.isEmpty();
+    }
+
+    public static bool isCurrentSelectedSlotDroppable()
+    {
+        InventorySlot selectedSlot = retrieveSlotFromAllInventories(selectedSlotId);
+        return selectedSlot.isDroppable();
+    }
+
+    public static void setUIInventoryTextBoxDescription(string newText) 
+    {
+        inventoryTextBox.changeTextDescription(newText);
     }
 }

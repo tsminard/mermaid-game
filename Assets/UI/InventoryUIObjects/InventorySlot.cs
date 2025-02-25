@@ -46,4 +46,14 @@ public class InventorySlot : VisualElement
         if (currentItem == null) return true;
         else return false; 
     }
+
+    public bool isInteractable()
+    {
+        return currentItem.getCanInteract();
+    }
+
+    public bool isDroppable()
+    {
+        return currentItem.isDroppable();
+    }
 }

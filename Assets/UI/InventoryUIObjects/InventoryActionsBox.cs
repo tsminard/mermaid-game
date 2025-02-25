@@ -18,10 +18,11 @@ public class InventoryActionsBox
     Label dropField;
     Label swapField;
     Label interactField;
+
     // variables to handle menu interactions
     Label[] fields = new Label[3]; // array to increment through the selected field
     int currIndex = 0;
-    string selectedSlotUssName = "selectedSubMenuContainer"; 
+    string selectedSlotUssName = "selectedSubMenuContainer";
 
     public InventoryActionsBox(VisualElement visualElement)
     {
@@ -56,8 +57,7 @@ public class InventoryActionsBox
     // menu options should loop over
     public void changeSelectedField(int direction)
     {
-        Label currField = fields[currIndex];
-        currField.RemoveFromClassList(selectedSlotUssName);
+        unselectCurrOption(); 
         // now change index
         if(direction < 0)
         {
@@ -107,19 +107,36 @@ public class InventoryActionsBox
             case 0: // drop action
                 // to drop, we need to know which inventory item we're getting rid of 
                 int currInventoryIndex = tabbedInventoryUIController.returnCurrentSelectedSlot();
-                ItemInventoryType whichInventory = currInventoryIndex < 5 ? ItemInventoryType.Bait : ItemInventoryType.Fish;
-                int correctedCurrInventoryIndex = whichInventory == ItemInventoryType.Bait ? currInventoryIndex : currInventoryIndex - 5;
-                inventoryController.removeItemFromInventory(correctedCurrInventoryIndex); // remove inventory from backend representation
-                tabbedInventoryUIController.onInventoryChanged(correctedCurrInventoryIndex, null, InventoryChangeType.Drop, whichInventory); // update UI to indicate item has been dropped
+                // we need to check if the item is droppable
+                if (tabbedInventoryUIController.isCurrentSelectedSlotDroppable())
+                {
+                    ItemInventoryType whichInventory = currInventoryIndex < 5 ? ItemInventoryType.Bait : ItemInventoryType.Fish;
+                    int correctedCurrInventoryIndex = whichInventory == ItemInventoryType.Bait ? currInventoryIndex : currInventoryIndex - 5;
+                    inventoryController.removeItemFromInventory(correctedCurrInventoryIndex); // remove inventory from backend representation
+                    tabbedInventoryUIController.onInventoryChanged(correctedCurrInventoryIndex, null, InventoryChangeType.Drop, whichInventory); // update UI to indicate item has been dropped
+                }
+                else // if the item is not droppable, we have to change the item description text to reflect this
+                {
+                    tabbedInventoryUIController.setUIInventoryTextBoxDescription("Cannot drop this object !"); 
+                }
                 break;
             case 1: // swap action
                 break; 
             case 2: // interact action
                 break;
         }
+        unselectCurrOption();
     }
+
+    public void unselectCurrOption() // method to indicate that submenu is no longer being used at all 
+    {
+        Label currField = fields[currIndex];
+        currField.RemoveFromClassList(selectedSlotUssName);
+    }
+
     // helper methods
-    public void toggleInteractActionName(InteractionName interactionName) // this is necessary because the label text will change depending on fish ("interact") vs bait ("equip")
+    // method to change label text depending on fish inventory ("interact") vs bait inventory ("equip")
+    public void toggleInteractActionName(InteractionName interactionName)
     {
         string labelText = "";
         switch (interactionName)
@@ -133,4 +150,5 @@ public class InventoryActionsBox
         }
         interactField.text = labelText;
     }
+
 }

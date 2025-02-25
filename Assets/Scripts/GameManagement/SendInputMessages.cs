@@ -79,7 +79,12 @@ public class SendInputMessages : MonoBehaviour
                 inventoryControls.OnSelectSubMenu(); 
                 isUsingSubMenu = false;
             }
-        }
-        
+        }  
+    }
+
+    public void OnCancel()// this so far only applies to exiting out of submenus without performing an action
+    {
+        tabbedInventoryUIController.OnCeaseNavigateSubMenu();
+        isUsingSubMenu = false;
     }
 }
