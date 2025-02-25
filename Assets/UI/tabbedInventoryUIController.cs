@@ -263,6 +263,13 @@ public class tabbedInventoryUIController : MonoBehaviour
         return false;
     }
 
+    // helper method to trigger Interact() method in ItemDetails. Only inventory management classes should have ItemDetail visibility, and current selected inventory object is pretty contained in this class
+    public static void triggerInteract()
+    {
+        string interactMessage = retrieveSlotFromAllInventories(selectedSlotId).interactWithItem();
+        setUIInventoryTextBoxDescription(interactMessage);
+    }
+
     // GETTERS + SETTERS
     public static int returnCurrentSelectedSlot()
     {

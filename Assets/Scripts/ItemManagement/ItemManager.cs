@@ -18,6 +18,7 @@ public class ItemManager : MonoBehaviour
 
     private void buildAllFish() // i think this all has to be hard-coded :')
     {
+        // NOTE : the first-passed string must correspond EXACTLY to the name of the sprite in the Resources folder
         ItemData arowana = buildItemData("arowana", 25f, "What the heck is this ? At least it's...big ??");
         ItemData koi = buildItemData("koi", 15f,  "I know this one from anime!");
         ItemData tilapia = buildItemData("tilapia", 100f, "I think this one is..edible...");
@@ -35,6 +36,7 @@ public class ItemManager : MonoBehaviour
             ItemDetails itemDetails = buildItemDetails(itemTuple.uiName, itemTuple.itemData, true); // for now, all objects are droppable
             allItems.Add(itemTuple.itemData.itemName, itemDetails); 
         }
+
     }
 
     private void buildAllTrash()
@@ -59,6 +61,17 @@ public class ItemManager : MonoBehaviour
             allItems.Add(itemTuple.itemData.itemName, itemDetails);
         }
 
+        // handle exceptions, like droppable, interact, etc. 
+        ItemDetails messageInBottle; 
+        allItems.TryGetValue(bottleMessage.itemName, out messageInBottle);
+        messageInBottle.setCanDrop(false);
+        messageInBottle.setInteractionFunction(messageInBottleInteraction);
+    }
+
+    // METHODS FOR INDIVIDUAL ITEMS
+    public string messageInBottleInteraction() // TODO : add message in bottle info to UI
+    {
+        return "There's some kind of message in here !";
     }
 
     // HELPER METHODS

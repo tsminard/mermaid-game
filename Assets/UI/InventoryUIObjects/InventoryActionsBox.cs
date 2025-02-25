@@ -123,6 +123,7 @@ public class InventoryActionsBox
             case 1: // swap action
                 break; 
             case 2: // interact action
+                tabbedInventoryUIController.triggerInteract();
                 break;
         }
         unselectCurrOption();

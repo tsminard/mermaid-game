@@ -9,12 +9,15 @@ public class ItemDetails // wrapper class which  additionally contains canDrop +
     public ItemData itemData;
     private bool canDrop; // TODO : not sure if we'll need this but i'll keep it in for now
     private bool canInteract;
+    public delegate string interactionDelegate(); // interaction always returns a String which represents the new text in the UI description 
+    interactionDelegate interact; 
 
     public ItemDetails(string uiName, ItemData itemData, bool canDrop)
     {
         this.uiName = uiName;
         this.itemData = itemData;
         this.canDrop = canDrop;
+        interact = defaultInteract; 
         canInteract = false;
     }
     
@@ -24,12 +27,25 @@ public class ItemDetails // wrapper class which  additionally contains canDrop +
         this.uiName = uiName;
         this.itemData = itemData;
         this.canDrop = canDrop;
+        interact = defaultInteract; // if you want a different interaction, you should set this
         this.canInteract = canInteract;
+    }
+
+    public string interactWith()
+    {
+        return interact(); 
     }
 
     public override string ToString()
     {
         return itemData.itemName;
+    }
+
+
+    // default interact action 
+    private string defaultInteract()
+    {
+        return "It seems perfectly ordinary...";
     }
 
     // getters & setters
@@ -51,6 +67,11 @@ public class ItemDetails // wrapper class which  additionally contains canDrop +
     public bool getCanInteract()
     {
         return canInteract;
+    }
+
+    public void setInteractionFunction(interactionDelegate newInteraction)
+    {
+        interact = newInteraction;
     }
 }
 
@@ -127,10 +148,9 @@ public class inventoryController : MonoBehaviour
     private void populateInventory()
     {
         Debug.Log("Populating inventory with dummy data");
-        ItemDetails arowana = ItemManager.getItemByName("arowana");
-        arowana.setCanDrop(false);
-        inventoryController.addItemToInventory(arowana, ItemInventoryType.Fish);
+        inventoryController.addItemToInventory(ItemManager.getItemByName("arowana"), ItemInventoryType.Fish);
         inventoryController.addItemToInventory(ItemManager.getItemByName("tilapia"), ItemInventoryType.Fish);
         inventoryController.addItemToInventory(ItemManager.getItemByName("lobster-trap"), ItemInventoryType.Fish);
+        inventoryController.addItemToInventory(ItemManager.getItemByName("message-in-bottle"), ItemInventoryType.Fish);
     }
 }

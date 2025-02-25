@@ -39,8 +39,12 @@ public class InventorySlot : VisualElement
         textBox.changeTextDescription(itemDescription);
     }
 
-    // HELPER METHODS
+    public string interactWithItem()
+    {
+        return currentItem.interactWith(); 
+    }
 
+    // HELPER METHODS
     public bool isEmpty()
     {
         if (currentItem == null) return true;
@@ -56,4 +60,5 @@ public class InventorySlot : VisualElement
     {
         return currentItem.isDroppable();
     }
+
 }
