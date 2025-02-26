@@ -18,9 +18,11 @@ public class LureInventorySlot : VisualElement
         AddToClassList("lureSlotContainer");
     }
 
+    // method that updates lure visual element to display lure music 
     public void findLure()
     {
-        Debug.Log("Sprite path : Sprites/LureSprites/ " + lureFor);
-        lureImage.sprite = Resources.Load<Sprite>("Sprites/LureSprites/" + lureFor);
+        string lureString = lureFor + "-Lure";
+        Debug.Log("Sprite path : Sprites/LureSprites/ " + lureString);
+        lureImage.sprite = Resources.Load<Sprite>("Sprites/LureSprites/" + lureString);
     }
 }

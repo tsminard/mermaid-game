@@ -65,7 +65,6 @@ public class tabbedLureUIController : MonoBehaviour
         {
             //calculate slot height here to ensure visual elements are rendered before making this call
             lureSlotHeight = lureInventorySlots[0].resolvedStyle.height;
-            Debug.Log("Lure slot height : " + lureSlotHeight);
         }
         if (xyValue.y > 0)
         {
@@ -112,5 +111,13 @@ public class tabbedLureUIController : MonoBehaviour
             currTime += Time.deltaTime; 
         }
         scroll.verticalScroller.value = endPosition; 
+    }
+
+    // GETTERS + SETTERS
+    public static LureInventorySlot getInventorySlotBySiren(SirenTypes sirenType)
+    {
+        LureInventorySlot retrievedSlot;
+        lureSlotsBySiren.TryGetValue(sirenType, out retrievedSlot);
+        return retrievedSlot; 
     }
 }

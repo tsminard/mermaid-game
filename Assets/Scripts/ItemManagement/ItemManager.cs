@@ -1,14 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 // class that holds templates for ALL ITEMS. there should only ever be one of these !!
 // contains instance of ItemData AND ItemDetail ( specifically for inventory usage )
 public class ItemManager : MonoBehaviour 
 {
     private static Dictionary<string, ItemDetails> allItems = new Dictionary<string, ItemDetails>();
+    private static List<SirenTypes> availableLures = new List<SirenTypes>();
 
     private void Awake()
     {
+        // populate our sirentypes with all possible siren types
+        foreach(SirenTypes sirenType in Enum.GetValues(typeof(SirenTypes)))
+        {
+            availableLures.Add(sirenType);
+        }
         // build all our possible objects to be referenced later
         // NOTE : each of these corresponds to a SPRITE REPRESENTATION. if we want multiple sprites, we need to either change the ItemDetails.ItemData.Sprite field or make a new object
         Debug.Log("Building all fish");
@@ -71,6 +78,19 @@ public class ItemManager : MonoBehaviour
     // METHODS FOR INDIVIDUAL ITEMS
     public string messageInBottleInteraction() // TODO : add message in bottle info to UI
     {
+        // need to change LURE object which means retrieving LureInventorySlot element
+        SirenTypes? lureType = generateRandomSirenType(); 
+        if(lureType == null)
+        {
+            // TODO : handle case when bottle is caught when all lures are found
+            return "\"We've been trying to reach you about your car's extended warranty...\"";
+        }
+        else // set the corresponding Lure to an image
+        {
+            LureInventorySlot lureSlot = tabbedLureUIController.getInventorySlotBySiren((SirenTypes)lureType);
+            lureSlot.findLure(); 
+        }
+
         return "There's some kind of message in here !";
     }
 
@@ -103,6 +123,23 @@ public class ItemManager : MonoBehaviour
         else
         {
             Debug.Log("No record of item " + name);
+            return null; 
+        }
+    }
+
+    // this should only be called from within ItemManager because it depends entirely on an internal list of used sirenTypes
+    private static SirenTypes? generateRandomSirenType()
+    {
+        if(availableLures.Count > 0)
+        {
+            int index = UnityEngine.Random.Range(0, availableLures.Count - 1);
+            SirenTypes selectedSirenType = availableLures[index];
+            availableLures.RemoveAt(index);
+            //return selectedSirenType; 
+            return SirenTypes.Moray; // TODO : This is just for testing since I don't have all the sprites yet !
+        }
+        else
+        {
             return null; 
         }
     }
