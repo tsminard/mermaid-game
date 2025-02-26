@@ -1,8 +1,8 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/tabbed-inventory.uss?fileID=7433441132597879392&amp;guid=715b2d8af6f9d554293aef148b34a61b&amp;type=3#tabbed-inventory" />
     <engine:VisualElement name="Container" class="container" style="align-items: flex-start; justify-content: flex-start; align-content: auto; flex-wrap: nowrap; flex-direction: row;">
-        <engine:TabView name="TabbedView" view-data-key="TabbedMenu" reorderable="true" class="tabbedInventory" style="width: 40%; justify-content: flex-start; flex-direction: column; border-left-color: rgb(225, 165, 19); border-right-color: rgb(225, 165, 19); border-top-color: rgb(225, 165, 19); border-bottom-color: rgb(225, 165, 19); border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px;">
-            <engine:Tab label="Inventory" name="InventoryTab" class="inventoryTab" style="-unity-background-image-tint-color: rgba(0, 0, 0, 0); background-color: rgba(228, 18, 18, 0);">
+        <engine:TabView name="TabbedView" view-data-key="TabbedMenu" reorderable="true" tabindex="0" class="tabbedInventory" style="width: 40%; justify-content: flex-start; flex-direction: column; border-left-color: rgb(225, 165, 19); border-right-color: rgb(225, 165, 19); border-top-color: rgb(225, 165, 19); border-bottom-color: rgb(225, 165, 19); border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px;">
+            <engine:Tab label="Inventory" name="InventoryTab" enabled="true" class="inventoryTab" style="-unity-background-image-tint-color: rgba(0, 0, 0, 0); background-color: rgba(228, 18, 18, 0);">
                 <engine:VisualElement name="SlotsContainer" class="slotsContainer" />
                 <engine:VisualElement name="FishSlotsContainer" class="fishSlotsContainer" style="background-image: resource(&apos;Sprites/side-water&apos;); background-size: 100% 90%; background-position-y: bottom 0; -unity-background-scale-mode: scale-and-crop; -unity-slice-left: 0; -unity-slice-top: 0; -unity-slice-right: 0; -unity-slice-bottom: 0; flex-direction: column; justify-content: flex-end; align-items: center; align-self: auto;">
                     <engine:VisualElement name="FishInventoryContainer" class="fishInventoryContainer" style="flex-direction: row; height: 70%; max-height: 70%; min-height: 70%; align-self: flex-end; width: 100%;" />
@@ -19,11 +19,11 @@
                     </engine:VisualElement>
                 </engine:VisualElement>
             </engine:Tab>
-            <engine:Tab label="Notebook" name="NotebookTab" tabindex="0" focusable="false" closeable="false" class="notebookTab" style="background-color: rgba(61, 85, 234, 0); flex-wrap: wrap;">
+            <engine:Tab label="Notebook" name="NotebookTab" tabindex="0" focusable="false" closeable="false" enabled="true" class="notebookTab" style="background-color: rgba(61, 85, 234, 0); flex-wrap: wrap; width: 100%; height: 100%;">
                 <engine:Label text="No Notes Yet!&#10;" style="align-self: auto; -unity-text-align: upper-center;" />
             </engine:Tab>
-            <engine:Tab label="Lures&#10;" name="LureTab" tabindex="0" closeable="false" class="lureTab" style="flex-wrap: wrap;">
-                <engine:Label text="No Lures Yet!" name="Label" />
+            <engine:Tab label="Lures&#10;" name="LureTab" tabindex="0" closeable="false" enabled="true" class="lureTab" style="flex-wrap: wrap; width: 100%; height: 100%;">
+                <engine:ScrollView name="LureScrollView" class="lureScrollView" />
             </engine:Tab>
         </engine:TabView>
     </engine:VisualElement>

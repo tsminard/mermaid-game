@@ -1,6 +1,6 @@
 using UnityEngine.UIElements;
 
-// script responsible for the individual UI inventory slots
+// class responsible for each individual UI inventory slots
 // these DO NOT care about the actual item contained, only whether one is present or not
 public class InventorySlot : VisualElement
 {

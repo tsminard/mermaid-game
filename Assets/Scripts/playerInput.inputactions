@@ -305,6 +305,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "SelectInventoryTab",
+                    "type": "Button",
+                    "id": "2d51925e-ab79-4cda-b8f4-e45aca699d36",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectNotebookTab",
+                    "type": "Button",
+                    "id": "12338093-6ecb-4044-9e1a-33740047394f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectLureTab",
+                    "type": "Button",
+                    "id": "3a24a1af-9975-47de-898a-1815f170214d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -450,6 +477,39 @@
                     "action": "NavigateMenu",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "dccd97b4-ff0a-4858-801c-9b965394ec06",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectInventoryTab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "48f3ce90-a188-49cb-a4f9-1810b39fd341",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectNotebookTab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bc56011a-0e7a-4172-9e50-66de3e61f714",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectLureTab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

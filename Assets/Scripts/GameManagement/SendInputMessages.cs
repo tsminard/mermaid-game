@@ -87,4 +87,20 @@ public class SendInputMessages : MonoBehaviour
         tabbedInventoryUIController.OnCeaseNavigateSubMenu();
         isUsingSubMenu = false;
     }
+
+    // methods to change inventory tabs
+    public void OnSelectInventoryTab()
+    {
+        tabController.setActiveTab(0);
+    }
+
+    public void OnSelectNotebookTab()
+    {
+        tabController.setActiveTab(1);
+    }
+
+    public void OnSelectLureTab()
+    {
+        tabController.setActiveTab(2);
+    }
 }
