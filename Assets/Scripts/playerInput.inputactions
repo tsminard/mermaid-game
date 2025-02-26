@@ -402,15 +402,37 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "1f0294fd-730a-4abd-a7d2-208954953f67",
-                    "path": "<Mouse>/scroll",
+                    "name": "2D Vector",
+                    "id": "41cb07c5-9359-44e0-9848-45f7ad92d994",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ScrollWheel",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Up",
+                    "id": "9d00a11d-eee2-4b6a-a4f1-9f625985986b",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "ScrollWheel",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Down",
+                    "id": "3d48e0b4-656e-40b1-a5ce-108991edb685",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ScrollWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",

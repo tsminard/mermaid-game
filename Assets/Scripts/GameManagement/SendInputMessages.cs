@@ -17,15 +17,19 @@ public class SendInputMessages : MonoBehaviour
     controlBoat boatControls;
     TabbedUIController tabController;
     tabbedInventoryUIController inventoryControls;
+    tabbedLureUIController lureInventoryControls;
 
     // list internal variables
-    bool isUsingSubMenu = false; 
+    // inventory UIS
+    bool isUsingSubMenu = false;
+    int activeTab = 0; // indicate which inventory tab is active
 
     private void Awake() // TODO : change this based on scene loaded
     {
         boatControls = boat.GetComponent<controlBoat>();
         tabController = itemUI.GetComponent<TabbedUIController>(); 
         inventoryControls = itemUI.GetComponent<tabbedInventoryUIController>();
+        lureInventoryControls = itemUI.GetComponent<tabbedLureUIController>();
     }
 
     // boat controls
@@ -52,13 +56,24 @@ public class SendInputMessages : MonoBehaviour
     {
         if(tabController.isVisible && !fishingMinigame.activeSelf) // the fishing minigame controls should take precendence over the inventory controls
         {
-            if (!isUsingSubMenu)
+            if(activeTab == 0) // logic for inventory tab
             {
-                inventoryControls.OnNavigateMenu();
+                if (!isUsingSubMenu)
+                {
+                    inventoryControls.OnNavigateMenu();
+                }
+                else
+                {
+                    inventoryControls.OnNavigateSubMenu(); // we enter into subgenre of control navigation using same arrow controls
+                }
             }
-            else
+            else if(activeTab == 1)
             {
-                inventoryControls.OnNavigateSubMenu(); // we enter into subgenre of control navigation using same arrow controls
+                // TODO : FILL IN NOTEBOOK LOGIC
+            }
+            else if (activeTab == 2) // logic for lure tab
+            {
+                lureInventoryControls.OnNagivateLureMenu(); 
             }
         }
     }
@@ -67,40 +82,50 @@ public class SendInputMessages : MonoBehaviour
     {
         if (tabController.isVisible && !fishingMinigame.activeSelf) // the fishing minigame controls should take precendence over the inventory controls
         {
-            if (!isUsingSubMenu)
+            if(activeTab == 0) // logic for inventory tab
             {
-                if (!tabbedInventoryUIController.isCurrentSelectedSlotEmpty())
+                if (!isUsingSubMenu)
                 {
-                    isUsingSubMenu = true; // we don't want to handle submenu logic for empty slots
+                    if (!tabbedInventoryUIController.isCurrentSelectedSlotEmpty())
+                    {
+                        isUsingSubMenu = true; // we don't want to handle submenu logic for empty slots
+                    }
+                }
+                else
+                {
+                    inventoryControls.OnSelectSubMenu();
+                    isUsingSubMenu = false;
                 }
             }
-            else
-            {
-                inventoryControls.OnSelectSubMenu(); 
-                isUsingSubMenu = false;
-            }
+
         }  
     }
 
     public void OnCancel()// this so far only applies to exiting out of submenus without performing an action
     {
-        tabbedInventoryUIController.OnCeaseNavigateSubMenu();
-        isUsingSubMenu = false;
+        if(activeTab == 0)
+        {
+            tabbedInventoryUIController.OnCeaseNavigateSubMenu();
+            isUsingSubMenu = false;
+        }
     }
 
     // methods to change inventory tabs
     public void OnSelectInventoryTab()
     {
         tabController.setActiveTab(0);
+        activeTab = 0;
     }
 
     public void OnSelectNotebookTab()
     {
         tabController.setActiveTab(1);
+        activeTab = 1;
     }
 
     public void OnSelectLureTab()
     {
         tabController.setActiveTab(2);
+        activeTab = 2;
     }
 }
