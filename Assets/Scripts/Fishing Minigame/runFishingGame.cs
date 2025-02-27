@@ -4,7 +4,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 // helper class to concisely hold data for spawning fish
- class RhythmFishData
+ public class RhythmFishData
 {   
     // 0 fish : left fish
     // 1 fish : right fish
@@ -88,8 +88,9 @@ public class runFishingGame : MonoBehaviour
         rightFishLocation = rightSpawnLocation.transform.position;
 
         fishSpeed = Random.Range(minimumFishSpeed, maximumFishSpeed);
-       
-        generateFishingPattern();
+
+        // fishing game only uses left and right fish, so we pass in 2 (left, right, both)
+        gamePattern = generateFishingPattern(2, minimumFish, maximumFish, minimumTime, maximumTime);
         Debug.Log("Generated fishing pattern of " + gamePattern.Length + " fish");
         nextFishDue = gamePattern[0].getTimeToWait(); // we should ALWAYS have at least one fish in this pattern
         Debug.Log("Next fish due in " + nextFishDue);
@@ -108,18 +109,14 @@ public class runFishingGame : MonoBehaviour
                 spawnRhythmFish(currRhythmFish);
                 currTime = 0; // reset timer
                 currFishSpawning++; // increment number to indicate that we have spawned this fish
-            }
-            // if we still have fish to spawn in the future, update the amount of time to wait
-            if (currFishSpawning < gamePattern.Length)
-            {
-                nextFishDue = gamePattern[currFishSpawning].getTimeToWait(); 
+                nextFishDue = gamePattern[currFishSpawning].getTimeToWait(); // if we still have fish to spawn in the future, update the amount of time to wait
             }
             currTime += Time.deltaTime; // increment timer towards next fish
         }
         else // we are done spawning fish and can start checking for remaining fish
         {
-            GameObject[] remainingFish = GameObject.FindGameObjectsWithTag("MinigameFish"); // DUDE THERE ARE UNDERWATER FISH TOO YOU NEED MORE TAGS
-            if (remainingFish.Length == 0) // this is pretty inefficient, but i think message broadcasts only work on children
+            int numRemainingFish = getNumRemainingMinigameFish();
+            if (numRemainingFish == 0) // this is pretty inefficient, but i think message broadcasts only work on children
             {
                 // trigger game end
                 // get fish status and display status
@@ -194,25 +191,29 @@ public class runFishingGame : MonoBehaviour
 
     // FISH SPAWNING RELATED METHODS
 
-    private void generateFishingPattern()
+    // converting this to static so Siren Game can use this method as well to generate fishing patterns
+    public static RhythmFishData[] generateFishingPattern(int maxRhythmFish, int minNumFish, int maxNumFish, float minWaitTime, float maxWaitTime)
     {
         // first, generate the number of fish to spawn this minigame
-        int numFish = Random.Range(minimumFish, maximumFish);
-        gamePattern = new RhythmFishData[numFish]; 
+        int numFish = Random.Range(minNumFish, maxNumFish);
+        RhythmFishData[] generatedPattern = new RhythmFishData[numFish];
         // next, generate this many fish data points
         for(int i = 0; i < numFish; i++)
         {
-            RhythmFishData newFishData = generateRhythmFishData();
-            gamePattern[i] = newFishData; 
+            RhythmFishData newFishData = generateRhythmFishData(maxRhythmFish, minWaitTime, maxWaitTime);
+            generatedPattern[i] = newFishData;
         }
+        return generatedPattern;
     }
 
     // does what it says on the tin
-    private RhythmFishData generateRhythmFishData()
+    // maxFish variable indicates the maximum value of RhythmFishData class 
+    // it is a variable so we can use RhythmFishData for spawning any number of fish
+    public static RhythmFishData generateRhythmFishData(int maxFish, float minWaitTime, float maxWaitTime)
     {
         // generate number of fish 
-        int numFish = Random.Range(0, 2);
-        float timeToWait = Random.Range(minimumTime, maximumTime);
+        int numFish = Random.Range(0, maxFish);
+        float timeToWait = Random.Range(minWaitTime, maxWaitTime);
         return new RhythmFishData(numFish, timeToWait); 
     }
 
@@ -227,23 +228,32 @@ public class runFishingGame : MonoBehaviour
         switch (fishData.getNumFish())
         {
             case 0: // spawn 1 left fish
-                
-                newFishPrefab.transform.position = leftFishLocation; 
-                newFishPrefabScript.setFishSide(FISHSIDE.LEFT);
+                spawnRhythmFishInWorld(newFishPrefab, newFishPrefabScript, FISHSIDE.LEFT, leftFishLocation);
                 break;
             case 1: // spawn 1 right fish
-                newFishPrefab.transform.position = rightFishLocation;
-                newFishPrefabScript.setFishSide(FISHSIDE.RIGHT); 
+                spawnRhythmFishInWorld(newFishPrefab, newFishPrefabScript, FISHSIDE.RIGHT, rightFishLocation);
                 break;
             case 2: // spawn both left and right fish
                 GameObject newFishPrefab2 = Instantiate(fishPrefab, this.transform);
                 moveRhythmFish newFishPrefabScript2 = newFishPrefab2.GetComponent<moveRhythmFish>();
-                newFishPrefab.transform.position = leftFishLocation;
-                newFishPrefabScript.setFishSide(FISHSIDE.LEFT);
-                newFishPrefab2.transform.position =rightFishLocation;
-                newFishPrefabScript2.setFishSide(FISHSIDE.RIGHT);
                 newFishPrefabScript2.setFishSpeed(fishSpeed);
+                spawnRhythmFishInWorld(newFishPrefab, newFishPrefabScript, FISHSIDE.LEFT, leftFishLocation);
+                spawnRhythmFishInWorld(newFishPrefab2, newFishPrefabScript2, FISHSIDE.RIGHT, rightFishLocation);
                 break; 
         }
+    }
+
+    // FISH SPAWNING HELPER METHODS
+    public static void spawnRhythmFishInWorld(GameObject fishPrefab, moveRhythmFish fishScript, FISHSIDE fishSide, Vector3 loc)
+    {
+        fishPrefab.transform.position = loc;
+        fishScript.setFishSide(fishSide); 
+    }
+
+    // making this a static method just in case i change how i retrieve minigame fish in the future
+    public static int getNumRemainingMinigameFish()
+    {
+        GameObject[] remainingFish = GameObject.FindGameObjectsWithTag("MinigameFish"); // DUDE THERE ARE UNDERWATER FISH TOO YOU NEED MORE TAGS
+        return remainingFish.Length;
     }
 }

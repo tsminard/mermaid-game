@@ -3,7 +3,9 @@ using UnityEngine;
 public enum FISHSIDE
 {
     LEFT, 
-    RIGHT
+    RIGHT, 
+    UP, 
+    DOWN
 }
 
 // each rhythm fish prefab will have this script attached
@@ -24,7 +26,6 @@ public class moveRhythmFish : MonoBehaviour
     {
         Vector3 newPosition = new Vector3 (transform.position.x, transform.position.y + (fishSpeed * Time.deltaTime), transform.position.z);
         transform.position = newPosition; 
-        // TODO : destroy fish when they are out of screen
         if(transform.position.y >= upperBound)
         {
             Object.Destroy(gameObject); 

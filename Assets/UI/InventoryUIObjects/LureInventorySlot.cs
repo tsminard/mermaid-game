@@ -22,7 +22,6 @@ public class LureInventorySlot : VisualElement
     public void findLure()
     {
         string lureString = lureFor + "-Lure";
-        Debug.Log("Sprite path : Sprites/LureSprites/ " + lureString);
         lureImage.sprite = Resources.Load<Sprite>("Sprites/LureSprites/" + lureString);
     }
 }
