@@ -63,6 +63,12 @@ public class moveRhythmFish : MonoBehaviour
             case FISHSIDE.RIGHT:
                 changeFishColour(Color.blue);
                 break;
+            case FISHSIDE.UP:
+                changeFishColour(Color.yellow);
+                break;
+            case FISHSIDE.DOWN:
+                changeFishColour(Color.magenta);
+                break;
         }
     }
 

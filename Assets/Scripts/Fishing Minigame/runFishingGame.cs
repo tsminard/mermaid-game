@@ -59,6 +59,7 @@ public class runFishingGame : MonoBehaviour
     // variables for deciding success of fishing
     private playFishingGame[] fishingGameResults;
     private float successPercentage = 0.8f; // TODO : make this a changeable value based on lures, etc. 
+    private int numFishSpawned = 0; // count actual number of fish spawned
 
     // variables for displaying result
     public TMP_Text uiFishStatus;
@@ -140,7 +141,6 @@ public class runFishingGame : MonoBehaviour
     }
 
     // HELPER METHODS
-
     // retrieve score from our left and right colliders
     private bool isFishingSuccessful()
     {
@@ -149,7 +149,7 @@ public class runFishingGame : MonoBehaviour
         {
             successfulFish += fishingGame.getSuccessRate(); 
         }
-        if (successfulFish / gamePattern.Length >= successPercentage)
+        if (successfulFish / numFishSpawned >= successPercentage)
         {
             return true; 
         }
@@ -224,6 +224,7 @@ public class runFishingGame : MonoBehaviour
         GameObject newFishPrefab = Instantiate(fishPrefab, this.transform); // prefabs must be instantiated as children of the current game object
         moveRhythmFish newFishPrefabScript = newFishPrefab.GetComponent<moveRhythmFish>();
         newFishPrefabScript.setFishSpeed(fishSpeed);
+        numFishSpawned += 1;
 
         switch (fishData.getNumFish())
         {
@@ -239,6 +240,7 @@ public class runFishingGame : MonoBehaviour
                 newFishPrefabScript2.setFishSpeed(fishSpeed);
                 spawnRhythmFishInWorld(newFishPrefab, newFishPrefabScript, FISHSIDE.LEFT, leftFishLocation);
                 spawnRhythmFishInWorld(newFishPrefab2, newFishPrefabScript2, FISHSIDE.RIGHT, rightFishLocation);
+                numFishSpawned += 1;
                 break; 
         }
     }

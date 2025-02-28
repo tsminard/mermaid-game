@@ -723,6 +723,7 @@ GameObject:
   - component: {fileID: 368001182}
   - component: {fileID: 368001181}
   - component: {fileID: 368001180}
+  - component: {fileID: 368001185}
   m_Layer: 3
   m_Name: LeftBar
   m_TagString: LeftBar
@@ -783,7 +784,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 368001178}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 910c57432f81db9419f465b8f25e2365, type: 3}
   m_Name: 
@@ -928,6 +929,30 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &368001185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368001178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 392c897ac2dc77d418872af2c0a0c51f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  playerInput: {fileID: 0}
+  inputAction:
+    m_Name: Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: a589c5c5-fd99-4947-b236-23c0b0a7a74d
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  barCollider: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1193,6 +1218,7 @@ GameObject:
   - component: {fileID: 918067543}
   - component: {fileID: 918067542}
   - component: {fileID: 918067541}
+  - component: {fileID: 918067546}
   m_Layer: 3
   m_Name: RightBar
   m_TagString: RightBar
@@ -1253,7 +1279,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 918067539}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 910c57432f81db9419f465b8f25e2365, type: 3}
   m_Name: 
@@ -1398,6 +1424,30 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &918067546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918067539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 392c897ac2dc77d418872af2c0a0c51f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  playerInput: {fileID: 0}
+  inputAction:
+    m_Name: Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5e5ea91c-7196-473f-8d51-b9c1babe9fd4
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  barCollider: {fileID: 0}
 --- !u!1 &955445750
 GameObject:
   m_ObjectHideFlags: 0
@@ -2715,9 +2765,10 @@ GameObject:
   - component: {fileID: 1525859269}
   - component: {fileID: 1525859268}
   - component: {fileID: 1525859267}
+  - component: {fileID: 1525859272}
   m_Layer: 3
   m_Name: DownBar
-  m_TagString: LeftBar
+  m_TagString: DownBar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2775,7 +2826,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1525859265}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 910c57432f81db9419f465b8f25e2365, type: 3}
   m_Name: 
@@ -2920,6 +2971,30 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1525859272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525859265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 392c897ac2dc77d418872af2c0a0c51f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  playerInput: {fileID: 0}
+  inputAction:
+    m_Name: Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 0fff9104-5d6d-46a6-bcb7-9ffb78ff36a3
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  barCollider: {fileID: 0}
 --- !u!4 &1529177516 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5083981855749245428, guid: 555601e32c1f61e45ac1e8a755bd45df, type: 3}
@@ -2939,9 +3014,10 @@ GameObject:
   - component: {fileID: 1631051198}
   - component: {fileID: 1631051197}
   - component: {fileID: 1631051196}
+  - component: {fileID: 1631051201}
   m_Layer: 3
   m_Name: UpBar
-  m_TagString: LeftBar
+  m_TagString: UpBar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2999,7 +3075,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1631051194}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 910c57432f81db9419f465b8f25e2365, type: 3}
   m_Name: 
@@ -3144,6 +3220,30 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1631051201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631051194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 392c897ac2dc77d418872af2c0a0c51f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  playerInput: {fileID: 0}
+  inputAction:
+    m_Name: Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: aca3af31-2453-499f-ac74-c688b125e44e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  barCollider: {fileID: 0}
 --- !u!1 &1679232288
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,8 @@ TagManager:
   - RightBar
   - Boat
   - MinigameFish
+  - DownBar
+  - UpBar
   layers:
   - Default
   - TransparentFX

@@ -34,8 +34,20 @@ public class runSirenGame : MonoBehaviour
 
     // variables to handle endgame
     private SirenTypes siren; // this is the siren that will appear upon successful completion
+    playSirenGame[] sirenGameResults = new playSirenGame[4];// one per siren game collider
+    private float successPercentage = 0.9f;
+    private int numFishSpawned = 0;
 
-    public void Awake()
+    private void Awake()
+    {
+        // retrieve references to bar collider scripts so we can check how many fish have been "caught"
+        sirenGameResults[0] = GameObject.FindGameObjectWithTag("LeftBar").GetComponent<playSirenGame>();
+        sirenGameResults[1] = GameObject.FindGameObjectWithTag("RightBar").GetComponent<playSirenGame>();
+        sirenGameResults[2] = GameObject.FindGameObjectWithTag("UpBar").GetComponent<playSirenGame>();
+        sirenGameResults[3] = GameObject.FindGameObjectWithTag("DownBar").GetComponent<playSirenGame>(); 
+    }
+
+    void Update()
     {
         if(currFishSpawning < gamePattern.Length)
         {
@@ -53,7 +65,8 @@ public class runSirenGame : MonoBehaviour
             int numRemainingFish = runFishingGame.getNumRemainingMinigameFish();
             if(numRemainingFish == 0) // all fish have exited the screen so we can proceed
             {
-
+                bool caughtSiren = isLureSuccessful();
+                // TODO : Add siren handling logic !
             }
         }
     }
@@ -74,6 +87,7 @@ public class runSirenGame : MonoBehaviour
         GameObject newFishPrefab = Instantiate(fishPrefab, this.transform); // makes prefab a child of this object
         moveRhythmFish newFishPrefabScript = newFishPrefab.GetComponent<moveRhythmFish>();
         newFishPrefabScript.setFishSpeed(fishSpeed);
+        numFishSpawned += 1;
 
         GameObject newFishPrefab2 = null;
         moveRhythmFish newFishPrefabScript2 = null;
@@ -100,27 +114,46 @@ public class runSirenGame : MonoBehaviour
             case 4: // spawn 1 left, 1 right fish
                 runFishingGame.spawnRhythmFishInWorld(newFishPrefab, newFishPrefabScript, FISHSIDE.LEFT, leftSpawnLocation.transform.position);
                 runFishingGame.spawnRhythmFishInWorld(newFishPrefab2, newFishPrefabScript2, FISHSIDE.RIGHT, rightSpawnLocation.transform.position);
+                numFishSpawned += 1;
                 break;
             case 5: // spawn 1 left, 1 up fish
                 runFishingGame.spawnRhythmFishInWorld(newFishPrefab, newFishPrefabScript, FISHSIDE.LEFT, leftSpawnLocation.transform.position);
                 runFishingGame.spawnRhythmFishInWorld(newFishPrefab2, newFishPrefabScript2, FISHSIDE.UP, upSpawnLocation.transform.position);
+                numFishSpawned += 1;
                 break;
             case 6: //spawn 1 left, 1 down fish
                 runFishingGame.spawnRhythmFishInWorld(newFishPrefab, newFishPrefabScript, FISHSIDE.LEFT, leftSpawnLocation.transform.position);
                 runFishingGame.spawnRhythmFishInWorld(newFishPrefab2, newFishPrefabScript2, FISHSIDE.DOWN, downSpawnLocation.transform.position);
+                numFishSpawned += 1;
                 break;
             case 7: // spawn 1 right, 1 up fish
                 runFishingGame.spawnRhythmFishInWorld(newFishPrefab, newFishPrefabScript, FISHSIDE.RIGHT, rightSpawnLocation.transform.position);
                 runFishingGame.spawnRhythmFishInWorld(newFishPrefab2, newFishPrefabScript2, FISHSIDE.UP, upSpawnLocation.transform.position);
+                numFishSpawned += 1;
                 break;
             case 8: // spawn 1 right, 1 down fish
                 runFishingGame.spawnRhythmFishInWorld(newFishPrefab, newFishPrefabScript, FISHSIDE.RIGHT, rightSpawnLocation.transform.position);
                 runFishingGame.spawnRhythmFishInWorld(newFishPrefab2, newFishPrefabScript2, FISHSIDE.DOWN, downSpawnLocation.transform.position);
+                numFishSpawned += 1;
                 break;
         }
     }
 
     // HELPER METHODS
+    private bool isLureSuccessful()
+    {
+        int successfulFish = 0;
+        foreach( playSirenGame sirenGame in sirenGameResults)
+        {
+            successfulFish += sirenGame.getSuccessRate();
+        }
+        if(successfulFish / numFishSpawned >= successPercentage)
+        {
+            return true;
+        }
+        return false;
+    }
+
     // getters + setters
     public void setSirenType(SirenTypes siren)
     {

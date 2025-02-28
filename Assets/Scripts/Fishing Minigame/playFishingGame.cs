@@ -11,38 +11,25 @@ public class playFishingGame : MonoBehaviour
 
     public Collider2D barCollider;
 
-    private string leftBarTag = "LeftBar";
-    private string rightBarTag = "RightBar";
-    private float enabledTime = 0.2f;
+    protected string leftBarTag = "LeftBar";
+    protected string rightBarTag = "RightBar";
+    protected float enabledTime = 0.2f;
 
-    private bool isLeftSide;
-    private int successfulFish = 0;
-    private void Awake()
+    protected bool isLeftSide;
+    protected bool isUpOrDown = false; 
+    protected int successfulFish = 0;
+    public virtual void Awake()
     {
         playerInput = gameManager.GetComponent<PlayerInput>();
-
+        barCollider = gameObject.GetComponent<Collider2D>();
         // set bar colliders to false initially - we should only enable them when arrow keys are pressed
-        if (gameObject.tag == leftBarTag)
-        {
-            barCollider = GameObject.FindGameObjectWithTag(leftBarTag).GetComponent<Collider2D>();
-            isLeftSide = true; 
-        }
-        else if (gameObject.tag == rightBarTag)
-        {
-            barCollider = GameObject.FindGameObjectWithTag(rightBarTag).GetComponent<Collider2D>();
-            isLeftSide = false; 
-        }
-        else
-        {
-            Debug.Log("INCORRECT USE OF SCRIPT - CHECK playFishingGame.cs SCRIPT AND ENSURE IT IS HOOKED UP PROPERLY");
-        }
-
+        setLeftRightColliders(); 
         barCollider.enabled = false;
         inputAction = isLeftSide ? playerInput.actions.FindAction("CastLeft") : playerInput.actions.FindAction("CastRight");
     }
 
     // we should reinstantiate successful fish count every time this script is enabled 
-    private void OnEnable()
+    protected void OnEnable()
     {
         barCollider.enabled = false;
         successfulFish = 0; 
@@ -78,6 +65,24 @@ public class playFishingGame : MonoBehaviour
         barCollider.enabled = true;
         yield return new WaitForSeconds(enabledTime);
         barCollider.enabled = false; 
+    }
+
+
+    // HELPER METHODS
+    protected void setLeftRightColliders()
+    {
+        if (gameObject.tag == leftBarTag)
+        {
+            isLeftSide = true;
+        }
+        else if (gameObject.tag == rightBarTag)
+        {
+            isLeftSide = false;
+        }
+        else
+        {
+            isUpOrDown = true; // this is important for playSirenGame, which allows for up / down arrows
+        }
     }
 
     // GETTERS + SETTERS
