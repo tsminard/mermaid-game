@@ -4,7 +4,8 @@ using UnityEngine.UIElements;
 // class responsible for each individual UI lure slot
 public class LureInventorySlot : VisualElement
 {
-    public Image lureImage; 
+    public Image lureImage;
+    public LureNote[] lureNotes; // list of notes which must be hit for this lure
     public bool isLureFound; // indicates whether this lure slot has lure information in it or not
     public SirenTypes lureFor; // indicates which Siren the lure will be used for
 
@@ -16,12 +17,32 @@ public class LureInventorySlot : VisualElement
         Add(lureImage);
         isLureFound = false;
         AddToClassList("lureSlotContainer");
+        // set lure notes based on siren type
+        lureNotes = SirenLureManager.getLureBySiren(sirenType); 
     }
 
     // method that updates lure visual element to display lure music 
     public void findLure()
     {
-        string lureString = lureFor + "-Lure";
-        lureImage.sprite = Resources.Load<Sprite>("Sprites/LureSprites/" + lureString);
+        //string lureString = lureFor + "-Lure";
+        //lureImage.sprite = Resources.Load<Sprite>("Sprites/LureSprites/" + lureString);
+        if(lureNotes != null)
+        {
+            Remove(lureImage);
+            foreach (LureNote note in lureNotes)
+            {
+                Add(note);
+            }
+        }
+        else
+        {
+            Debug.Log("Siren lure array not instantiated properly");
+        }
+    }
+
+    // method that sets lure notes based on siren
+    public void setLureNotes(LureNote[] lureNotes)
+    {
+        this.lureNotes = lureNotes;
     }
 }

@@ -191,9 +191,28 @@
 
 .lureSlotContainer {
     width: 90%;
-    max-height: 100px;
+    flex-direction: row;
+    height: 100px; /*fixed pixels to ensure image is automatically resized to fit div*/
     margin: 10px auto;
     background-color: rgba(0, 0, 0, 0);
     border-width: 1px;
     border-color: rgb(255, 195, 59);
+}
+
+.lureNoteContainer { /*container to hold each individual lure note*/
+    min-height: 90px;
+    margin: auto;
+    border-width: 1px;
+    border-radius: 3px;
+    border-color: rgb(255, 195, 59);
+}
+
+.correctLureNote{
+    border-width: 3px;
+    border-color: rgb(72, 168, 88);
+}
+
+.incorrectLureNote{
+    border-width: 3px;
+    border-color: rgb(179, 0, 0);
 }

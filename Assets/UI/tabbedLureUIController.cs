@@ -90,7 +90,6 @@ public class tabbedLureUIController : MonoBehaviour
     // HELPER METHODS
     private void selectLureSlot(int newSelectedSlotId) // disassociates last selected slot and increments to new selected slot by Id
     {
-        //Debug.Log("Changing from " + selectedSlotId + " to " + newSelectedSlotId);
         lureInventorySlots[selectedSlotId].RemoveFromClassList(selectedSlotUssName);
         lureInventorySlots[newSelectedSlotId].AddToClassList(selectedSlotUssName);
         selectedSlotId = newSelectedSlotId;
