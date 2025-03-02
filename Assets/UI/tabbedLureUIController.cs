@@ -20,6 +20,7 @@ public class tabbedLureUIController : MonoBehaviour
 
     // handles displaying selected slot
     private static int selectedSlotId = 0; // All slots are ordered together for selection (bait and fish) running 0-20
+    private bool isSlotSelected = false;
     private string selectedSlotUssName = "selectedSlotContainer";
 
     // handle manuevering through the inventory via arrow keys
@@ -34,6 +35,7 @@ public class tabbedLureUIController : MonoBehaviour
         root = GetComponent<UIDocument>().rootVisualElement;
         scrollView = root.Query<ScrollView>();
         lureVisualElement = root.Query("LureScrollView"); // name of UI container for lure slots
+        SirenLureManager.buildSirenLures(); // this has to be called BEFORE we create Lure Inventory Slots to prevent any race conditions
         buildLureInventorySlots();
         selectLureSlot(selectedSlotId);
 
@@ -44,8 +46,14 @@ public class tabbedLureUIController : MonoBehaviour
         inputAction = playerInput.actions.FindAction("NavigateMenu");
     }
 
+    public void Update() // we need to run fixed update to check if someone is playing a lure
+    {
+        
+    }
+
     private void buildLureInventorySlots()
     {
+        Debug.Log("Building lure inventory slots");
         foreach(SirenTypes sirenType in Enum.GetValues(typeof(SirenTypes))) // retrieve all enums in SirenType
         {
             LureInventorySlot lureSlot = new LureInventorySlot(sirenType);
@@ -85,6 +93,12 @@ public class tabbedLureUIController : MonoBehaviour
         // move our screen to the new selected slot
         scrollToLure(scrollView, currScrollLocation);
         selectLureSlot(newSelectedSlotId);
+    }
+
+    public void setSlotIsSelected(bool isSlotSelected)
+    {
+        Debug.Log("Slot " + selectedSlotId + " is selected");
+        this.isSlotSelected = isSlotSelected;
     }
 
     // HELPER METHODS

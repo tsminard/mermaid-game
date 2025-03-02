@@ -52,6 +52,7 @@ public class ItemManager : MonoBehaviour
         ItemData can = buildItemData("can", 1.50f, "Hey, I recognise this brand ! They're a midrange option for most single-person bomb shelters");
         ItemData lobsterTrap = buildItemData("lobster-trap", 12.99f, "Thank goodness there isn't a lobster inside - what do you even do with those ???");
         ItemData bottleMessage = buildItemData("message-in-bottle", 21, "Is there something inside this ?");
+        ItemData emptyBottle = buildItemData("empty-bottle", 1.99f, "An empty bottle that seems somehow forlorn");
 
         // add all trash to itemData list so we can iterate through it and build every ItemDetail
         List<(string uiName, ItemData itemData)> allItemDatas = new List<(string, ItemData)>()
@@ -59,7 +60,8 @@ public class ItemManager : MonoBehaviour
             ("Dirty wet boot", boot), 
             ("Recyclable can", can),
             ("Lobster trap", lobsterTrap), 
-            ("A bottle... with something inside it ? ", bottleMessage)
+            ("A bottle... with something inside it ? ", bottleMessage),
+            ("A bottle without anything inside it...", emptyBottle)
         };
 
         foreach (var itemTuple in allItemDatas)
@@ -88,7 +90,23 @@ public class ItemManager : MonoBehaviour
         else // set the corresponding Lure to an image
         {
             LureInventorySlot lureSlot = tabbedLureUIController.getInventorySlotBySiren((SirenTypes)lureType);
-            lureSlot.findLure(); 
+            lureSlot.findLure();
+            // replace the bottle in our inventory with an empty bottle
+            int currSlotIndex = tabbedInventoryUIController.returnCurrentSelectedSlot();
+            // remove the message in a bottle from our inventory
+            tabbedInventoryUIController.onInventoryChanged(currSlotIndex, null, InventoryChangeType.Drop, ItemInventoryType.Fish); // from UI
+            inventoryController.removeItemFromInventory(currSlotIndex); // from memory
+            // add the empty bottle to our inventory
+            ItemDetails emptyBottle;
+            allItems.TryGetValue("empty-bottle", out emptyBottle);
+            if (emptyBottle != null)
+            {
+                inventoryController.addItemToInventory(emptyBottle, ItemInventoryType.Fish);
+            }
+            else
+            {
+                Debug.Log("Error retrieving empty bottle item - check ItemManager");
+            }
         }
 
         return "There's some kind of message in here !";

@@ -18,14 +18,13 @@ public class LureInventorySlot : VisualElement
         isLureFound = false;
         AddToClassList("lureSlotContainer");
         // set lure notes based on siren type
-        lureNotes = SirenLureManager.getLureBySiren(sirenType); 
+        // we have to manually build siren lures BEFORE this so we don't get any weird side effects from running like 4 Awake() at the same time
+        lureNotes = SirenLureManager.getLureBySiren(sirenType);
     }
 
     // method that updates lure visual element to display lure music 
     public void findLure()
     {
-        //string lureString = lureFor + "-Lure";
-        //lureImage.sprite = Resources.Load<Sprite>("Sprites/LureSprites/" + lureString);
         if(lureNotes != null)
         {
             Remove(lureImage);

@@ -6,13 +6,9 @@ public class SirenLureManager : MonoBehaviour
 {
     private static Dictionary<SirenTypes, LureNote[]> sirenToLure = new Dictionary<SirenTypes, LureNote[]>();
 
-    private void Awake()
-    {
-        buildSirenLures();
-    }
-
     // build all siren / lure combos manually since we shouldn't randomly generate them
-    private static void buildSirenLures()
+    // im calling this from an external class (tabbedLureUIController) to ensure that this is created BEFORE the LureInventorySlots are created 
+    public static void buildSirenLures()
     {
         // set all siren lures to 5 notes for now
         LureNote[] orcaNotes = new LureNote[] { new LureNote(KeyCode.V), 
@@ -51,6 +47,11 @@ public class SirenLureManager : MonoBehaviour
         LureNote[] lureNotes;
         sirenToLure.TryGetValue(sirenType, out lureNotes);
         if (lureNotes != null) return lureNotes;
-        else return null;
+        else
+        {
+            Debug.Log("Could not find lure notes for siren " + sirenType.ToString());
+            return null;
+        }
+
     }
 }

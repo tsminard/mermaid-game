@@ -46,7 +46,6 @@ public class LureNote : VisualElement
         if(keyString != "")
         {
             spritePath += keyString += "-lure";
-            Debug.Log("Setting image to " + spritePath);
             Sprite noteSprite = Resources.Load<Sprite>(spritePath);
             noteImage.sprite = noteSprite;
         }

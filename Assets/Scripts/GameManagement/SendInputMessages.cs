@@ -97,7 +97,10 @@ public class SendInputMessages : MonoBehaviour
                     isUsingSubMenu = false;
                 }
             }
-
+            else if (activeTab == 2) // logic for lure tab
+            {
+                lureInventoryControls.setSlotIsSelected(true);
+            }
         }  
     }
 
