@@ -110,10 +110,11 @@ public class InventoryActionsBox
                 // we need to check if the item is droppable
                 if (tabbedInventoryUIController.isCurrentSelectedSlotDroppable())
                 {
-                    ItemInventoryType whichInventory = currInventoryIndex < 5 ? ItemInventoryType.Bait : ItemInventoryType.Fish;
-                    int correctedCurrInventoryIndex = whichInventory == ItemInventoryType.Bait ? currInventoryIndex : currInventoryIndex - 5;
-                    inventoryController.removeItemFromInventory(correctedCurrInventoryIndex); // remove inventory from backend representation
-                    tabbedInventoryUIController.onInventoryChanged(correctedCurrInventoryIndex, null, InventoryChangeType.Drop, whichInventory); // update UI to indicate item has been dropped
+                    /*  ItemInventoryType whichInventory = currInventoryIndex < 5 ? ItemInventoryType.Bait : ItemInventoryType.Fish;
+                      int correctedCurrInventoryIndex = whichInventory == ItemInventoryType.Bait ? currInventoryIndex : currInventoryIndex - 5;
+                      inventoryController.removeItemFromInventory(correctedCurrInventoryIndex); // remove inventory from backend representation
+                      tabbedInventoryUIController.onInventoryChanged(correctedCurrInventoryIndex, null, InventoryChangeType.Drop, whichInventory); // update UI to indicate item has been dropped*/
+                    inventoryController.dropItemFromInventory(currInventoryIndex);
                 }
                 else // if the item is not droppable, we have to change the item description text to reflect this
                 {

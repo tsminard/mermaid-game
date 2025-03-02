@@ -18,7 +18,6 @@ public class ItemManager : MonoBehaviour
         }
         // build all our possible objects to be referenced later
         // NOTE : each of these corresponds to a SPRITE REPRESENTATION. if we want multiple sprites, we need to either change the ItemDetails.ItemData.Sprite field or make a new object
-        Debug.Log("Building all fish");
         buildAllFish();
         buildAllTrash(); 
     }
@@ -94,14 +93,14 @@ public class ItemManager : MonoBehaviour
             // replace the bottle in our inventory with an empty bottle
             int currSlotIndex = tabbedInventoryUIController.returnCurrentSelectedSlot();
             // remove the message in a bottle from our inventory
-            tabbedInventoryUIController.onInventoryChanged(currSlotIndex, null, InventoryChangeType.Drop, ItemInventoryType.Fish); // from UI
-            inventoryController.removeItemFromInventory(currSlotIndex); // from memory
+            inventoryController.dropItemFromInventory(currSlotIndex);
             // add the empty bottle to our inventory
             ItemDetails emptyBottle;
             allItems.TryGetValue("empty-bottle", out emptyBottle);
             if (emptyBottle != null)
             {
-                inventoryController.addItemToInventory(emptyBottle, ItemInventoryType.Fish);
+                int normalizedIndex = inventoryController.normalizeInventorySlot(currSlotIndex);
+                inventoryController.addItemToInventory(normalizedIndex,emptyBottle, ItemInventoryType.Fish);
             }
             else
             {

@@ -148,7 +148,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -975,7 +975,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -984,7 +984,42 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      empty-bottle_0: 3367752488852704100
+      empty-bottle_1: 6286621271062223351
+      empty-bottle_10: -7765087757175569150
+      empty-bottle_11: 1869758590624595588
+      empty-bottle_12: 7514439863460297130
+      empty-bottle_13: -3536350501022164012
+      empty-bottle_14: -3589774900103480522
+      empty-bottle_15: -1234947050216412521
+      empty-bottle_16: 6346879035976779085
+      empty-bottle_17: -6615186013079669026
+      empty-bottle_18: 8067221578476882717
+      empty-bottle_19: -593128957941476387
+      empty-bottle_2: 3292976522393217507
+      empty-bottle_20: 3369105555619225179
+      empty-bottle_21: -6043952699415420469
+      empty-bottle_22: -3279136067200397329
+      empty-bottle_23: 5123889116496168408
+      empty-bottle_24: -7461239046369968641
+      empty-bottle_25: 1987908004422026328
+      empty-bottle_26: 906508300546927834
+      empty-bottle_27: -8468783235906774557
+      empty-bottle_28: -1975227444042425504
+      empty-bottle_29: -8923774236028800779
+      empty-bottle_3: 6821791811320432817
+      empty-bottle_30: 2522562382721404883
+      empty-bottle_31: -4893871753903581930
+      empty-bottle_32: -1374966380707322156
+      empty-bottle_33: -6067591661050929126
+      empty-bottle_34: 338963948997983589
+      empty-bottle_4: -5679804242696834577
+      empty-bottle_5: -8433977824101130308
+      empty-bottle_6: -7764112009664656895
+      empty-bottle_7: 7255135260664670952
+      empty-bottle_8: 5099122540520770069
+      empty-bottle_9: -4341981525855037228
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

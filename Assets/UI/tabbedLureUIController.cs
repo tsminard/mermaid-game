@@ -53,7 +53,6 @@ public class tabbedLureUIController : MonoBehaviour
 
     private void buildLureInventorySlots()
     {
-        Debug.Log("Building lure inventory slots");
         foreach(SirenTypes sirenType in Enum.GetValues(typeof(SirenTypes))) // retrieve all enums in SirenType
         {
             LureInventorySlot lureSlot = new LureInventorySlot(sirenType);

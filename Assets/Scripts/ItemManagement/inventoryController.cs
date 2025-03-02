@@ -102,7 +102,7 @@ public class inventoryController : MonoBehaviour
         }
     }
 
-
+    // generic method to add item to inventory without designated index
     public static void addItemToInventory(ItemDetails itemDetails, ItemInventoryType inventoryType)
     {
         // retrieve first available inventory slot
@@ -132,12 +132,48 @@ public class inventoryController : MonoBehaviour
         }
     }
 
+    // more specialised method to add an object to inventory at a given location
+    public static void addItemToInventory(int index,ItemDetails itemDetails, ItemInventoryType inventoryType)
+    {
+        if((inventoryType == ItemInventoryType.Bait && index > 4) ||
+                (inventoryType == ItemInventoryType.Fish && index > 14)){
+            Debug.Log("Invalid index of " + index + " for inventory type " + inventoryType.ToString());
+            return;
+        }
+        else
+        {
+            tabbedInventoryUIController.onInventoryChanged(index, itemDetails, InventoryChangeType.Pickup, inventoryType);
+            currentInventory.Add(index, itemDetails); // update our record of the inventory
+        }
+    }
+
     //method to remove backend object, not blank the icon in the inventory
+    // this is a BARE BONES METHOD that exists to purely remove an item from our backend
     public static void removeItemFromInventory(int index)
     {
         currentInventory.Remove(index);
     }
 
+
+    // this is a more fleshed out, reuseable method which deletes the item from the backend AND frontend inventory after normalising for inventory type
+    // param : index = selected slot in the UNIVERSAL INVENTORY UI INDEX
+    public static void dropItemFromInventory(int currInventoryIndex)
+    {
+        ItemInventoryType whichInventory = currInventoryIndex < 5 ? ItemInventoryType.Bait : ItemInventoryType.Fish;
+        int correctedCurrInventoryIndex = whichInventory == ItemInventoryType.Bait ? currInventoryIndex : currInventoryIndex - 5;
+        inventoryController.removeItemFromInventory(correctedCurrInventoryIndex); // remove inventory from backend representation
+        tabbedInventoryUIController.onInventoryChanged(correctedCurrInventoryIndex, null, InventoryChangeType.Drop, whichInventory); // update UI to indicate item has been dropped
+    }
+
+    // helper methods
+    // method to handle normalizing inventory index between bait and fish 
+    // note to self - never do things this way again :weary: 
+    public static int normalizeInventorySlot(int inventoryIndex)
+    {
+        ItemInventoryType whichInventory = inventoryIndex < 5 ? ItemInventoryType.Bait : ItemInventoryType.Fish;
+        int correctedInventoryIndex = whichInventory == ItemInventoryType.Bait ? inventoryIndex : inventoryIndex - 5;
+        return correctedInventoryIndex; 
+    }
     // GETTERS + SETTERS
     public static ItemDetails getItemByLocation(int loc)
     {
