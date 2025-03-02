@@ -160,11 +160,6 @@
     border-radius: 3px;
 }
 
-.selectedSlotContainer {
-    border-width: 3px;
-    border-color: rgb(255, 137, 0);
-}
-
 .selectedSubMenuContainer {
     color: rgb(141, 99, 67);
     background-color: rgb(255, 137, 0);
@@ -205,6 +200,11 @@
     border-width: 1px;
     border-radius: 3px;
     border-color: rgb(255, 195, 59);
+}
+
+.selectedSlotContainer {
+    border-width: 3px;
+    border-color: rgb(255, 137, 0);
 }
 
 .correctLureNote{
