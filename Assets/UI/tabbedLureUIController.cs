@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
+using System.Collections; // need this for coroutines
 using UnityEngine.InputSystem;
 using System;
 
@@ -22,6 +23,12 @@ public class tabbedLureUIController : MonoBehaviour
     private static int selectedSlotId = 0; // All slots are ordered together for selection (bait and fish) running 0-20
     private bool isSlotSelected = false;
     private string selectedSlotUssName = "selectedSlotContainer";
+    private string selectedLureUssName = "correctLureNote";
+
+    // handles playing the lure
+    private LureNote[] currLure;
+    private int currLureIndex; 
+    private LureNote currLureNote;
 
     // handle manuevering through the inventory via arrow keys
     [SerializeField]
@@ -48,7 +55,37 @@ public class tabbedLureUIController : MonoBehaviour
 
     public void Update() // we need to run fixed update to check if someone is playing a lure
     {
-        
+        if (isSlotSelected)
+        {
+            KeyCode listenFor = currLureNote.inputKey;
+            Debug.Log("Listening for " + listenFor.ToString());
+            if (Input.GetKeyDown(listenFor)) // the correct button is pressed
+            {
+                currLureNote.toggleCorrectNote(true);
+                // increment currNote forwards
+                currLureIndex += 1; 
+                if(currLureIndex == currLure.Length) // we are out of lure notes
+                {
+                    currLureIndex = 0; 
+                    // TODO : put successful lure response here !
+                }
+                else
+                {
+                    currLureNote = currLure[currLureIndex];
+                }
+            }
+            else
+            {
+                // remove all correct lures
+                for (int i = currLureIndex; i >= 0; i--)
+                {
+                    currLure[i].toggleIncorrectNote(true);
+                    IEnumerator waitForLure = pauseForLureFeedback(0.25f); // scale our wait time to the number of notes 
+                    StartCoroutine(waitForLure);
+                    currLure[i].toggleIncorrectNote(false);
+                }
+            }   
+        }
     }
 
     private void buildLureInventorySlots()
@@ -94,11 +131,26 @@ public class tabbedLureUIController : MonoBehaviour
         selectLureSlot(newSelectedSlotId);
     }
 
+    // method for input manager to toggle whether slots are selected or not
     public void setSlotIsSelected(bool isSlotSelected)
     {
-        Debug.Log("Slot " + selectedSlotId + " is selected");
         this.isSlotSelected = isSlotSelected;
+        LureInventorySlot currLureSlot = lureInventorySlots[selectedSlotId];
+        if (isSlotSelected)
+        {
+            currLureSlot.AddToClassList(selectedLureUssName); // indicate that we are "locked in" to this lure now
+            currLure = currLureSlot.lureNotes;
+            currLureNote = currLure[0];
+            currLureIndex = 0;
+        }
+        else
+        {
+            currLureSlot.RemoveFromClassList(selectedLureUssName);
+            currLureIndex = 0; 
+        }
+       
     }
+
 
     // HELPER METHODS
     private void selectLureSlot(int newSelectedSlotId) // disassociates last selected slot and increments to new selected slot by Id
@@ -123,6 +175,12 @@ public class tabbedLureUIController : MonoBehaviour
             currTime += Time.deltaTime; 
         }
         scroll.verticalScroller.value = endPosition; 
+    }
+
+    // little coroutine to pause so player knows a mistake has occured in the lure
+    private IEnumerator pauseForLureFeedback(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
     }
 
     // GETTERS + SETTERS
