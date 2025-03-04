@@ -110,7 +110,10 @@ public class runFishingGame : MonoBehaviour
                 spawnRhythmFish(currRhythmFish);
                 currTime = 0; // reset timer
                 currFishSpawning++; // increment number to indicate that we have spawned this fish
-                nextFishDue = gamePattern[currFishSpawning].getTimeToWait(); // if we still have fish to spawn in the future, update the amount of time to wait
+                if(currFishSpawning < gamePattern.Length)
+                {
+                    nextFishDue = gamePattern[currFishSpawning].getTimeToWait(); // if we still have fish to spawn in the future, update the amount of time to wait
+                }
             }
             currTime += Time.deltaTime; // increment timer towards next fish
         }

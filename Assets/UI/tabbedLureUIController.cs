@@ -30,6 +30,10 @@ public class tabbedLureUIController : MonoBehaviour
     private int currLureIndex; 
     private LureNote currLureNote;
 
+    // handles successful lure
+    [SerializeField]
+    public GameObject sirenGame;
+
     // handle manuevering through the inventory via arrow keys
     [SerializeField]
     GameObject gameManager;
@@ -58,33 +62,39 @@ public class tabbedLureUIController : MonoBehaviour
         if (isSlotSelected)
         {
             KeyCode listenFor = currLureNote.inputKey;
-            Debug.Log("Listening for " + listenFor.ToString());
-            if (Input.GetKeyDown(listenFor)) // the correct button is pressed
+            if (Input.anyKey)
             {
-                currLureNote.toggleCorrectNote(true);
-                // increment currNote forwards
-                currLureIndex += 1; 
-                if(currLureIndex == currLure.Length) // we are out of lure notes
+                Debug.Log("Listening for " + listenFor.ToString());
+                if (Input.GetKeyDown(listenFor)) // the correct button is pressed
                 {
-                    currLureIndex = 0; 
-                    // TODO : put successful lure response here !
+                    currLureNote.toggleCorrectNote(true);
+                    // increment currNote forwards
+                    currLureIndex += 1;
+                    if (currLureIndex == currLure.Length) // we are out of lure notes
+                    {
+                        currLureIndex = 0;
+                        // TODO : put successful lure response here !
+                        Debug.Log("Lure played succesfully!");
+                        deactivateCorrectLure(); // remove highlighting
+                        isSlotSelected = false; // deactivate our listening loop
+                        sirenGame.SetActive(true);
+                    }
+                    else
+                    {
+                        currLureNote = currLure[currLureIndex];
+                    }
                 }
-                else
-                {
-                    currLureNote = currLure[currLureIndex];
+                else {
+                    // remove all correct lures
+                    for (int i = currLureIndex; i >= 0; i--)
+                    {
+                        currLure[i].toggleIncorrectNote(true);
+                        IEnumerator waitForLure = pauseForLureFeedback(0.25f); // scale our wait time to the number of notes 
+                        StartCoroutine(waitForLure);
+                        currLure[i].toggleIncorrectNote(false);
+                    }
                 }
             }
-            else
-            {
-                // remove all correct lures
-                for (int i = currLureIndex; i >= 0; i--)
-                {
-                    currLure[i].toggleIncorrectNote(true);
-                    IEnumerator waitForLure = pauseForLureFeedback(0.25f); // scale our wait time to the number of notes 
-                    StartCoroutine(waitForLure);
-                    currLure[i].toggleIncorrectNote(false);
-                }
-            }   
         }
     }
 
@@ -153,6 +163,14 @@ public class tabbedLureUIController : MonoBehaviour
 
 
     // HELPER METHODS
+    private void deactivateCorrectLure()
+    {
+        for(int i = currLure.Length - 1; i >= 0; i--)
+        {
+            currLure[i].toggleCorrectNote(false);
+            StartCoroutine(pauseForLureFeedback(0.2f));
+        }
+    }
     private void selectLureSlot(int newSelectedSlotId) // disassociates last selected slot and increments to new selected slot by Id
     {
         lureInventorySlots[selectedSlotId].RemoveFromClassList(selectedSlotUssName);

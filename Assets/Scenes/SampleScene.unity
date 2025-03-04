@@ -941,7 +941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392c897ac2dc77d418872af2c0a0c51f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 795107437}
   playerInput: {fileID: 0}
   inputAction:
     m_Name: Input
@@ -1436,7 +1436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392c897ac2dc77d418872af2c0a0c51f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 795107437}
   playerInput: {fileID: 0}
   inputAction:
     m_Name: Input
@@ -1555,6 +1555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82346e3cd998e684badd53234a9993c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sirenGame: {fileID: 1679232288}
   gameManager: {fileID: 795107437}
 --- !u!114 &955445757
 MonoBehaviour:
@@ -2996,7 +2997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392c897ac2dc77d418872af2c0a0c51f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 795107437}
   playerInput: {fileID: 0}
   inputAction:
     m_Name: Input
@@ -3245,7 +3246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392c897ac2dc77d418872af2c0a0c51f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 795107437}
   playerInput: {fileID: 0}
   inputAction:
     m_Name: Input

@@ -12,6 +12,8 @@ public class SendInputMessages : MonoBehaviour
     GameObject itemUI;
     [SerializeField]
     GameObject fishingMinigame;
+    [SerializeField]
+    GameObject sirenMinigame;
 
     // list scripts which need player input
     controlBoat boatControls;
@@ -54,7 +56,7 @@ public class SendInputMessages : MonoBehaviour
     // inventory controls
     public void OnNavigateMenu()
     {
-        if(tabController.isVisible && !fishingMinigame.activeSelf) // the fishing minigame controls should take precendence over the inventory controls
+        if(tabController.isVisible && !fishingMinigame.activeSelf && !sirenMinigame.activeSelf) // the fishing minigame controls should take precendence over the inventory controls
         {
             if(activeTab == 0) // logic for inventory tab
             {
