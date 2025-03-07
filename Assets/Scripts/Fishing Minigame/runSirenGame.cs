@@ -18,13 +18,13 @@ public class runSirenGame : MonoBehaviour
     private GameObject downSpawnLocation;
 
     // toggleable variables to impact game difficulty
-    // TODO : toggle these. currently they're all set to a bit above regular fishing game
+    // TODO : toggle these
     float minFishSpeed = 3.5f;
     float maxFishSpeed = 10.5f;
     int minNumFish = 10;
     int maxNumFish = 20;
-    float minTimeBetweenFish = 0.4f;
-    float maxTimeBetweenFish = 1f;
+    float minTimeBetweenFish = 2f;
+    float maxTimeBetweenFish = 2.5f;
 
     // handle running game
     RhythmFishData[] gamePattern;
@@ -47,6 +47,16 @@ public class runSirenGame : MonoBehaviour
         sirenGameResults[3] = GameObject.FindGameObjectWithTag("DownBar").GetComponent<playSirenGame>(); 
     }
 
+    // these actions need to run every time the object is enabled, not just when the gameobject is 
+    public void OnEnable()
+    {
+        fishSpeed = Random.Range(minFishSpeed, maxFishSpeed);
+        // we need to handle left, right, up, down, left + right, left + up, left + down, right + up, right + down ( 9 combos )
+        gamePattern = runFishingGame.generateFishingPattern(8, minNumFish, maxNumFish, minTimeBetweenFish, maxTimeBetweenFish);
+        nextFishDue = gamePattern[0].getTimeToWait();
+        currFishSpawning = 0;
+    }
+
     void Update()
     {
         if(currFishSpawning < gamePattern.Length)
@@ -56,7 +66,11 @@ public class runSirenGame : MonoBehaviour
                 RhythmFishData currRhythmFish = gamePattern[currFishSpawning];
                 spawnRhythmFish(currRhythmFish);
                 currFishSpawning++;
-                nextFishDue = gamePattern[currFishSpawning].getTimeToWait();
+                if(currFishSpawning < gamePattern.Length)
+                {
+                    nextFishDue = gamePattern[currFishSpawning].getTimeToWait();
+                }
+                currTime = 0; 
             }
             currTime += Time.deltaTime;
         }
@@ -66,19 +80,12 @@ public class runSirenGame : MonoBehaviour
             if(numRemainingFish == 0) // all fish have exited the screen so we can proceed
             {
                 bool caughtSiren = isLureSuccessful();
+                if (caughtSiren) Debug.Log("Siren caught!");
+                else Debug.Log("The lure turned up nothing...");
                 // TODO : Add siren handling logic !
+                gameObject.SetActive(false);
             }
         }
-    }
-
-    // these actions need to run every time the object is enabled, not just when the gameobject is 
-    public void OnEnable()
-    {
-        fishSpeed = Random.Range(minFishSpeed, maxFishSpeed);
-        // we need to handle left, right, up, down, left + right, left + up, left + down, right + up, right + down ( 9 combos )
-        gamePattern = runFishingGame.generateFishingPattern(8, minNumFish, maxNumFish, minTimeBetweenFish, maxTimeBetweenFish);
-        nextFishDue = gamePattern[0].getTimeToWait();
-        currFishSpawning = 0; 
     }
 
     // private method which handles spawning the fish for all our combinations
