@@ -47,6 +47,16 @@ public class runSirenGame : MonoBehaviour
         sirenGameResults[3] = GameObject.FindGameObjectWithTag("DownBar").GetComponent<playSirenGame>(); 
     }
 
+    // these actions need to run every time the object is enabled, not just when the gameobject is 
+    public void OnEnable()
+    {
+        fishSpeed = Random.Range(minFishSpeed, maxFishSpeed);
+        // we need to handle left, right, up, down, left + right, left + up, left + down, right + up, right + down ( 9 combos )
+        gamePattern = runFishingGame.generateFishingPattern(8, minNumFish, maxNumFish, minTimeBetweenFish, maxTimeBetweenFish);
+        nextFishDue = gamePattern[0].getTimeToWait();
+        currFishSpawning = 0;
+    }
+
     void Update()
     {
         if(currFishSpawning < gamePattern.Length)
@@ -60,6 +70,7 @@ public class runSirenGame : MonoBehaviour
                 {
                     nextFishDue = gamePattern[currFishSpawning].getTimeToWait();
                 }
+                currTime = 0; 
             }
             currTime += Time.deltaTime;
         }
@@ -75,16 +86,6 @@ public class runSirenGame : MonoBehaviour
                 gameObject.SetActive(false);
             }
         }
-    }
-
-    // these actions need to run every time the object is enabled, not just when the gameobject is 
-    public void OnEnable()
-    {
-        fishSpeed = Random.Range(minFishSpeed, maxFishSpeed);
-        // we need to handle left, right, up, down, left + right, left + up, left + down, right + up, right + down ( 9 combos )
-        gamePattern = runFishingGame.generateFishingPattern(8, minNumFish, maxNumFish, minTimeBetweenFish, maxTimeBetweenFish);
-        nextFishDue = gamePattern[0].getTimeToWait();
-        currFishSpawning = 0; 
     }
 
     // private method which handles spawning the fish for all our combinations

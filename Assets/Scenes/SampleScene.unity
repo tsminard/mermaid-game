@@ -1204,6 +1204,7 @@ MonoBehaviour:
   boat: {fileID: 1071744366}
   itemUI: {fileID: 955445750}
   fishingMinigame: {fileID: 220119045}
+  sirenMinigame: {fileID: 1679232288}
 --- !u!1 &918067539
 GameObject:
   m_ObjectHideFlags: 0
