@@ -91,7 +91,6 @@ public class tabbedLureUIController : MonoBehaviour
                     // remove all correct lures
                     for (int i = currLureIndex; i >= 0; i--)
                     {
-                        Debug.Log("Removing note " + i);
                         currLure[i].toggleCorrectNote(false);
                         currLure[i].toggleIncorrectNote(true);
                         IEnumerator waitForLure = pauseForLureFeedback(0.25f); // scale our wait time to the number of notes 

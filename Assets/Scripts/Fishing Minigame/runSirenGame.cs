@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // class to run siren minigame, which is similar to the fish minigame except with more fish, faster speeds, and triggers siren event
 public class runSirenGame : MonoBehaviour
@@ -35,7 +36,7 @@ public class runSirenGame : MonoBehaviour
     // variables to handle endgame
     private SirenTypes siren; // this is the siren that will appear upon successful completion
     playSirenGame[] sirenGameResults = new playSirenGame[4];// one per siren game collider
-    private float successPercentage = 0.9f;
+    private float successPercentage = 0.80f;
     private int numFishSpawned = 0;
 
     private void Awake()
@@ -80,9 +81,16 @@ public class runSirenGame : MonoBehaviour
             if(numRemainingFish == 0) // all fish have exited the screen so we can proceed
             {
                 bool caughtSiren = isLureSuccessful();
-                if (caughtSiren) Debug.Log("Siren caught!");
-                else Debug.Log("The lure turned up nothing...");
-                // TODO : Add siren handling logic !
+                if (caughtSiren)
+                {
+                    Debug.Log("Siren caught!");
+                    gameObject.SetActive(false);
+                    SceneManager.LoadScene(3); // load siren interaction scene !
+                }
+                else
+                {
+                    Debug.Log("The lure turned up nothing...");
+                }
                 gameObject.SetActive(false);
             }
         }
@@ -102,6 +110,7 @@ public class runSirenGame : MonoBehaviour
         {
             newFishPrefab2 = Instantiate(fishPrefab, this.transform);
             newFishPrefabScript2 = newFishPrefab2.GetComponent<moveRhythmFish>();
+            newFishPrefabScript2.setFishSpeed(fishSpeed);
         }
 
         switch (fishData.getNumFish())
@@ -152,8 +161,10 @@ public class runSirenGame : MonoBehaviour
         int successfulFish = 0;
         foreach( playSirenGame sirenGame in sirenGameResults)
         {
+            Debug.Log("Successful fish : " + sirenGame.getSuccessRate());
             successfulFish += sirenGame.getSuccessRate();
         }
+        Debug.Log("Total successful fish : " + successfulFish + " over total fish spawned : " + numFishSpawned);
         if(successfulFish / numFishSpawned >= successPercentage)
         {
             return true;

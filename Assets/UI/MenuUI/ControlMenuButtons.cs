@@ -16,13 +16,13 @@ public class ControlMenuButtons : MonoBehaviour
     public void OnStartButton()
     {
         changeColourOfButtonText(startButton, new Color(255, 255, 255));
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     public void OnControlsButton()
     {
         changeColourOfButtonText(startButton, new Color(255, 255, 255));
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(1);
     }
 
     public void OnQuitButton()
