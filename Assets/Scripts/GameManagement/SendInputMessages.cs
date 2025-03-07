@@ -75,6 +75,7 @@ public class SendInputMessages : MonoBehaviour
             }
             else if (activeTab == 2) // logic for lure tab
             {
+                boatControls.OnDropAnchor(); // Should you have to be anchored to lure ? 
                 lureInventoryControls.OnNagivateLureMenu(); 
             }
         }

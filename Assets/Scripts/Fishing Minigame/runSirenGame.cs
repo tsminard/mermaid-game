@@ -19,12 +19,12 @@ public class runSirenGame : MonoBehaviour
 
     // toggleable variables to impact game difficulty
     // TODO : toggle these
-    float minFishSpeed = 3.5f;
+    float minFishSpeed = 6f;
     float maxFishSpeed = 10.5f;
-    int minNumFish = 10;
-    int maxNumFish = 20;
-    float minTimeBetweenFish = 2f;
-    float maxTimeBetweenFish = 2.5f;
+    int minNumFish = 9;
+    int maxNumFish = 15;
+    float minTimeBetweenFish = 0.8f;
+    float maxTimeBetweenFish = 1.5f;
 
     // handle running game
     RhythmFishData[] gamePattern;
