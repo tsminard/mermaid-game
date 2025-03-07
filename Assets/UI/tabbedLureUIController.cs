@@ -3,7 +3,6 @@ using UnityEngine.UIElements;
 using System.Collections.Generic;
 using System.Collections; // need this for coroutines
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Utilities;
 using System;
 
 // class that builds lureInventoryUI and holds logic for adding items to that lureUI
@@ -30,7 +29,6 @@ public class tabbedLureUIController : MonoBehaviour
     private LureNote[] currLure;
     private int currLureIndex; 
     private LureNote currLureNote;
-    private bool isCheckingLureNote = true; 
 
     // handles successful lure
     [SerializeField]
