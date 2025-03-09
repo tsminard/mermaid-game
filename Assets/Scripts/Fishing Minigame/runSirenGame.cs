@@ -56,6 +56,7 @@ public class runSirenGame : MonoBehaviour
         gamePattern = runFishingGame.generateFishingPattern(8, minNumFish, maxNumFish, minTimeBetweenFish, maxTimeBetweenFish);
         nextFishDue = gamePattern[0].getTimeToWait();
         currFishSpawning = 0;
+        numFishSpawned = 0;
     }
 
     void Update()
@@ -165,7 +166,7 @@ public class runSirenGame : MonoBehaviour
             successfulFish += sirenGame.getSuccessRate();
         }
         Debug.Log("Total successful fish : " + successfulFish + " over total fish spawned : " + numFishSpawned);
-        if(successfulFish / numFishSpawned >= successPercentage)
+        if((float)successfulFish / (float)numFishSpawned >= successPercentage)
         {
             return true;
         }

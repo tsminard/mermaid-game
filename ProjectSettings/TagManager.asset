@@ -12,6 +12,7 @@ TagManager:
   - MinigameFish
   - DownBar
   - UpBar
+  - DontDestroyOnLoad
   layers:
   - Default
   - TransparentFX
