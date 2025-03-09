@@ -152,8 +152,8 @@ public class ItemManager : MonoBehaviour
             int index = UnityEngine.Random.Range(0, availableLures.Count - 1);
             SirenTypes selectedSirenType = availableLures[index];
             availableLures.RemoveAt(index);
-            //return selectedSirenType; 
-            return SirenTypes.Moray; // TODO : This is just for testing since I don't have all the sprites yet !
+            return selectedSirenType; 
+            //return SirenTypes.Moray; // TODO : This is just for testing since I don't have all the sprites yet !
         }
         else
         {

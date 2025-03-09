@@ -8,9 +8,8 @@ public class RunSirenInteraction : MonoBehaviour
 {
     [SerializeField]
     DialogueRunner dialogueRunner;
-
     PersistData persistData;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    string nodeToPlay = "start";
     void Awake()
     {
         dialogueRunner.gameObject.SetActive(false);
@@ -20,13 +19,22 @@ public class RunSirenInteraction : MonoBehaviour
         // retrieve persist data object which contains necessary information
         persistData = GameObject.FindGameObjectWithTag("DontDestroyOnLoad").GetComponent<PersistData>();
         // handle which script is running
+        generateNodeToPlay();
+        dialogueRunner.StartDialogue(nodeToPlay);
     }
 
 
+    private void generateNodeToPlay() // the name of our node to play will be based off of the siren and interaction number
+    {
+        string sirenName = persistData.getSiren().ToString();
+        string interactionNumber = persistData.getSirenInteractionNumber().ToString();
+        nodeToPlay = sirenName + "-interaction-" + interactionNumber;
+        Debug.Log("Playing dialogue node " + nodeToPlay);
+    }
 
-    void onDialogueComplete()
+    void onDialogueComplete() // listener to close the scene when our dialogue is over
     {
         Debug.Log("Dialogue complete");
-        SceneManager.LoadScene(1); // go back to overworld
+        SceneManager.LoadScene(2); // go back to overworld
     }
 }

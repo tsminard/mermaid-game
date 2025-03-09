@@ -33,6 +33,7 @@ public class tabbedLureUIController : MonoBehaviour
     // handles successful lure
     [SerializeField]
     public GameObject sirenGame;
+    public PersistData persistData; // script which maintains data that has to be moved between scenes
 
     // handle manuevering through the inventory via arrow keys
     [SerializeField]
@@ -43,6 +44,7 @@ public class tabbedLureUIController : MonoBehaviour
 
     private void Awake()
     {
+        persistData = gameManager.GetComponent<PersistData>(); // this is responsible for persisting data through scenes
         root = GetComponent<UIDocument>().rootVisualElement;
         scrollView = root.Query<ScrollView>();
         lureVisualElement = root.Query("LureScrollView"); // name of UI container for lure slots
@@ -78,7 +80,9 @@ public class tabbedLureUIController : MonoBehaviour
                         deactivateLure(currLureIndex - 1); // remove highlighting
                         currLureIndex = 0;
                         isSlotSelected = false; // deactivate our listening loop
-                        sirenGame.SetActive(true);
+                        persistData.setSiren(lureInventorySlots[selectedSlotId].lureFor); // indicate which siren we are fishing for
+                        persistData.setSirenInteractionNumber(1); // TODO : add real logic here
+                        sirenGame.SetActive(true); // load siren interaction scene
                     }
                     else
                     {
@@ -195,15 +199,7 @@ public class tabbedLureUIController : MonoBehaviour
             StartCoroutine(pauseForLureFeedback(0.5f));
         }
     }
-    private void deactivateCorrectLure()
-    {
-        Debug.Log("Deactivating lure");
-        for(int i = currLure.Length - 1; i >= 0; i--)
-        {
-            currLure[i].toggleCorrectNote(false);
-            StartCoroutine(pauseForLureFeedback(0.5f));
-        }
-    }
+
     private void selectLureSlot(int newSelectedSlotId) // disassociates last selected slot and increments to new selected slot by Id
     {
         lureInventorySlots[selectedSlotId].RemoveFromClassList(selectedSlotUssName);
