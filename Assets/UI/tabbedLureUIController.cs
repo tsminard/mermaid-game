@@ -57,7 +57,7 @@ public class tabbedLureUIController : MonoBehaviour
         inputAction = playerInput.actions.FindAction("NavigateMenu");
     }
 
-    public void FixedUpdate() // we need to run fixed update to check if someone is playing a lure
+    public void Update() // we need to run update to check if someone is playing a lure
     {
         if (isSlotSelected)
         {
@@ -73,10 +73,10 @@ public class tabbedLureUIController : MonoBehaviour
                     currLureIndex += 1;
                     if (currLureIndex == currLure.Length) // we are out of lure notes
                     {
-                        currLureIndex = 0;
                         // TODO : put successful lure response here !
                         Debug.Log("Lure played succesfully!");
-                        deactivateCorrectLure(); // remove highlighting
+                        deactivateLure(currLureIndex - 1); // remove highlighting
+                        currLureIndex = 0;
                         isSlotSelected = false; // deactivate our listening loop
                         sirenGame.SetActive(true);
                     }
@@ -118,6 +118,11 @@ public class tabbedLureUIController : MonoBehaviour
 
     public void OnNagivateLureMenu() // scroll lures up and down
     {
+        if (isSlotSelected) // if our slot is selected, we can't move the screen up and down
+        {
+            return;
+        }
+
         Vector2 xyValue = inputAction.ReadValue<Vector2>();
         int newSelectedSlotId = selectedSlotId;
 
@@ -147,28 +152,49 @@ public class tabbedLureUIController : MonoBehaviour
         selectLureSlot(newSelectedSlotId);
     }
 
-    // method for input manager to toggle whether slots are selected or not
+    public void toggleIsSlotSelected()    // method for input manager to toggle whether slots are selected or not
+    {
+        if (isSlotSelected) // deactivate our selected slot
+        {
+            deactivateLure(currLureIndex-1);
+            setSlotIsSelected(false);
+        }
+        else
+        {
+            setSlotIsSelected(true);
+        }
+    }
+
     public void setSlotIsSelected(bool isSlotSelected)
     {
-        this.isSlotSelected = isSlotSelected;
+        this.isSlotSelected = isSlotSelected; // set isSlotSelected to the new variable
         LureInventorySlot currLureSlot = lureInventorySlots[selectedSlotId];
         if (isSlotSelected)
         {
             currLureSlot.AddToClassList(selectedLureUssName); // indicate that we are "locked in" to this lure now
             currLure = currLureSlot.lureNotes;
             currLureNote = currLure[0];
-            currLureIndex = 0;
         }
         else
         {
+            Debug.Log("Removing selected slot border");
             currLureSlot.RemoveFromClassList(selectedLureUssName);
-            currLureIndex = 0; 
         }
-       
+        currLureIndex = 0; // reset our currLureIndex
     }
 
 
     // HELPER METHODS
+    private void deactivateLure(int lureIndex)
+    {
+        Debug.Log("Deactivating lure");
+        for (int i = lureIndex; i >= 0; i--)
+        {
+            currLure[i].toggleCorrectNote(false);
+            currLure[i].toggleIncorrectNote(false); // remove all potential classes
+            StartCoroutine(pauseForLureFeedback(0.5f));
+        }
+    }
     private void deactivateCorrectLure()
     {
         Debug.Log("Deactivating lure");
