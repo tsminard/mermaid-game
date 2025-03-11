@@ -481,6 +481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueRunner: {fileID: 911806670}
+  sirenImage: {fileID: 107641252}
 --- !u!1001 &1147240505
 PrefabInstance:
   m_ObjectHideFlags: 0

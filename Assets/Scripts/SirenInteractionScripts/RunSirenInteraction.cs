@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using Yarn.Unity;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +11,10 @@ public class RunSirenInteraction : MonoBehaviour
     DialogueRunner dialogueRunner;
     PersistData persistData;
     string nodeToPlay = "start";
+    // fields to handle siren-specific functionalities
+    [SerializeField]
+    Image sirenImage;
+    string sirenName = "";
     void Awake()
     {
         dialogueRunner.gameObject.SetActive(false);
@@ -20,16 +25,25 @@ public class RunSirenInteraction : MonoBehaviour
         persistData = GameObject.FindGameObjectWithTag("DontDestroyOnLoad").GetComponent<PersistData>();
         // handle which script is running
         generateNodeToPlay();
+        // change Siren sprite depending on siren
+        setSirenSprite();
         dialogueRunner.StartDialogue(nodeToPlay);
+        
     }
 
 
     private void generateNodeToPlay() // the name of our node to play will be based off of the siren and interaction number
     {
-        string sirenName = persistData.getSiren().ToString();
+        sirenName = persistData.getSiren().ToString();
         string interactionNumber = persistData.getSirenInteractionNumber().ToString();
         nodeToPlay = sirenName + "-interaction-" + interactionNumber;
         Debug.Log("Playing dialogue node " + nodeToPlay);
+    }
+
+    private void setSirenSprite()
+    {
+        string spritePath = "Sprites/SirenSprites/" + sirenName + "-interaction-portrait";
+        sirenImage.sprite = Resources.Load<Sprite>(spritePath);
     }
 
     void onDialogueComplete() // listener to close the scene when our dialogue is over

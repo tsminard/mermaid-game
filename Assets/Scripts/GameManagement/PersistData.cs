@@ -3,9 +3,9 @@ using UnityEngine;
 // script to handle persisting data between scenes
 public class PersistData : MonoBehaviour
 {
-    // Siren interaction variables
-    int sirenInteractionNumber; // indicates what level of familiarity with the siren
-    SirenTypes siren; // indicates which siren we are currently talking to 
+    // Siren interaction variables with defaults
+    int sirenInteractionNumber = 1; // indicates what level of familiarity with the siren
+    SirenTypes siren = SirenTypes.Sea_Angel; // indicates which siren we are currently talking to 
 
     private void Awake()
     {
