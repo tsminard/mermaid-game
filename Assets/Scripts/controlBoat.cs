@@ -22,7 +22,9 @@ public class controlBoat : MonoBehaviour
     public float accelerationValue;
     private float timeAccelerating; 
 
+    // handle anchoring
     public bool isAnchored;
+    SpriteRenderer boatRenderer; // setting as a class variable so we don't have to keep re-finding it
 
     // handle collisions
     public string islandTagName;
@@ -65,7 +67,8 @@ public class controlBoat : MonoBehaviour
         timeRebounding = 0;
         maxTimeRebounding = 1f;
 
-        GetComponent<SpriteRenderer>().color = Color.yellow; // TODO : temporary fix for a visual indicator of when we're fishing
+        boatRenderer = GetComponent<SpriteRenderer>(); 
+        boatRenderer.color = Color.yellow; // TODO : temporary fix for a visual indicator of when we're fishing
     }
 
     // Update is called once per frame
@@ -137,11 +140,29 @@ public class controlBoat : MonoBehaviour
         isAnchored = !isAnchored; // invert anchor status
         if (!isAnchored)
         {
-            GetComponent<SpriteRenderer>().color = Color.yellow; 
+            boatRenderer.color = Color.yellow; 
             isFishing = false;
             fishCountdown = 0;
             timeAccelerating = 0; 
         }
+        else
+        {
+            boatRenderer.color = Color.green;
+        }
+    }
+
+    // method to control anchor directly for forcing anchor  / unanchored state regardless of current anchored states
+    public void setAnchorState(bool setIsAnchored)
+    {
+        if (setIsAnchored)
+        {
+            boatRenderer.color = Color.green;
+        }
+        else
+        {
+            boatRenderer.color = Color.yellow;
+        }
+        isAnchored = setIsAnchored;
     }
 
     // handle opening + closing menu UI
@@ -161,7 +182,7 @@ public class controlBoat : MonoBehaviour
         }
         isFishing = true;
         isFishCaught = false; 
-        GetComponent<SpriteRenderer>().color = Color.blue; // TODO : this is just a quick visual indicator to show you are fishing
+        boatRenderer.color = Color.blue; // TODO : this is just a quick visual indicator to show you are fishing
         fishTimer = Random.Range(0.5f, 5.1f); // generate the amount of time to wait before a fish bites
         Debug.Log("Fish will be caught in " + fishTimer + " seconds");
     }

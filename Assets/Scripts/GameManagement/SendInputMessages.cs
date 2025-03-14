@@ -103,7 +103,6 @@ public class SendInputMessages : MonoBehaviour
             }
             else if (activeTab == 2) // logic for lure tab
             {
-                //lureInventoryControls.setSlotIsSelected(true);
                 lureInventoryControls.toggleIsSlotSelected();
             }
         }  
@@ -134,6 +133,7 @@ public class SendInputMessages : MonoBehaviour
     public void OnSelectLureTab()
     {
         tabController.setActiveTab(2);
+        boatControls.setAnchorState(true);
         activeTab = 2;
     }
 

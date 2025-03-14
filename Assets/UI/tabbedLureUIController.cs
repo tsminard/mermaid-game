@@ -97,7 +97,7 @@ public class tabbedLureUIController : MonoBehaviour
                     {
                         currLure[i].toggleCorrectNote(false);
                         currLure[i].toggleIncorrectNote(true);
-                        IEnumerator waitForLure = pauseForLureFeedback(0.25f); // scale our wait time to the number of notes 
+                        IEnumerator waitForLure = pauseForLureFeedback(1f); // scale our wait time to the number of notes 
                         StartCoroutine(waitForLure);
                         currLure[i].toggleIncorrectNote(false);
                     }
@@ -244,6 +244,7 @@ public class tabbedLureUIController : MonoBehaviour
     // little coroutine to pause so player knows a mistake has occured in the lure
     private IEnumerator pauseForLureFeedback(float waitTime)
     {
+        Debug.Log("Returning IEnumerator for " + waitTime + " seconds");
         yield return new WaitForSeconds(waitTime);
     }
 
