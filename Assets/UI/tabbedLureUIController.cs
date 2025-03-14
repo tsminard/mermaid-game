@@ -44,15 +44,16 @@ public class tabbedLureUIController : MonoBehaviour
 
     private void Awake()
     {
-        persistData = gameManager.GetComponent<PersistData>(); // this is responsible for persisting data through scenes
+        persistData = PersistData.Instance;
         root = GetComponent<UIDocument>().rootVisualElement;
         scrollView = root.Query<ScrollView>();
+        resetInternalDataStructures();
+
         lureVisualElement = root.Query("LureScrollView"); // name of UI container for lure slots
         SirenLureManager.buildSirenLures(); // this has to be called BEFORE we create Lure Inventory Slots to prevent any race conditions
         buildLureInventorySlots();
         selectLureSlot(selectedSlotId);
-
-        currScrollLocation = scrollView.verticalScroller.value;
+        retrieveUnlockedLures();
 
         // retrieve components needed for inventory navigation
         playerInput = gameManager.GetComponent<PlayerInput>();
@@ -75,13 +76,12 @@ public class tabbedLureUIController : MonoBehaviour
                     currLureIndex += 1;
                     if (currLureIndex == currLure.Length) // we are out of lure notes
                     {
-                        // TODO : put successful lure response here !
+                        // Successful Lure response
                         Debug.Log("Lure played succesfully!");
                         deactivateLure(currLureIndex - 1); // remove highlighting
                         currLureIndex = 0;
                         isSlotSelected = false; // deactivate our listening loop
                         persistData.setSiren(lureInventorySlots[selectedSlotId].lureFor); // indicate which siren we are fishing for
-                        persistData.setSirenInteractionNumber(1); // TODO : add real logic here
                         sirenGame.SetActive(true); // load siren interaction scene
                     }
                     else
@@ -187,8 +187,25 @@ public class tabbedLureUIController : MonoBehaviour
         currLureIndex = 0; // reset our currLureIndex
     }
 
-
     // HELPER METHODS
+    // we need to re-render our discovered lures on scene reloads
+    private void retrieveUnlockedLures()
+    {
+        List<SirenTypes> discoveredSirenLures = persistData.getDiscoveredLures();
+        foreach(SirenTypes siren in discoveredSirenLures)
+        {
+            LureInventorySlot sirenLure;
+            lureSlotsBySiren.TryGetValue(siren, out sirenLure);
+            sirenLure.findLure();
+        }
+    }
+
+    private void resetInternalDataStructures()
+    {
+        lureInventorySlots = new List<LureInventorySlot>();
+        lureSlotsBySiren = new Dictionary<SirenTypes, LureInventorySlot>();
+    }
+    
     private void deactivateLure(int lureIndex)
     {
         Debug.Log("Deactivating lure");

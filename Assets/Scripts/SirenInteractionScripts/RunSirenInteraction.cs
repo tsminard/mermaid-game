@@ -10,6 +10,8 @@ public class RunSirenInteraction : MonoBehaviour
     [SerializeField]
     DialogueRunner dialogueRunner;
     PersistData persistData;
+    SendInputMessages inputManager;
+
     string nodeToPlay = "start";
     // fields to handle siren-specific functionalities
     [SerializeField]
@@ -22,7 +24,7 @@ public class RunSirenInteraction : MonoBehaviour
         dialogueRunner.onDialogueComplete.AddListener(onDialogueComplete);
 
         // retrieve persist data object which contains necessary information
-        persistData = GameObject.FindGameObjectWithTag("DontDestroyOnLoad").GetComponent<PersistData>();
+        persistData = PersistData.Instance;
         // handle which script is running
         generateNodeToPlay();
         // change Siren sprite depending on siren

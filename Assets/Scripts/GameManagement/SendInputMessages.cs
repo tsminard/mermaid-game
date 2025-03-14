@@ -25,6 +25,7 @@ public class SendInputMessages : MonoBehaviour
     // inventory UIS
     bool isUsingSubMenu = false;
     int activeTab = 0; // indicate which inventory tab is active
+    string activeScene;
 
     private void Awake() // TODO : change this based on scene loaded
     {
@@ -134,5 +135,12 @@ public class SendInputMessages : MonoBehaviour
     {
         tabController.setActiveTab(2);
         activeTab = 2;
+    }
+
+    // GETTERS + SETTERS
+    public void setActiveScene(string activeScene)
+    {
+        this.activeScene = activeScene;
+        Debug.Log("Set scene to " + activeScene);
     }
 }

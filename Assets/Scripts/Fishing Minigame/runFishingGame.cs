@@ -60,6 +60,7 @@ public class runFishingGame : MonoBehaviour
     private playFishingGame[] fishingGameResults;
     private float successPercentage = 0.8f; // TODO : make this a changeable value based on lures, etc. 
     private int numFishSpawned = 0; // count actual number of fish spawned
+    ItemManager itemManager;
 
     // variables for displaying result
     public TMP_Text uiFishStatus;
@@ -75,7 +76,8 @@ public class runFishingGame : MonoBehaviour
         fishingGameResults[0] = GameObject.FindGameObjectWithTag("LeftBar").GetComponent<playFishingGame>();
         fishingGameResults[1] = GameObject.FindGameObjectWithTag("RightBar").GetComponent<playFishingGame>();
 
-        caughtFishController = gameObject.GetComponent<caughtFishController>(); 
+        caughtFishController = gameObject.GetComponent<caughtFishController>();
+        itemManager = ItemManager.Instance;
     }
 
     // these actions need to run every time the object is enabled, not just when the gameobject is 
@@ -168,7 +170,7 @@ public class runFishingGame : MonoBehaviour
         // generate which kind of fish was caught based on probabilities
         FishSpeciesInfo fish = caughtFishController.catchFish();
         // retrieve caught item information
-        ItemDetails fishingCatch = ItemManager.getItemByName(fish.getFishSpeciesName());
+        ItemDetails fishingCatch = itemManager.getItemByName(fish.getFishSpeciesName());
         Sprite fishSprite = fishingCatch.itemData.icon;
         // display results
         uiFishImage.overrideSprite = fishSprite;

@@ -15,9 +15,9 @@ public class tabbedInventoryUIController : MonoBehaviour
     private static List<InventorySlot> inventorySlots = new List<InventorySlot>(); // runs 0-4
 
     private static Dictionary<int, FishInventorySlot> fishInventorySlotsById = new Dictionary<int, FishInventorySlot>();// runs 0-14
-    private static List<FishInventorySlot> fishInventorySlots = new List<FishInventorySlot>();  
+    private static List<FishInventorySlot> fishInventorySlots = new List<FishInventorySlot>();
 
-    public int numInventorySlots;
+    private int numInventorySlots = 5;
     private int numFishSlots = 15;
     
     // handles displaying selected slot
@@ -37,11 +37,17 @@ public class tabbedInventoryUIController : MonoBehaviour
 
     private void Awake()
     {
+        // blank all datastructures in case they're perpetuated
+        resetInternalDatastructures(); 
+
+        Debug.Log("Creating inventory UI with " + numInventorySlots + numFishSlots + " slots");
+
         // build inventory slots for various baits
         root = GetComponent<UIDocument>().rootVisualElement; // retrieve root from UI document
         slotVisualElement = root.Query("SlotsContainer");
+        
+        Debug.Log("Creating new inventory slots");
         buildInventorySlots();
-
         // initialise textBox for UI display
         VisualElement textBoxVisualElement = root.Query("SlotTextContainer");
         inventoryTextBox = new InventoryTextBox(textBoxVisualElement);
@@ -67,8 +73,6 @@ public class tabbedInventoryUIController : MonoBehaviour
 
     private void buildInventorySlots() // helper method for building bait inventory slots
     {
-        numInventorySlots = 5;
-
         for (int i = 0; i < numInventorySlots; i++)
         {
             InventorySlot itemSlot = new InventorySlot(i); // keep track of inventory ids
@@ -84,6 +88,7 @@ public class tabbedInventoryUIController : MonoBehaviour
         {
             FishInventorySlot fishSlot = new FishInventorySlot(i);
             fishInventorySlotsById.Add(i, fishSlot);
+            inventorySlotsById.Add(i + numInventorySlots, fishSlot);
             fishInventorySlots.Add(fishSlot);
             fishSlotVisualElement.Add(fishSlot);
         }
@@ -246,6 +251,15 @@ public class tabbedInventoryUIController : MonoBehaviour
     }
 
     // HELPER METHODS
+    // helper method to reset internal data structures because they seem to keep data even though gameObjects are destroyed
+    private void resetInternalDatastructures()
+    {
+        inventorySlotsById = new Dictionary<int, InventorySlot>();
+        inventorySlots = new List<InventorySlot>();
+        fishInventorySlotsById = new Dictionary<int, FishInventorySlot>();
+        fishInventorySlots = new List<FishInventorySlot>();
+    }
+
     // helper method to check whether selected id has moved between our two inventory types
     // this is important for changing the inventory action text
     private bool hasInventoryTypeChanged(int newSelectedSlot)

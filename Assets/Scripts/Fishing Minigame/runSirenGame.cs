@@ -20,12 +20,12 @@ public class runSirenGame : MonoBehaviour
 
     // toggleable variables to impact game difficulty
     // TODO : toggle these
-    float minFishSpeed = 6f;
-    float maxFishSpeed = 10.5f;
+    float minFishSpeed = 8f;
+    float maxFishSpeed = 15f;
     int minNumFish = 9;
     int maxNumFish = 15;
-    float minTimeBetweenFish = 0.8f;
-    float maxTimeBetweenFish = 1.5f;
+    float minTimeBetweenFish = 0.25f;
+    float maxTimeBetweenFish = 1f;
 
     // handle running game
     RhythmFishData[] gamePattern;
@@ -34,7 +34,6 @@ public class runSirenGame : MonoBehaviour
     private float currTime = 0f;
 
     // variables to handle endgame
-    private SirenTypes siren; // this is the siren that will appear upon successful completion
     playSirenGame[] sirenGameResults = new playSirenGame[4];// one per siren game collider
     private float successPercentage = 0.80f;
     private int numFishSpawned = 0;
@@ -171,11 +170,5 @@ public class runSirenGame : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    // getters + setters
-    public void setSirenType(SirenTypes siren)
-    {
-        this.siren = siren;
     }
 }

@@ -2,13 +2,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-// class that holds templates for ALL ITEMS. there should only ever be one of these !!
+// Singleton that holds templates for ALL ITEMS. there should only ever be one of these !!
 // contains instance of ItemData AND ItemDetail ( specifically for inventory usage )
 public class ItemManager : MonoBehaviour 
 {
-    private static Dictionary<string, ItemDetails> allItems = new Dictionary<string, ItemDetails>();
-    private static List<SirenTypes> availableLures = new List<SirenTypes>();
+    private Dictionary<string, ItemDetails> allItems = new Dictionary<string, ItemDetails>();
+    private  List<SirenTypes> availableLures = new List<SirenTypes>();
 
+    private static ItemManager _Instance;
+    public static ItemManager Instance
+    {
+        get
+        {
+            if (!_Instance)
+            {
+                _Instance = new GameObject().AddComponent<ItemManager>();
+                _Instance.name = _Instance.GetType().ToString();
+                DontDestroyOnLoad(_Instance.gameObject);
+            }
+            return _Instance;
+        }
+    }
+    
     private void Awake()
     {
         // populate our sirentypes with all possible siren types
@@ -89,6 +104,7 @@ public class ItemManager : MonoBehaviour
         else // set the corresponding Lure to an image
         {
             LureInventorySlot lureSlot = tabbedLureUIController.getInventorySlotBySiren((SirenTypes)lureType);
+            PersistData.Instance.discoverLure(lureSlot.lureFor);// persist that we have discovered this lure
             lureSlot.findLure();
             // replace the bottle in our inventory with an empty bottle
             int currSlotIndex = tabbedInventoryUIController.returnCurrentSelectedSlot();
@@ -131,7 +147,7 @@ public class ItemManager : MonoBehaviour
         return new ItemDetails(uiName, itemData, canDrop);
     }
 
-    public static ItemDetails getItemByName(string name)
+    public ItemDetails getItemByName(string name)
     {
         if (allItems.ContainsKey(name))
         {
@@ -145,7 +161,7 @@ public class ItemManager : MonoBehaviour
     }
 
     // this should only be called from within ItemManager because it depends entirely on an internal list of used sirenTypes
-    private static SirenTypes? generateRandomSirenType()
+    private SirenTypes? generateRandomSirenType()
     {
         if(availableLures.Count > 0)
         {

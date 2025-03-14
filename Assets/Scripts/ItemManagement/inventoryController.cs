@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; 
 
 // classes that handle player current inventory contents
 public class ItemDetails // wrapper class which  additionally contains canDrop + interaction options - specifically for inventory purposes
@@ -92,10 +92,20 @@ public class inventoryController : MonoBehaviour
 {
     // setting these as static because we should only ever have 1 inventoryController, which should be accessible everywhere
     private static Dictionary<int, ItemDetails> currentInventory = new Dictionary<int, ItemDetails>(); // int will function as location in the inventory
+    // we need to save our inventory when the scene closes
+    PersistData persistData;
+    ItemManager itemManager; // singleton class
     public void Start()
     {
-        //populate with dummy data for now 
-        populateInventory(); // TODO : remove this - Dictionary should be maintained in game state to keep fish in consistent inventory slots
+        persistData = PersistData.Instance;
+        itemManager = ItemManager.Instance;
+        UnityEditor.SceneManagement.EditorSceneManager.sceneClosing += onSceneClose; // listener to closing scene
+                                                                                     // retrieve any persisted data
+        loadSavedInventory();
+        if (currentInventory.Count == 0)
+        {
+            populateInventory(); // TODO : remove this - Dictionary should be maintained in game state to keep fish in consistent inventory slots
+        }
         foreach (var item in currentInventory)
         {
             tabbedInventoryUIController.onInventoryChanged(item.Key, item.Value, InventoryChangeType.Pickup, ItemInventoryType.Fish);
@@ -165,6 +175,20 @@ public class inventoryController : MonoBehaviour
         tabbedInventoryUIController.onInventoryChanged(correctedCurrInventoryIndex, null, InventoryChangeType.Drop, whichInventory); // update UI to indicate item has been dropped
     }
 
+    // method to retrieve any saved inventory
+    private void loadSavedInventory()
+    {
+        Debug.Log("Retrieving inventory");
+        currentInventory = persistData.retrieveInventoryContents();
+    }
+
+    // method to save our inventory to an undestroyed object when the scene is closed
+    private void onSceneClose(Scene scene, bool removingScene)
+    {
+        Debug.Log("Persisting inventory");
+        persistData.saveInventoryContents(currentInventory);
+    }
+
     // helper methods
     // method to handle normalizing inventory index between bait and fish 
     // note to self - never do things this way again :weary: 
@@ -184,9 +208,9 @@ public class inventoryController : MonoBehaviour
     private void populateInventory()
     {
         Debug.Log("Populating inventory with dummy data");
-        inventoryController.addItemToInventory(ItemManager.getItemByName("arowana"), ItemInventoryType.Fish);
-        inventoryController.addItemToInventory(ItemManager.getItemByName("tilapia"), ItemInventoryType.Fish);
-        inventoryController.addItemToInventory(ItemManager.getItemByName("lobster-trap"), ItemInventoryType.Fish);
-        inventoryController.addItemToInventory(ItemManager.getItemByName("message-in-bottle"), ItemInventoryType.Fish);
+        inventoryController.addItemToInventory(itemManager.getItemByName("arowana"), ItemInventoryType.Fish);
+        inventoryController.addItemToInventory(itemManager.getItemByName("tilapia"), ItemInventoryType.Fish);
+        inventoryController.addItemToInventory(itemManager.getItemByName("lobster-trap"), ItemInventoryType.Fish);
+        inventoryController.addItemToInventory(itemManager.getItemByName("message-in-bottle"), ItemInventoryType.Fish);
     }
 }
