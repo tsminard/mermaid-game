@@ -534,6 +534,65 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "SirenDialogue",
+            "id": "4820eed1-5be3-4137-b540-214a69b19918",
+            "actions": [
+                {
+                    "name": "ProgressDialogue",
+                    "type": "Button",
+                    "id": "dd875b87-11a7-47d0-83b7-da4c749bacc9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ChooseDialogue",
+                    "type": "Button",
+                    "id": "ede89dfc-959c-421b-bd79-9ef997845986",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2d042f42-c1ed-499b-bda4-ea47e5fa5db8",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ProgressDialogue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b6360746-c3b2-4a06-8b3e-0ec7d7b1dbe2",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChooseDialogue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d19efc15-7941-4390-a3f1-96e977df2184",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChooseDialogue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
