@@ -536,22 +536,22 @@
             ]
         },
         {
-            "name": "SirenDialogue",
-            "id": "4820eed1-5be3-4137-b540-214a69b19918",
+            "name": "MovePlayer",
+            "id": "5c9db78b-3f1b-41dc-be3d-28faa34ab741",
             "actions": [
                 {
-                    "name": "ProgressDialogue",
-                    "type": "Button",
-                    "id": "dd875b87-11a7-47d0-83b7-da4c749bacc9",
-                    "expectedControlType": "",
+                    "name": "MovePlayer",
+                    "type": "Value",
+                    "id": "09dd1ba1-ee85-4533-a882-19b3176fec18",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
-                    "name": "ChooseDialogue",
+                    "name": "Interact",
                     "type": "Button",
-                    "id": "ede89dfc-959c-421b-bd79-9ef997845986",
+                    "id": "4b522159-4a4a-4bed-9c08-2a8136f7867e",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -560,35 +560,68 @@
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "2d042f42-c1ed-499b-bda4-ea47e5fa5db8",
-                    "path": "<Keyboard>/enter",
+                    "name": "2D Vector",
+                    "id": "b06b79cb-cc3d-4e3b-97dc-d2120fde1d9f",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ProgressDialogue",
-                    "isComposite": false,
+                    "action": "MovePlayer",
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "b6360746-c3b2-4a06-8b3e-0ec7d7b1dbe2",
-                    "path": "<Keyboard>/upArrow",
+                    "name": "up",
+                    "id": "c55067af-c020-4b3c-9939-3f42ea05cc0b",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ChooseDialogue",
+                    "action": "MovePlayer",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "8622e865-8eaf-4457-872b-3f7e79abf6d8",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MovePlayer",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "29985133-209c-45d3-995a-d8069649cc9f",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MovePlayer",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "3f76b6ae-1ba1-403d-a6d9-b1154a963d7f",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MovePlayer",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
-                    "id": "d19efc15-7941-4390-a3f1-96e977df2184",
-                    "path": "<Keyboard>/downArrow",
+                    "id": "4fe8aa7b-4d1c-4ab5-80a5-460f640d11a3",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ChooseDialogue",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

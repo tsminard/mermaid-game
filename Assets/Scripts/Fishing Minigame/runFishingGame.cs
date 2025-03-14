@@ -180,7 +180,7 @@ public class runFishingGame : MonoBehaviour
         // add catch to inventory
         inventoryController.addItemToInventory(fishingCatch, ItemInventoryType.Fish);
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2.5f);
         Debug.Log("Closing scene");
         gameObject.SetActive(false); 
     }

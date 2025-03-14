@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// class to trigger appropriate controls across project 
+// class to trigger appropriate controls in overworld scene 
 // this is necessary because PlayerInput is attached to a perpetuated gameobject instead of individual scene-dependent ones
 // Messages are only broadcast to the gameObject that PlayerInput is attached to, so i have to hook it all up manually
 public class SendInputMessages : MonoBehaviour
