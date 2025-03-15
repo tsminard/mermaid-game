@@ -979,7 +979,7 @@ GameObject:
   - component: {fileID: 1466521630}
   - component: {fileID: 1466521629}
   m_Layer: 0
-  m_Name: TradeDoor
+  m_Name: ShopDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1581,7 +1581,7 @@ GameObject:
   - component: {fileID: 1806228226}
   - component: {fileID: 1806228225}
   m_Layer: 0
-  m_Name: trade-shop
+  m_Name: boat-shop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1793,7 +1793,7 @@ GameObject:
   - component: {fileID: 2127266476}
   - component: {fileID: 2127266475}
   m_Layer: 0
-  m_Name: TradeDoor
+  m_Name: ShopDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
