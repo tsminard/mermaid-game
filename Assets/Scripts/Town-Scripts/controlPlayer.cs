@@ -14,7 +14,7 @@ public class controlPlayer : MonoBehaviour
     public float speed = .25f;
 
     private bool isJumping = false; 
-    public float jumpSpeed = .15f;
+    public float jumpSpeed = 1f;
     public float jumpTime = 0.1f;
     private float currTime = 0; 
 
@@ -49,7 +49,8 @@ public class controlPlayer : MonoBehaviour
             if (input.y > 0 && !isJumping)
             {
                 isJumping = true;
-                velocity = new Vector3(input.x * speed, input.y, 0);
+                float jumpForce = jumpSpeed * (jumpTime - currTime);
+                velocity = new Vector3(input.x * speed, jumpForce, 0);
             }
             transform.position += velocity;
         }
