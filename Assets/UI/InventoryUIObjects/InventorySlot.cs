@@ -5,18 +5,18 @@ using UnityEngine.UIElements;
 public class InventorySlot : VisualElement
 {
     public Image icon;
-    public int locID; // indicates which space on the screen this slot takes up
+    public int locId; // indicates which space on the screen this slot takes up
     private ItemDetails currentItem; // contains item information for display
-    private string slotIconClassName = "slotIcon";
+    private string containerClassName = "slotContainer"; // naming generically so this class can be extended
+    private string iconClassName = "slotIcon";
 
-    public InventorySlot(int locID)
+    public InventorySlot(int locId)
     {
         icon = new Image();
         Add(icon);
-        icon.AddToClassList(slotIconClassName); // associate the uss style for "slotIcon" to our icon image
-        AddToClassList("slotContainer"); // associates the uss style for "slotContainer" to our actual inventory slot
-
-        this.locID = locID;
+        icon.AddToClassList(iconClassName); // associate the uss style for "slotIcon" to our icon image
+        AddToClassList(containerClassName); // associates the uss style for "slotContainer" to our actual inventory slot
+        this.locId = locId;
     }
 
     public void holdItem(ItemDetails itemDetails)
