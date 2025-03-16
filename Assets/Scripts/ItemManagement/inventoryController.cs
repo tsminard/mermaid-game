@@ -7,7 +7,7 @@ public class ItemDetails // wrapper class which  additionally contains canDrop +
 {
     public string uiName; // name for display in UI
     public ItemData itemData;
-    private bool canDrop; // TODO : not sure if we'll need this but i'll keep it in for now
+    private bool canDrop; 
     private bool canInteract;
     public delegate string interactionDelegate(); // interaction always returns a String which represents the new text in the UI description 
     interactionDelegate interact; 

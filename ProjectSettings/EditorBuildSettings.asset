@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TownScene.unity
     guid: 8eb4547125a69704a88a0df4add2de6a
+  - enabled: 1
+    path: Assets/Scenes/BaitShopScene.unity
+    guid: e9f14803d8c77604eada8cecb2b34d30
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 68b431445f20fe54d9a902de8a6e9212, type: 3}
   m_UseUCBPForAssetBundles: 0

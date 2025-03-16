@@ -41,7 +41,6 @@
     border-radius: 2px 2px 2px 2px;
     border-width: 3px 3px 3px 3px;
 
-    /*align-items: auto;*/
     align-items: center;
     flex-direction: row;
     justify-content: center;
