@@ -7,6 +7,7 @@ using System;
 public class ItemManager : MonoBehaviour 
 {
     private Dictionary<string, ItemDetails> allItems = new Dictionary<string, ItemDetails>();
+    private Dictionary<string, ItemDetails> allBaits = new Dictionary<string, ItemDetails>(); // separating Bait from Items because they are used differently, even though they use the same base classes
     private  List<SirenTypes> availableLures = new List<SirenTypes>();
 
     private static ItemManager _Instance;
@@ -34,7 +35,8 @@ public class ItemManager : MonoBehaviour
         // build all our possible objects to be referenced later
         // NOTE : each of these corresponds to a SPRITE REPRESENTATION. if we want multiple sprites, we need to either change the ItemDetails.ItemData.Sprite field or make a new object
         buildAllFish();
-        buildAllTrash(); 
+        buildAllTrash();
+        buildAllBait();
     }
 
     private void buildAllFish() // i think this all has to be hard-coded :')
@@ -91,6 +93,24 @@ public class ItemManager : MonoBehaviour
         messageInBottle.setInteractionFunction(messageInBottleInteraction);
     }
 
+    private void buildAllBait()
+    {
+        ItemData chumBucket = buildItemData("chum-bucket", 20.99f, "A bucket of chopped-up fish sure to attract some bigger catches");
+        ItemData hotdog = buildItemData("hotdog", 3.99f, "I know it looks weird, but I swear some fish LOVE these things!");
+
+        List<(string uiName, ItemData itemData)> allBaitDetails = new List<(string, ItemData)>()
+        {
+            ("100% Satisfaction Guaranteed Chum Bucket", chumBucket), 
+            ("CostCo hotdog", hotdog)
+        };
+
+        foreach (var itemTuple in allBaitDetails)
+        {
+            ItemDetails itemDetails = buildItemDetails(itemTuple.uiName, itemTuple.itemData, true); // for now, all objects are droppable
+            allBaits.Add(itemTuple.itemData.itemName, itemDetails);
+        }
+    }
+
     // METHODS FOR INDIVIDUAL ITEMS
     public string messageInBottleInteraction() // TODO : add message in bottle info to UI
     {
@@ -128,7 +148,7 @@ public class ItemManager : MonoBehaviour
     }
 
     // HELPER METHODS
-    private ItemData buildItemData(string itemName, float value, string itemDesc) // itemData is specifically for throwing into 
+    private ItemData buildItemData(string itemName, float value, string itemDesc) // itemData is specifically for throwing into ItemDetails
     {
         ItemData item = (ItemData)ScriptableObject.CreateInstance("ItemData");
         if(itemDesc != null)
@@ -157,6 +177,19 @@ public class ItemManager : MonoBehaviour
         {
             Debug.Log("No record of item " + name);
             return null; 
+        }
+    }
+
+    public ItemDetails getBaitByName(string name)
+    {
+        if (allBaits.ContainsKey(name))
+        {
+            return allBaits[name];
+        }
+        else
+        {
+            Debug.Log("No record of bait " + name);
+            return null;
         }
     }
 
