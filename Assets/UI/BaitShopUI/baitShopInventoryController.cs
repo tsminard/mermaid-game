@@ -10,7 +10,7 @@ public class baitShopInventoryController : MonoBehaviour
     private VisualElement itemDescription;
 
     // values for display
-    private int numWareSlots = 20;
+    private static int numWareSlots = 15;
 
     // values for keeping track of items displayed
     Dictionary<int, WaresSlot> waresSlotsById = new Dictionary<int, WaresSlot>();
@@ -32,7 +32,6 @@ public class baitShopInventoryController : MonoBehaviour
         for(int i = 0; i < numWareSlots; i++)
         {
             WaresSlot wareSlot = new WaresSlot(i);
-            Debug.Log("waresSlot is null ? " + ((wareSlot == null) ? "yes" : "no"));
             waresSlotsById.Add(i, wareSlot);
             waresRoot.Add(wareSlot);
         }

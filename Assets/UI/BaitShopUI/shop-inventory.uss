@@ -11,7 +11,7 @@
 
 .tabbedBaitInventory {
     height: 100%;
-    width: 70%;
+    width: 60%;
     flex-direction: column;
     flex-grow: 1;
 }
@@ -41,7 +41,10 @@
     border-radius: 2px 2px 2px 2px;
     border-width: 3px 3px 3px 3px;
 
-    align-items: auto;
+    /*align-items: auto;*/
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
     flex-wrap: wrap;
     flex-shrink: 0;
 
@@ -81,7 +84,6 @@
 
 .inventory {
     flex-grow: 1;
-    background-color: rgb(245, 41, 41);
     height: 100%;
     background-size: 100% 100%;
     width: 100%;
@@ -100,3 +102,17 @@
 }
 
 /*multiple-purpose classes*/
+.slotContainer {
+    width: 17.5%;
+    height: 28.5%;
+    margin: 1% auto;
+    background-color: rgb(111, 160, 184);
+    border-width: 3px;
+    border-color: rgb(0, 154, 255);
+    border-radius: 2px;
+}
+
+.selectedSlotContainer {
+    border-width: 5px;
+    border-color: rgb(255, 137, 0);
+}
