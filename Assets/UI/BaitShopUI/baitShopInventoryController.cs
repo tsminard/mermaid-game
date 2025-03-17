@@ -18,6 +18,8 @@ public class baitShopInventoryController : MonoBehaviour
 
     // values for display
     private static int numWareSlots = 15;
+
+    // values for handling purchases
     private float currMoney = 0f;
 
     // values for keeping track of items displayed
@@ -170,7 +172,7 @@ public class baitShopInventoryController : MonoBehaviour
         toggleSelectedSlot(newSlot, true);
         selectedSlotId = newSlotId;
         // change text if slot contains bait
-        if (!newSlot.isEmpty())
+        if (!newSlot.isEmpty()) 
         {
             if (newSlot.isItemSold())
             {
@@ -243,15 +245,27 @@ public class baitShopInventoryController : MonoBehaviour
                 {
                     Debug.Log("Attempting to purchase item!");
                     // TODO : add purchasing logic here
-                    int newInventoryIndex = PersistData.Instance.generateNewInventoryIndex(ItemInventoryType.Bait);
-                    if (newInventoryIndex != -1) // add the item to our PERSISTED INVENTORY
+                    ItemDetails currItem = currWareSlot.getSlotItem();
+                    // check if the player has enough money 
+                    if(currMoney > currItem.itemData.value) // if the player doesn't have enough money, display new text and break out
                     {
-                        currWareSlot.sellItem();
-                        PersistData.Instance.addItemToInventory(newInventoryIndex, currWareSlot.getSlotItem());
+                        // if player has enough money, check if player has enough inventory space
+                        int newInventoryIndex = PersistData.Instance.generateNewInventoryIndex(ItemInventoryType.Bait);
+                        if (newInventoryIndex != -1) // add the item to our PERSISTED INVENTORY
+                        {
+                            currWareSlot.sellItem();
+                            PersistData.Instance.addItemToInventory(newInventoryIndex, currItem);
+                            shopkeeperSpeechLabel.text = "Sweet, thanks !";
+                            moneyBoxLabel.text = (currMoney - currItem.itemData.value).ToString() + "$";
+                        }
+                        else // change our message to indicate that we cannot purchase anything 
+                        {
+                            inventoryTextBox.changeTextDescription("Oops, looks like your bag is already full !");
+                        }
                     }
-                    else // change our message to indicate that we cannot purchase anything 
+                    else
                     {
-                        inventoryTextBox.changeTextDescription("Oops, looks like your bag is already full !");
+                        shopkeeperSpeechLabel.text = "Oh, bummer - not enough cash.";
                     }
                 }
                 else
