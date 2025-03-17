@@ -16,7 +16,6 @@
     flex-grow: 1;
 }
 
-/*start BAIT SHOP classes*/
 .baitShop {
     flex-wrap: wrap;
     height: 100%;
@@ -28,25 +27,20 @@
 
 .wares {
     flex-grow: 1;
-
     max-width: 100%;
     max-height: 60%;
     width: 100%;
     height: 60%;
-
     margin: 3px 3px 3px 3px;
     padding: 5px 5px 5px 5px;
-
-    border-color:rgb(0, 154, 255);
+    border-color: rgb(0, 154, 255);
     border-radius: 2px 2px 2px 2px;
     border-width: 3px 3px 3px 3px;
-
     align-items: center;
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
     flex-shrink: 0;
-
     background-color: rgb(111, 160, 184);
 }
 
@@ -54,24 +48,110 @@
     flex-grow: 0;
     flex-direction: row;
     flex-wrap: wrap;
-
     margin: 3px 3px 3px 3px;
     padding: 5px 5px 5px 5px;
 }
 
-.itemDescription {
-    flex-grow: 0;
+.itemDescriptionBox {
+    width: 60%;
+    height: 95%;
+    margin: 3px;
+    border-color: rgb(255, 255, 255);
+    border-width: 3px 3px 3px 3px;
+    border-radius: 2px 2px 2px 2px;
+    padding: 3px;
+    flex-grow: 1;
 }
 
-.itemDescriptionText {
-    height: 100%;
+.itemName {
+    height: 20%;
+}
+
+.itemDescription {
+    flex-grow: 1;
+    flex-shrink: 1;
 }
 
 .actionBox {
     flex-grow: 1;
 }
 
-/*end BAIT SHOP classes*/
+.buyBox {
+    flex-grow: 1;
+    border-color: rgb(255, 255, 255);
+    border-width: 3px;
+    height: 50%;
+    max-height: 50%;
+    margin-bottom: 2px;
+}
+
+.buyText {
+    flex-wrap: wrap;
+    align-self: flex-start;
+    -unity-font-style: normal;
+    font-size: 14px;
+    width: 45%;
+}
+
+.optionNo {
+    flex-grow: 1;
+    margin-top: 3px;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    margin-left: 3px;
+    background-image: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=5923138177525885446&guid=4e847a03f09890b45a165ecbd2e01b0e&type=3#Remove@2x");
+    background-color: rgb(255, 0, 0);
+}
+
+.optionYes {
+    flex-grow: 1;
+    margin-top: 3px;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    margin-left: 3px;
+    background-image: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-6090568113533005507&guid=4e847a03f09890b45a165ecbd2e01b0e&type=3#check");
+    background-color: rgb(8, 164, 8);
+}
+
+.moneyBox {
+    flex-grow: 1;
+    border-color: rgb(255, 255, 255);
+    border-width: 3px;
+    margin-top: 2px;
+}
+
+.spriteContainers {
+    flex-grow: 1;
+    flex-wrap: wrap;
+    height: 100%;
+}
+
+.shopkeeperSprite {
+    flex-grow: 1;
+    height: 60%;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 0;
+    margin-left: 10px;
+    background-image: resource('Sprites/BackgroundSprites/BaitShopSprites/bait-shop-cashier');
+}
+
+.speechBubble {
+    height: 25%;
+    max-height: 25%;
+    background-image: url("project://database/Packages/dev.yarnspinner.unity/Textures/LastLineBalloon.png?fileID=21300000&guid=48f24bb86f008479ab5e103ef81a0b49&type=3#LastLineBalloon");
+    background-size: 100% 100%;
+    justify-content: center;
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+.speechContents {
+    margin-right: 20px;
+    margin-left: 20px;
+    -unity-text-align: upper-center;
+    flex-wrap: wrap;
+    font-size: 10px;
+}
 
 .fishMonger {
     flex-wrap: wrap;
@@ -100,11 +180,11 @@
     flex-grow: 1;
 }
 
-/*multiple-purpose classes*/
 .slotContainer {
     width: 17.5%;
     height: 28.5%;
     margin: 1% auto;
+    padding: 2px;
     background-color: rgb(111, 160, 184);
     border-width: 3px;
     border-color: rgb(0, 154, 255);
@@ -113,5 +193,10 @@
 
 .selectedSlotContainer {
     border-width: 5px;
+    border-color: rgb(255, 137, 0);
+}
+
+.selectedOptionContainer {
+    border-width: 2px;
     border-color: rgb(255, 137, 0);
 }

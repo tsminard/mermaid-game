@@ -61,4 +61,9 @@ public class InventorySlot : VisualElement
         return currentItem.isDroppable();
     }
 
+    // GETTERS + SETTERS
+    public ItemDetails getSlotItem()
+    {
+        return currentItem;
+    }
 }

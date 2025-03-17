@@ -347,6 +347,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 444769658}
+  isSlotSelected: 0
+  willPurchase: 0
 --- !u!1 &681161874
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &681161875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,7 +426,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -646,7 +648,7 @@ Transform:
   m_GameObject: {fileID: 1847009131}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -360.11, y: -144.62, z: 0}
+  m_LocalPosition: {x: -361.39, y: -174.4, z: 0}
   m_LocalScale: {x: 2.4346297, y: 2.127184, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
