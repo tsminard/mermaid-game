@@ -10,6 +10,10 @@ public class ItemManager : MonoBehaviour
     private Dictionary<string, ItemDetails> allBaits = new Dictionary<string, ItemDetails>(); // separating Bait from Items because they are used differently, even though they use the same base classes
     private  List<SirenTypes> availableLures = new List<SirenTypes>();
 
+    // strings relating to filepaths
+    private static string itemPath = "ItemSprites/";
+    private static string baitPath = "BaitSprites/";
+
     private static ItemManager _Instance;
     public static ItemManager Instance
     {
@@ -42,9 +46,9 @@ public class ItemManager : MonoBehaviour
     private void buildAllFish() // i think this all has to be hard-coded :')
     {
         // NOTE : the first-passed string must correspond EXACTLY to the name of the sprite in the Resources folder
-        ItemData arowana = buildItemData("arowana", 25f, "What the heck is this ? At least it's...big ??");
-        ItemData koi = buildItemData("koi", 15f,  "I know this one from anime!");
-        ItemData tilapia = buildItemData("tilapia", 100f, "I think this one is..edible...");
+        ItemData arowana = buildItemData("arowana", itemPath, 25f, "What the heck is this ? At least it's...big ??");
+        ItemData koi = buildItemData("koi", itemPath, 15f,  "I know this one from anime!");
+        ItemData tilapia = buildItemData("tilapia", itemPath, 100f, "I think this one is..edible...");
 
         // add all fish to itemData list so we can iterate through it and build every ItemDetail
         List<(string uiName, ItemData itemData)> allItemDatas = new List<(string, ItemData)>()
@@ -64,11 +68,11 @@ public class ItemManager : MonoBehaviour
 
     private void buildAllTrash()
     {
-        ItemData boot = buildItemData("boot", .99f, "A boot...perfect for my third foot!");
-        ItemData can = buildItemData("can", 1.50f, "Hey, I recognise this brand ! They're a midrange option for most single-person bomb shelters");
-        ItemData lobsterTrap = buildItemData("lobster-trap", 12.99f, "Thank goodness there isn't a lobster inside - what do you even do with those ???");
-        ItemData bottleMessage = buildItemData("message-in-bottle", 21, "Is there something inside this ?");
-        ItemData emptyBottle = buildItemData("empty-bottle", 1.99f, "An empty bottle that seems somehow forlorn");
+        ItemData boot = buildItemData("boot", itemPath, .99f, "A boot...perfect for my third foot!");
+        ItemData can = buildItemData("can", itemPath, 1.50f, "Hey, I recognise this brand ! They're a midrange option for most single-person bomb shelters");
+        ItemData lobsterTrap = buildItemData("lobster-trap", itemPath, 12.99f, "Thank goodness there isn't a lobster inside - what do you even do with those ???");
+        ItemData bottleMessage = buildItemData("message-in-bottle", itemPath, 21, "Is there something inside this ?");
+        ItemData emptyBottle = buildItemData("empty-bottle", itemPath, 1.99f, "An empty bottle that seems somehow forlorn");
 
         // add all trash to itemData list so we can iterate through it and build every ItemDetail
         List<(string uiName, ItemData itemData)> allItemDatas = new List<(string, ItemData)>()
@@ -95,8 +99,8 @@ public class ItemManager : MonoBehaviour
 
     private void buildAllBait()
     {
-        ItemData chumBucket = buildItemData("chum-bucket", 20.99f, "A bucket of chopped-up fish sure to attract some bigger catches");
-        ItemData hotdog = buildItemData("hotdog", 3.99f, "I know it looks weird, but I swear some fish LOVE these things!");
+        ItemData chumBucket = buildItemData("chum-bucket", baitPath, 20.99f, "A bucket of chopped-up fish sure to attract some bigger catches");
+        ItemData hotdog = buildItemData("hotdog", baitPath, 3.99f, "I know it looks weird, but I swear some fish LOVE these things!");
 
         List<(string uiName, ItemData itemData)> allBaitDetails = new List<(string, ItemData)>()
         {
@@ -148,16 +152,16 @@ public class ItemManager : MonoBehaviour
     }
 
     // HELPER METHODS
-    private ItemData buildItemData(string itemName, float value, string itemDesc) // itemData is specifically for throwing into ItemDetails
+    private ItemData buildItemData(string itemName, string spriteFolder, float value, string itemDesc) // itemData is specifically for throwing into ItemDetails
     {
         ItemData item = (ItemData)ScriptableObject.CreateInstance("ItemData");
         if(itemDesc != null)
         {
-            item.init(itemName, Resources.Load<Sprite>("Sprites/" + itemName), value, itemDesc);
+            item.init(itemName, Resources.Load<Sprite>("Sprites/" + spriteFolder + itemName), value, itemDesc);
         }
         else
         {
-            item.init(itemName, Resources.Load<Sprite>("Sprites/" + itemName));
+            item.init(itemName, Resources.Load<Sprite>("Sprites/" + spriteFolder + itemName));
         }
         return item;
     }

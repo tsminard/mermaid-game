@@ -17,7 +17,19 @@ public class SendBaitShopInput : MonoBehaviour
 
     public void OnNavigateMenu()
     {
-        baitShopUIController.OnNavigateMenu();
+        if (!baitShopUIController.isSlotSelected) // if a slot is not selected, navigate the items listed
+        {
+            baitShopUIController.OnNavigateMenu();
+        }
+        else // otherwise, navigate the submenu 
+        {
+            baitShopUIController.OnNavigateSubMenu();
+        }  
+    }
+
+    public void OnSubmit()
+    {
+        baitShopUIController.OnSubmit();
     }
 
     public void OnCancel()

@@ -12,6 +12,9 @@ public class PersistData : MonoBehaviour
     // inventory variables
     Dictionary<int, ItemDetails> currentInventory = new Dictionary<int, ItemDetails>();
     List<SirenTypes> discoveredLures = new List<SirenTypes>(); // storing by siren type so the lure menu on reload can search up its child visualelements by siren type instead of persisting object through scenes 
+    public int numInventorySlots = 20; // this is the TOTAL NUMBER OF SLOTS, fish and bait
+    public int numBaitSlots = 5; // these two should add up to our total number of inventory slots
+    public int numFishSlots = 15; 
 
     // singleton variables
     private static PersistData _Instance;
@@ -64,6 +67,12 @@ public class PersistData : MonoBehaviour
         return currentInventory; 
     }
 
+    // call generateNewInventoryIndex first to ensure there is space before we actually add anything to our inventory
+    public void addItemToInventory(int itemIndex, ItemDetails item)
+    {
+        currentInventory.Add(itemIndex, item);
+    }
+
     public void discoverLure(SirenTypes sirenLure)
     {
         discoveredLures.Add(sirenLure);
@@ -72,5 +81,25 @@ public class PersistData : MonoBehaviour
     public List<SirenTypes> getDiscoveredLures()
     {
         return discoveredLures;
+    }
+
+    // helper methods
+
+    // method that checks our stored inventory for space available
+    // if there is NO SPACE AVAILABLE we return -1
+    public int generateNewInventoryIndex(ItemInventoryType inventoryType)
+    {
+        List<int> inventorySlotsOccupied = new List<int>(currentInventory.Keys);
+        int numSlotsTotal = (inventoryType == ItemInventoryType.Bait) ? numBaitSlots : numBaitSlots + numFishSlots;
+        int i = (inventoryType == ItemInventoryType.Bait) ? 0 : 5; 
+        while (i < numSlotsTotal)
+        {
+            if (!inventorySlotsOccupied.Contains(i))
+            {
+                return i; 
+            }
+            i++;
+        }
+        return -1; 
     }
 }

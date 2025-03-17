@@ -87,7 +87,6 @@ public enum ItemInventoryType // using an enum to differentiate between the kind
     Bait
 }
 
-//public delegate void OnInventoryChangeDelegate(int id, ItemDetails itemDetails, InventoryChangeType inventoryChangeType, ItemInventoryType inventoryType); // delegate to handle when inventory state is changed
 public class inventoryController : MonoBehaviour
 {
     // setting these as static because we should only ever have 1 inventoryController, which should be accessible everywhere
@@ -119,7 +118,7 @@ public class inventoryController : MonoBehaviour
         List<int> usedKeys = new List<int>(currentInventory.Keys);
         int newIndex = 0;
         bool newIndexFound = false; 
-        while (!newIndexFound && newIndex < 20)// we have 20 inventory slots available
+        while (!newIndexFound && newIndex < PersistData.Instance.numInventorySlots)// we have 20 inventory slots available
         {
             if (usedKeys.Contains(newIndex))
             {

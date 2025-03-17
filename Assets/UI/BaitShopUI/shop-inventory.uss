@@ -76,6 +76,52 @@
     flex-grow: 1;
 }
 
+.buyBox {
+    flex-grow: 1;
+    border-color: rgb(255, 255, 255);
+    border-width: 3px;
+    height: 50%;
+    max-height: 50%;
+    margin-bottom: 2px;
+}
+
+.buyText {
+    flex-wrap: wrap;
+    align-self: flex-start;
+    -unity-font-style: normal;
+    font-size: 14px;
+    width: 45%;
+}
+
+.optionNo {
+    flex-grow: 1;
+    margin-top: 3px;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    margin-left: 3px;
+    background-image: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=5923138177525885446&guid=4e847a03f09890b45a165ecbd2e01b0e&type=3#Remove@2x");
+    background-color: rgb(255, 0, 0);
+}
+
+.optionYes {
+    flex-grow: 1;
+    margin-top: 3px;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    margin-left: 3px;
+    background-image: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-6090568113533005507&guid=4e847a03f09890b45a165ecbd2e01b0e&type=3#check");
+    background-color: rgb(8, 164, 8);
+}
+
+.moneyBox {
+    flex-grow: 1;
+    border-color: rgb(255, 255, 255);
+    border-width: 3px;
+    margin-top: 2px;
+}
+
+
+
 .fishMonger {
     flex-wrap: wrap;
     width: 100%;
@@ -116,5 +162,10 @@
 
 .selectedSlotContainer {
     border-width: 5px;
+    border-color: rgb(255, 137, 0);
+}
+
+.selectedOptionContainer{
+    border-width: 2px;
     border-color: rgb(255, 137, 0);
 }
