@@ -99,12 +99,12 @@ public class ItemManager : MonoBehaviour
 
     private void buildAllBait()
     {
-        ItemData chumBucket = buildItemData("chum-bucket", baitPath, 20.99f, "A bucket of chopped-up fish sure to attract some bigger catches");
+        ItemData chumBucket = buildItemData("chum-bucket", baitPath, 20.99f, "A bucket of chopped-up fish sure to attract some bigger catches, or your money back! (\"Bigger catches\" may include boots, garbage floats, and carcasses)");
         ItemData hotdog = buildItemData("hotdog", baitPath, 3.99f, "I know it looks weird, but I swear some fish LOVE these things!");
 
         List<(string uiName, ItemData itemData)> allBaitDetails = new List<(string, ItemData)>()
         {
-            ("100% Satisfaction Guaranteed Chum Bucket", chumBucket), 
+            ("Chum Bucket", chumBucket), 
             ("CostCo hotdog", hotdog)
         };
 

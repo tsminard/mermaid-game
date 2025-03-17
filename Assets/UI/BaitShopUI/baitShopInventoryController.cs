@@ -14,9 +14,11 @@ public class baitShopInventoryController : MonoBehaviour
     private VisualElement noOption;
     private VisualElement yesOption;
     private Label moneyBoxLabel;
+    private Label shopkeeperSpeechLabel;
 
     // values for display
     private static int numWareSlots = 15;
+    private float currMoney = 0f;
 
     // values for keeping track of items displayed
     Dictionary<int, WaresSlot> waresSlotsById = new Dictionary<int, WaresSlot>();
@@ -27,8 +29,10 @@ public class baitShopInventoryController : MonoBehaviour
     InputAction inputAction;
     public bool isSlotSelected = false;
     public bool willPurchase = false;
-
     private int selectedSlotId = 0;
+
+    string shopkeeperSpeech = "That'll set you back $, buddy.";
+    private int insertionIndex = 21; // keeps track of where we should insert the price into the above text
 
     InventoryTextBox inventoryTextBox;
 
@@ -39,6 +43,7 @@ public class baitShopInventoryController : MonoBehaviour
     string noOptionName = "OptionNo";
     string yesOptionName = "OptionYes";
     string moneyBoxName = "MoneyBox";
+    string shopkeeperSpeechName = "SpeechBubble";
     string selectedSlotUssName = "selectedSlotContainer";
     string selectedOptionUssName = "selectedOptionContainer";
     
@@ -58,8 +63,16 @@ public class baitShopInventoryController : MonoBehaviour
         VisualElement moneyBox = root.Query(moneyBoxName);
         moneyBoxLabel = moneyBox.Query<Label>().First();
 
+        VisualElement speechBubble = root.Query(shopkeeperSpeechName);
+        shopkeeperSpeechLabel = speechBubble.Query<Label>().First();
+
+        // retrieve saved information
+        currMoney = PersistData.Instance.getCurrentMoney();
+
         // handle displaying text
         inventoryTextBox = new InventoryTextBox(itemDescriptionBox);
+        moneyBoxLabel.text = currMoney.ToString() + "$";
+
         // the following methods depend on InventoryTextBox so have to be called after its instantiation
         // highlight current selected slot
         changeSelectedSlot(selectedSlotId);
@@ -161,16 +174,22 @@ public class baitShopInventoryController : MonoBehaviour
         {
             if (newSlot.isItemSold())
             {
+                newSlot.displayText(inventoryTextBox);
                 inventoryTextBox.changeTextDescription("Thanks for your purchase!");
+                shopkeeperSpeechLabel.text = "Pleasure doing business with ya";
             }
             else
             {
                 newSlot.displayText(inventoryTextBox);
+                float currItemPrice = newSlot.getSlotItem().itemData.value;
+                string priceInfo = shopkeeperSpeech.Insert(insertionIndex, currItemPrice.ToString());
+                shopkeeperSpeechLabel.text = priceInfo;
             }
         }
         else
         {
             inventoryTextBox.blankTextBox();
+            shopkeeperSpeechLabel.text = "We're still waiting on some inventory to come in...";
         }
     }
 

@@ -120,7 +120,38 @@
     margin-top: 2px;
 }
 
+.spriteContainers {
+    flex-grow: 1;
+    flex-wrap: wrap;
+    height: 100%;
+}
 
+.shopkeeperSprite {
+    flex-grow: 1;
+    height: 60%;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 0;
+    margin-left: 10px;
+    background-image: resource('Sprites/BackgroundSprites/BaitShopSprites/bait-shop-cashier');
+}
+
+.speechBubble {
+    height: 25%;
+    max-height: 25%;
+    background-image: url("project://database/Packages/dev.yarnspinner.unity/Textures/LastLineBalloon.png?fileID=21300000&guid=48f24bb86f008479ab5e103ef81a0b49&type=3#LastLineBalloon");
+    background-size: 100% 100%;
+    justify-content: center;
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+.speechContents {
+    margin-right: 20px;
+    margin-left: 20px;
+    -unity-text-align: upper-center;
+    flex-wrap: wrap;
+    font-size: 10px;
+}
 
 .fishMonger {
     flex-wrap: wrap;
@@ -165,7 +196,7 @@
     border-color: rgb(255, 137, 0);
 }
 
-.selectedOptionContainer{
+.selectedOptionContainer {
     border-width: 2px;
     border-color: rgb(255, 137, 0);
 }

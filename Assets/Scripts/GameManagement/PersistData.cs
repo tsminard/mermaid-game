@@ -14,7 +14,9 @@ public class PersistData : MonoBehaviour
     List<SirenTypes> discoveredLures = new List<SirenTypes>(); // storing by siren type so the lure menu on reload can search up its child visualelements by siren type instead of persisting object through scenes 
     public int numInventorySlots = 20; // this is the TOTAL NUMBER OF SLOTS, fish and bait
     public int numBaitSlots = 5; // these two should add up to our total number of inventory slots
-    public int numFishSlots = 15; 
+    public int numFishSlots = 15;
+
+    private float currMoney = 20.05f; 
 
     // singleton variables
     private static PersistData _Instance;
@@ -66,6 +68,11 @@ public class PersistData : MonoBehaviour
     {
         return currentInventory; 
     }
+
+    public float getCurrentMoney() { return currMoney;  }
+
+    public void addMoney(float money) { currMoney += money;  }
+    public void removeMoney(float money) { currMoney -= money; }
 
     // call generateNewInventoryIndex first to ensure there is space before we actually add anything to our inventory
     public void addItemToInventory(int itemIndex, ItemDetails item)
