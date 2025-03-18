@@ -80,6 +80,25 @@ public class PersistData : MonoBehaviour
         currentInventory.Add(itemIndex, item);
     }
 
+    public void removeItemFromInventory(ItemDetails item)
+    {
+        for(int i = 0; i < numInventorySlots; i++) // have to iterate over every slot because items might not be arranged consecutively
+        {
+            ItemDetails checkItem;
+            currentInventory.TryGetValue(i, out checkItem);
+            if(checkItem != null)
+            {
+                // compare items to see if this is the index we want
+                if (item.Equals(checkItem))
+                {
+                    currentInventory.Remove(i);
+                    return;
+                }
+            }
+        }
+        Debug.Log("Could not find this item in inventory");
+    }
+
     public void discoverLure(SirenTypes sirenLure)
     {
         discoveredLures.Add(sirenLure);

@@ -307,7 +307,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "SelectInventoryTab",
+                    "name": "SelectTabOne",
                     "type": "Button",
                     "id": "2d51925e-ab79-4cda-b8f4-e45aca699d36",
                     "expectedControlType": "",
@@ -316,7 +316,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SelectNotebookTab",
+                    "name": "SelectTabTwo",
                     "type": "Button",
                     "id": "12338093-6ecb-4044-9e1a-33740047394f",
                     "expectedControlType": "",
@@ -325,7 +325,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SelectLureTab",
+                    "name": "SelectTabThree",
                     "type": "Button",
                     "id": "3a24a1af-9975-47de-898a-1815f170214d",
                     "expectedControlType": "",
@@ -507,7 +507,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SelectInventoryTab",
+                    "action": "SelectTabOne",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -518,7 +518,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SelectNotebookTab",
+                    "action": "SelectTabTwo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -529,7 +529,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SelectLureTab",
+                    "action": "SelectTabThree",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -161,18 +161,6 @@
     max-width: 100%;
 }
 
-.inventory {
-    flex-grow: 1;
-    height: 100%;
-    background-size: 100% 100%;
-    width: 100%;
-    margin-top: 5px;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    margin-left: 5px;
-    flex-wrap: wrap;
-}
-
 .boatRepair {
 }
 
@@ -200,3 +188,4 @@
     border-width: 2px;
     border-color: rgb(255, 137, 0);
 }
+
