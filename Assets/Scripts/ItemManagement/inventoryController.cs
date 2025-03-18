@@ -48,6 +48,25 @@ public class ItemDetails // wrapper class which  additionally contains canDrop +
         return "It seems perfectly ordinary...";
     }
 
+    // methods to handle equality comparison
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
+
+    public override bool Equals(object obj)
+    {
+        return Equals(obj as ItemDetails);
+    }
+
+    public bool Equals(ItemDetails item)
+    {
+        return (item != null &&
+                item.uiName == uiName &&
+                item.itemData.name == itemData.name &&
+                item.itemData.value == itemData.value);
+    }
+
     // getters & setters
     public void setCanDrop(bool canDrop)
     {

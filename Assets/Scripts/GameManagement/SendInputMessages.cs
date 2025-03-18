@@ -25,7 +25,6 @@ public class SendInputMessages : MonoBehaviour
     // inventory UIS
     bool isUsingSubMenu = false;
     int activeTab = 0; // indicate which inventory tab is active
-    string activeScene;
 
     private void Awake() // TODO : change this based on scene loaded
     {
@@ -118,29 +117,22 @@ public class SendInputMessages : MonoBehaviour
     }
 
     // methods to change inventory tabs
-    public void OnSelectInventoryTab()
+    public void OnSelectTabOne() // inventory tab
     {
         tabController.setActiveTab(0);
         activeTab = 0;
     }
 
-    public void OnSelectNotebookTab()
+    public void OnSelectTabTwo() // notebook tab
     {
         tabController.setActiveTab(1);
         activeTab = 1;
     }
 
-    public void OnSelectLureTab()
+    public void OnSelectTabThree() // lure tab
     {
         tabController.setActiveTab(2);
         boatControls.setAnchorState(true);
         activeTab = 2;
-    }
-
-    // GETTERS + SETTERS
-    public void setActiveScene(string activeScene)
-    {
-        this.activeScene = activeScene;
-        Debug.Log("Set scene to " + activeScene);
     }
 }

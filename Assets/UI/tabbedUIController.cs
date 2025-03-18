@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
 
+//reusable script to allow a tabbed UI to be mapped to keystrokes
 public class TabbedUIController : MonoBehaviour
 {
     public VisualElement root;
