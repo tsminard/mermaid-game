@@ -1218,6 +1218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7a0fdd511c0f4947b53776cb8822f69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baitShop: {fileID: 2066006436}
+  boatShop: {fileID: 1806228224}
 --- !u!1 &1622649793
 GameObject:
   m_ObjectHideFlags: 0

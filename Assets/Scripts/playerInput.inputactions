@@ -332,6 +332,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "EnterLocation",
+                    "type": "Button",
+                    "id": "618094df-9791-45db-9c23-378a59f40866",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -530,6 +539,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SelectTabThree",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dea65ec3-8d16-4c63-a0fe-3b12b4b8a4cc",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnterLocation",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

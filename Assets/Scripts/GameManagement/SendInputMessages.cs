@@ -14,12 +14,15 @@ public class SendInputMessages : MonoBehaviour
     GameObject fishingMinigame;
     [SerializeField]
     GameObject sirenMinigame;
+    [SerializeField]
+    GameObject townIsland;
 
     // list scripts which need player input
     controlBoat boatControls;
     TabbedUIController tabController;
     tabbedInventoryUIController inventoryControls;
     tabbedLureUIController lureInventoryControls;
+    enterTown townControls;
 
     // list internal variables
     // inventory UIS
@@ -32,6 +35,7 @@ public class SendInputMessages : MonoBehaviour
         tabController = itemUI.GetComponent<TabbedUIController>(); 
         inventoryControls = itemUI.GetComponent<tabbedInventoryUIController>();
         lureInventoryControls = itemUI.GetComponent<tabbedLureUIController>();
+        townControls = townIsland.GetComponent<enterTown>();
     }
 
     // boat controls
@@ -105,6 +109,21 @@ public class SendInputMessages : MonoBehaviour
                 lureInventoryControls.toggleIsSlotSelected();
             }
         }  
+    }
+
+    public void OnEnterLocation() // method to enter town scene from overworld
+    {
+        if (boatControls.isAnchored)
+        {
+            if (townControls.getIsBoatInRange())
+            {
+                townControls.openTownScene();
+            }
+        }
+        else
+        {
+            Debug.Log("Please anchor before trying to enter the town!");
+        }
     }
 
     public void OnCancel()// this so far only applies to exiting out of submenus without performing an action
