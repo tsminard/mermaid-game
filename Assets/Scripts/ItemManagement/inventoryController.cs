@@ -111,7 +111,7 @@ public class inventoryController : MonoBehaviour
     // setting these as static because we should only ever have 1 inventoryController, which should be accessible everywhere
     private static Dictionary<int, ItemDetails> currentInventory = new Dictionary<int, ItemDetails>(); // int will function as location in the inventory
     // we need to save our inventory when the scene closes
-    PersistData persistData;
+    static PersistData persistData;
     ItemManager itemManager; // singleton class
     public void Start()
     {
@@ -124,9 +124,16 @@ public class inventoryController : MonoBehaviour
         {
             populateInventory(); // TODO : remove this - Dictionary should be maintained in game state to keep fish in consistent inventory slots
         }
-        foreach (var item in currentInventory)
+        foreach (var item in currentInventory) // TODO : FIX THIS - currently we are mixing bait and fish together
         {
-            tabbedInventoryUIController.onInventoryChanged(item.Key, item.Value, InventoryChangeType.Pickup, ItemInventoryType.Fish);
+            if(item.Key < persistData.numBaitSlots)
+            {
+                tabbedInventoryUIController.onInventoryChanged(item.Key, item.Value, InventoryChangeType.Pickup, ItemInventoryType.Bait);
+            }
+            else
+            {
+                tabbedInventoryUIController.onInventoryChanged(item.Key - persistData.numBaitSlots, item.Value, InventoryChangeType.Pickup, ItemInventoryType.Fish);
+            }
         }
     }
 
@@ -134,10 +141,11 @@ public class inventoryController : MonoBehaviour
     public static void addItemToInventory(ItemDetails itemDetails, ItemInventoryType inventoryType)
     {
         // retrieve first available inventory slot
-        List<int> usedKeys = new List<int>(currentInventory.Keys);
-        int newIndex = 0;
+        List<int> usedKeys = new List<int>(currentInventory.Keys); // this contains both BAIT and FISH slots !
+        int newIndex = (inventoryType == ItemInventoryType.Bait ? 0 : persistData.numBaitSlots);
+        int maxIndex = (inventoryType == ItemInventoryType.Bait ? persistData.numBaitSlots : persistData.numFishSlots);
         bool newIndexFound = false; 
-        while (!newIndexFound && newIndex < PersistData.Instance.numInventorySlots)// we have 20 inventory slots available
+        while (!newIndexFound && newIndex < maxIndex) // we insert items by InventoryType so we need to iterate only over those slots within the universal index
         {
             if (usedKeys.Contains(newIndex))
             {
@@ -150,8 +158,10 @@ public class inventoryController : MonoBehaviour
         }
         if (newIndexFound)
         {
+            int correctedIndex = (inventoryType == ItemInventoryType.Bait ? newIndex : newIndex - persistData.numBaitSlots); // we need to convert from universal index to local index depending on BAIT or FISH type
+            Debug.Log("Inserting item " + itemDetails.uiName + " at index " + correctedIndex);
             // call method in tabbedInventoryUIController, which is responsible for displaying inventory
-            tabbedInventoryUIController.onInventoryChanged(newIndex, itemDetails, InventoryChangeType.Pickup, inventoryType);
+            tabbedInventoryUIController.onInventoryChanged(correctedIndex, itemDetails, InventoryChangeType.Pickup, inventoryType);
             currentInventory.Add(newIndex, itemDetails); // update our record of the inventory
         }
         else // we have run out of inventory slots

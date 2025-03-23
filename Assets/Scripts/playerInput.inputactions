@@ -569,6 +569,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "EnterLocation",
+                    "type": "Button",
+                    "id": "6c52314e-3b6a-424a-b9aa-4b1372d60ebb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Interact",
                     "type": "Button",
                     "id": "4b522159-4a4a-4bed-9c08-2a8136f7867e",
@@ -633,6 +642,17 @@
                     "action": "MovePlayer",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "33f6974a-f939-4e65-97a8-d5b19047f5b3",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnterLocation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",

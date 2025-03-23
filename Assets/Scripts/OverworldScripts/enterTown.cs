@@ -33,7 +33,6 @@ public class enterTown : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Trigger detected");
         displayMessage = true;
         townMessageRenderer.enabled = true;
     }
@@ -45,7 +44,6 @@ public class enterTown : MonoBehaviour
         {
             return true;
         }
-        Debug.Log("Distance is too great - disabling messageRenderer");
         return false; 
     }
 

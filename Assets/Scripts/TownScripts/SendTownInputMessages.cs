@@ -30,8 +30,10 @@ public class SendTownInput : MonoBehaviour
 
     public void OnEnterLocation()
     {
+        Debug.Log("Attempting to exit location");
         if (exitTownControls.getIsMessageDisplayed()) // letting this script check this in case we need to re-use this keymapping in the same scene
         {
+            Debug.Log("Calling CloseTown method");
             exitTownControls.closeTownScene();
         }
     }

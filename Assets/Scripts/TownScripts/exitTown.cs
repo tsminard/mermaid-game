@@ -16,6 +16,7 @@ public class exitTown : MonoBehaviour
     {
         exitMessageRenderer = gameObject.GetComponent<SpriteRenderer>();
         exitMessageRenderer.enabled = true;
+        displayMessage = true;
     }
 
     // Update is called once per frame
