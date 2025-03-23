@@ -159,7 +159,6 @@ public class inventoryController : MonoBehaviour
         if (newIndexFound)
         {
             int correctedIndex = (inventoryType == ItemInventoryType.Bait ? newIndex : newIndex - persistData.numBaitSlots); // we need to convert from universal index to local index depending on BAIT or FISH type
-            Debug.Log("Inserting item " + itemDetails.uiName + " at index " + correctedIndex);
             // call method in tabbedInventoryUIController, which is responsible for displaying inventory
             tabbedInventoryUIController.onInventoryChanged(correctedIndex, itemDetails, InventoryChangeType.Pickup, inventoryType);
             currentInventory.Add(newIndex, itemDetails); // update our record of the inventory

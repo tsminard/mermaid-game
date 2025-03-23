@@ -16,7 +16,10 @@ public class PersistData : MonoBehaviour
     public int numBaitSlots = 5; // these two should add up to our total number of inventory slots
     public int numFishSlots = 15;
 
-    private float currMoney = 20.05f; 
+    private float currMoney = 20.05f; // TODO: Swap this back to 0 when done testing
+
+    // overworld variables
+    int dayOfTheWeekIndex; 
 
     // singleton variables
     private static PersistData _Instance;
@@ -36,9 +39,11 @@ public class PersistData : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Calling PersistData Awake()");
         foreach(SirenTypes sirenType in Enum.GetValues(typeof(SirenTypes))){
             sirenFamiliarity.Add(sirenType, 1); // set our immediate familiarity with each siren to 1
         }
+        dayOfTheWeekIndex = 0; 
     }
 
     // GETTERS + SETTERS
@@ -107,6 +112,16 @@ public class PersistData : MonoBehaviour
     public List<SirenTypes> getDiscoveredLures()
     {
         return discoveredLures;
+    }
+
+    public void persistDayOfWeek(int dayIndex)
+    {
+        dayOfTheWeekIndex = dayIndex;
+    }
+
+    public int getDayOfWeekIndex()
+    {
+        return dayOfTheWeekIndex; 
     }
 
     // helper methods

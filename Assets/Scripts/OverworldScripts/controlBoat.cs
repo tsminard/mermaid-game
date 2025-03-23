@@ -36,6 +36,7 @@ public class controlBoat : MonoBehaviour
     private TabbedUIController tabController; // use this to toggle UI Menu visibility 
 
     // handle fishing action + opening of minigame
+    
     public bool isFishing = false;
     private bool isFishCaught = false; 
     private float fishTimer; // random amount of time to wait until a fish bites

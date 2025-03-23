@@ -66,11 +66,11 @@ public class runFishingGame : MonoBehaviour
     public TMP_Text uiFishStatus;
     public Image uiFishImage;
     public caughtFishController caughtFishController;
-    bool hasTextDisplayed = false; 
+    bool hasTextDisplayed = false;
 
     // these actions just need to be run once when the script is instantiated
     private void Awake()
-    {       
+    {
         // retrieve references to scripts attached to our bar colliders
         fishingGameResults = new playFishingGame[2];
         fishingGameResults[0] = GameObject.FindGameObjectWithTag("LeftBar").GetComponent<playFishingGame>();
@@ -182,7 +182,8 @@ public class runFishingGame : MonoBehaviour
 
         yield return new WaitForSeconds(2.5f);
         Debug.Log("Closing scene");
-        gameObject.SetActive(false); 
+        gameObject.SetActive(false);
+
     }
 
     // wait 2 seconds before hiding gameobjects
@@ -191,7 +192,7 @@ public class runFishingGame : MonoBehaviour
         uiFishStatus.text = "The fish got away....";
         yield return new WaitForSeconds(2);
         Debug.Log("Closing scene");
-        gameObject.SetActive(false); 
+        gameObject.SetActive(false);
     }
 
     // FISH SPAWNING RELATED METHODS
